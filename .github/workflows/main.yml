@@ -6,40 +6,21 @@ on:
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_VERSION: 2020.1.7f1
 
 jobs:
   build:
-    name: Build my project
     runs-on: ubuntu-latest
     steps:
-    
-      # Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-    
-      # Cache
-      - uses: actions/cache@v1.1.0
-        with:
-          path: UnityGame/Library
-          key: Library
-
-      # Test
-      - name: Run tests
-        uses: webbertakken/unity-test-runner@v1.3
-        with:
-          unityVersion: 2020.1.7f1
-
-      # Build
-      - name: Build project
-        uses: webbertakken/unity-builder@v0.10
-        with:
-          unityVersion: 2020.1.7f1
-          targetPlatform: WebGL 
-
-      # Output 
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Build
-          path: build
+    - uses: actions/checkout@v1
+    - name: 'run unity build'
+      uses: ncipollo/unity-action@master
+      with: 
+        license: ${{ secrets.UNITY_LICENSE }}
+        mode: build
+        build_method: BuildCommand.PerformBuild
+    - name: 'upload artifact'
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: build.tar.gz
+        path: Build/os_x
