@@ -23,10 +23,7 @@ jobs:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           #- StandaloneLinux64 # Build a Linux 64-bit standalone.
           #- iOS # Build an iOS player.
-          - WebGL # WebGL.
-        include:
-          - unityVersion: 2020.1.7f1
-            license: ${{ secrets.UNITY_LICENSE }}
+          - WebGL # WebGL.        
     steps:
       - uses: actions/checkout@v2
         with:
