@@ -3,11 +3,6 @@ name: Unity Build
 on:  
   push: { branches: [master] }
 
-
-env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  UNITY_VERSION: 2020.1.7f1
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,6 +14,9 @@ jobs:
         license: ${{ secrets.UNITY_LICENSE }}
         mode: build
         build_method: BuildCommand.PerformBuild
+        projectPath: UnityGame
+        username: ${{ secrets.UNITY_USERNAME }}
+        password: ${{ secrets.UNITY_PASSWORD }}
     - name: 'upload artifact'
       uses: actions/upload-artifact@v1.0.0
       with:
