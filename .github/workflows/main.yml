@@ -27,7 +27,7 @@ jobs:
       - name: Activate Unity
         uses: webbertakken/unity-activate@v1.3
         with:
-          unityVersion: ${{ matrix.unityVersion }}
+          unityVersion: 2020.1.7f1
       - uses: actions/cache@v1.1.0
         with:
           path: ${{ matrix.projectPath }}/Library
@@ -39,7 +39,7 @@ jobs:
       #   id: testRunner
       #   with:
       #     projectPath: ${{ matrix.projectPath }}
-      #     unityVersion: ${{ matrix.unityVersion }}
+      #     unityVersion: 2020.1.7f1
       # - uses: actions/upload-artifact@v1
       #   with:
       #     name: Test results (all modes)
