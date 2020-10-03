@@ -38,10 +38,7 @@ public class ShowTurns : MonoBehaviour
         {
             var panel = Instantiate(PanelPrefab);
             panel.transform.SetParent(ParentalPanel.transform, false);
-            //panel.GetComponent<RectTransform>().anchoredPosition = new Vector3(initX, initY, 0);
-            //panel.GetComponent<RectTransform>().localScale = new Vector3(squareWidth, squareWidth,1); 
             _turnPanels[i] = panel;
-            //initX += squareWidth;
         }
         _turnPanels[0].GetComponent<Image>().color = Color.green;
     }
@@ -50,5 +47,12 @@ public class ShowTurns : MonoBehaviour
         _currentTurn++;
         _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
         _turnPanels[_currentTurn-1].GetComponent<Image>().color = Color.red;
+    }
+
+    public void BackTurn()
+    {
+        _currentTurn--;
+        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
+        _turnPanels[_currentTurn + 1].GetComponent<Image>().color = Color.red;
     }
 }
