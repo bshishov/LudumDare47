@@ -55,4 +55,11 @@ public class ShowTurns : MonoBehaviour
         _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
         _turnPanels[_currentTurn + 1].GetComponent<Image>().color = Color.red;
     }
+    public void SetTurn(int turn)
+    {
+        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.red;
+        _currentTurn = turn;
+        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
+    }
+
 }
