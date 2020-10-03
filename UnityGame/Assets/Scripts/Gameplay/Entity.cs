@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay
@@ -31,11 +32,38 @@ namespace Gameplay
                 Align();
         }
 
-        public void Execute(Level level, ICommand command)
+        public IEnumerable<IChange> Execute(Level level, ICommand command)
         {
             foreach (var commandHandler in _handlers)
             {
-                commandHandler.Handle(level, command);
+                foreach (var change in commandHandler.Handle(level, command))
+                {
+                    yield return change;
+                }
+            }
+        }
+        
+        public void Apply(Level level, IChange change)
+        {
+            foreach (var commandHandler in _handlers)
+            {
+                commandHandler.Apply(level, change);
+            }
+        }
+        
+        public void Revert(Level level, IChange change)
+        {
+            foreach (var commandHandler in _handlers)
+            {
+                commandHandler.Revert(level, change);
+            }
+        }
+
+        public void OnTurnStarted(Level level)
+        {
+            foreach (var commandHandler in _handlers)
+            {
+                commandHandler.OnTurnStarted(level);
             }
         }
 

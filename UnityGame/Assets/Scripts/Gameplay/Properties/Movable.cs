@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Properties
@@ -5,27 +6,41 @@ namespace Gameplay.Properties
     [RequireComponent(typeof(Entity))]
     public class Movable : MonoBehaviour, ICommandHandler
     {
-        public static float MoveTime = 0.3f;
         private Entity _entity;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
         }
-        
-        public void Handle(Level level, ICommand command)
+
+        public void OnTurnStarted(Level level)
+        {
+        }
+
+        public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
             if (command is MoveCommand moveCommand && CanMove(level, moveCommand.Direction))
             {
-               DoMove(level, moveCommand.Direction, moveCommand.UpdateOrientation);
+                foreach (var change in DoMove(level, moveCommand))
+                {
+                    yield return change;
+                }
+            }
+        }
+        
+        public void Apply(Level level, IChange change)
+        {
+            if (change is MoveChange moveChange)
+            {
+                _entity.MoveTo(moveChange.TargetPosition, moveChange.TargetOrientation);
             }
         }
 
-        public void Revert(Level level, ICommand command)
+        public void Revert(Level level, IChange change)
         {
-            if (command is MoveCommand moveCommand)
+            if (change is MoveChange moveChange)
             {
-                
+                _entity.MoveTo(moveChange.OriginalPosition, moveChange.OriginalOrientation);
             }
         }
 
@@ -62,22 +77,28 @@ namespace Gameplay.Properties
             return true;
         }
 
-        private void DoMove(Level level, Direction modeDirection, bool updateOrientation)
+        private IEnumerable<IChange> DoMove(Level level, MoveCommand cmd)
         {
-            var targetPos = _entity.Position + MoveDelta(modeDirection);
+            var targetPos = _entity.Position + MoveDelta(cmd.Direction);
             var entityInTargetPos = level.GetEntityAt(targetPos);
             if (entityInTargetPos != null)
             {
                 // Move neighbor movable (push)
-                level.Dispatch(new MoveCommand(entityInTargetPos.Id, modeDirection, false));
+                level.Dispatch(new MoveCommand(entityInTargetPos.Id, cmd.Direction, false));
             }
 
             // Update logical position
             var targetOrientation = _entity.Orientation;
-            if (updateOrientation)
-                targetOrientation = modeDirection;
+            if (cmd.UpdateOrientation)
+                targetOrientation = cmd.Direction;
 
-            _entity.MoveTo(targetPos, targetOrientation);
+            yield return new MoveChange(cmd)
+            {
+                OriginalOrientation = _entity.Orientation,
+                OriginalPosition = _entity.Position,
+                TargetOrientation = targetOrientation,
+                TargetPosition = targetPos
+            };
         }
     }
 }

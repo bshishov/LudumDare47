@@ -15,7 +15,9 @@ namespace Gameplay
         private List<Entity> _entities;
         private Entity _playerEntity;
         private readonly Queue<ICommand> _turnQueue = new Queue<ICommand>();
-        private readonly List<ICommand> _history = new List<ICommand>();
+        private readonly Stack<List<IChange>> _history = new Stack<List<IChange>>();
+        private float _currentRollbackCd;
+        private const float RollbackCd = 0.08f;
 
         void Start()
         {
@@ -52,25 +54,71 @@ namespace Gameplay
 
         private void HandleInput()
         {
-            var playerId = _playerEntity.Id;
-            //var playerId = -1;
-            
-            //var h = Input.GetAxis("Horizontal");
-            //var v = Input.GetAxis("Vertical");
-            
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-                Dispatch(new MoveCommand(playerId, Direction.Right, true));
-            
+            {
+                NewTurn(Direction.Right);
+            }
+
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-                Dispatch(new MoveCommand(playerId, Direction.Left, true));
-            
+            {
+                NewTurn(Direction.Left);
+            }
+
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-                Dispatch(new MoveCommand(playerId, Direction.Up, true));
-            
+            {
+                NewTurn(Direction.Up);
+            }
+
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                Dispatch(new MoveCommand(playerId, Direction.Down, true));
+            {
+                NewTurn(Direction.Down);
+            }
+
+            if (_currentRollbackCd >= RollbackCd && Input.GetKey(KeyCode.R))
+            {
+                RollbackTurn();
+                _currentRollbackCd = 0.0f;
+            }
+
+            _currentRollbackCd += Time.deltaTime;
         }
 
+        private void NewTurn(Direction dir)
+        {
+            _currentTurn++;
+            _history.Push(new List<IChange>());
+            
+            var playerId = _playerEntity.Id;
+            Dispatch(new MoveCommand(playerId, dir, true));
+
+            foreach (var entity in _entities)
+            {
+                entity.OnTurnStarted(this);
+            }
+        }
+
+        private void RollbackTurn()
+        {
+            if (_currentTurn > 0)
+            {
+                _currentTurn--;
+                var changeList = _history.Pop();
+                foreach (var change in changeList)
+                {
+                    Revert(change);
+                }
+            }
+        }
+
+        private void Revert(IChange change)
+        {
+            if (change.TargetId >= 0)
+            {
+                var target = _entities[change.TargetId];
+                target.Revert(this, change);
+            }
+        }
+        
         private void Exec(ICommand command)
         {
             Debug.Log($"Executing command {command} for {command.TargetId}");
@@ -78,10 +126,13 @@ namespace Gameplay
             if (command.TargetId >= 0)
             {
                 var target = _entities[command.TargetId];
-                target.Execute(this, command);
+                var changes = _history.Peek();
+                foreach (var change in target.Execute(this, command))
+                {
+                    target.Apply(this, change);
+                    changes.Add(change);        
+                }
             }
-            
-            _history.Add(command);
         }
 
         public void Dispatch(ICommand command)
