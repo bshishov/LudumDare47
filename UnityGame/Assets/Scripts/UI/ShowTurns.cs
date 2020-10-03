@@ -30,10 +30,13 @@ public class ShowTurns : MonoBehaviour
     {
         _numberOfTurns = numberOfTurns;
         float width = ParentalPanel.GetComponent<RectTransform>().rect.width;
-        float squareWidth = Mathf.Min(width / _numberOfTurns, ParentalPanel.GetComponent<RectTransform>().rect.height);
-        float initX = ParentalPanel.GetComponent<RectTransform>().rect.x;
-        float initY = ParentalPanel.GetComponent<RectTransform>().rect.y;
+        float height = ParentalPanel.GetComponent<RectTransform>().rect.height;
         _turnPanels = new GameObject[_numberOfTurns];
+        if (width / _numberOfTurns > height)        
+            PanelPrefab.GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+        else
+            PanelPrefab.GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+
         for (int i = 0; i < _numberOfTurns; i++)
         {
             var panel = Instantiate(PanelPrefab);
@@ -55,4 +58,11 @@ public class ShowTurns : MonoBehaviour
         _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
         _turnPanels[_currentTurn + 1].GetComponent<Image>().color = Color.red;
     }
+    public void SetTurn(int turn)
+    {
+        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.red;
+        _currentTurn = turn;
+        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
+    }
+
 }
