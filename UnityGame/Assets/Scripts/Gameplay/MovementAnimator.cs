@@ -50,9 +50,11 @@ namespace Gameplay
             _isRotating = true;
             _tPos = 0;
             _tRot = 0;
-            _srcPosition = startPos;
+            //_srcPosition = startPos;
+            //_srcRotation = startRot;
+            _srcPosition = transform.position;
+            _srcRotation = transform.rotation;
             _tgtPosition = endPos;
-            _srcRotation = startRot;
             _tgtRotation = endRot;
         }
     }

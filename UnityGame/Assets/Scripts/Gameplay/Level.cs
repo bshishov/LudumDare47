@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Utils;
-using Utils.Debugger;
 
 namespace Gameplay
 {
@@ -11,11 +9,10 @@ namespace Gameplay
     {
         public int MaxTurns = 10;
 
-        private int _currentTurn = 0;
         private List<Entity> _entities;
         private Entity _playerEntity;
         private readonly Queue<ICommand> _turnQueue = new Queue<ICommand>();
-        private readonly Stack<List<IChange>> _history = new Stack<List<IChange>>();
+        private readonly Stack<Turn> _history = new Stack<Turn>();
         private float _currentRollbackCd;
         private const float RollbackCd = 0.08f;
 
@@ -26,7 +23,6 @@ namespace Gameplay
 
         void Initialize()
         {
-            _currentTurn = 0;
             _entities = GameObject.FindObjectsOfType<Entity>().ToList();
             _playerEntity = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
             var id = 0;
@@ -41,7 +37,6 @@ namespace Gameplay
 
         void Update()
         {
-            Debugger.Default.Display("Turn", _currentTurn);
             if (_turnQueue.Count > 0)
             {
                 Exec(_turnQueue.Dequeue());
@@ -50,6 +45,13 @@ namespace Gameplay
             {
                 HandleInput();
             }
+        }
+
+        public Turn GetCurrentTurn()
+        {
+            if (_history.Count > 0)
+                return _history.Peek();
+            return null;
         }
 
         private void HandleInput()
@@ -85,12 +87,17 @@ namespace Gameplay
 
         private void NewTurn(Direction dir)
         {
-            _currentTurn++;
-            _history.Push(new List<IChange>());
+            var currentTurn = GetCurrentTurn();
+            var currentTurnNumber = 0;
+            if (currentTurn != null)
+                currentTurnNumber = currentTurn.Number;
+            _history.Push(new Turn(currentTurnNumber + 1));
             
+            // Player moves first
             var playerId = _playerEntity.Id;
             Dispatch(new MoveCommand(playerId, dir, true));
 
+            // Rest of the objects move afterwards
             foreach (var entity in _entities)
             {
                 entity.OnTurnStarted(this);
@@ -99,11 +106,10 @@ namespace Gameplay
 
         private void RollbackTurn()
         {
-            if (_currentTurn > 0)
+            if (_history.Count > 0)
             {
-                _currentTurn--;
-                var changeList = _history.Pop();
-                foreach (var change in changeList)
+                var turn = _history.Pop();
+                foreach (var change in turn.IterateChangesFromNewestToOldest())
                 {
                     Revert(change);
                 }
@@ -126,11 +132,11 @@ namespace Gameplay
             if (command.TargetId >= 0)
             {
                 var target = _entities[command.TargetId];
-                var changes = _history.Peek();
+                var currentTurn = GetCurrentTurn();
                 foreach (var change in target.Execute(this, command))
                 {
-                    target.Apply(this, change);
-                    changes.Add(change);        
+                    Debug.Log($"Change: {change.TargetId}: {change}");
+                    currentTurn.Changelog.Push(change);        
                 }
             }
         }

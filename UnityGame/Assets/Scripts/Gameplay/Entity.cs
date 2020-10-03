@@ -47,7 +47,7 @@ namespace Gameplay
         {
             foreach (var commandHandler in _handlers)
             {
-                commandHandler.Apply(level, change);
+                //commandHandler.Apply(level, change);
             }
         }
         

@@ -22,10 +22,6 @@ namespace Gameplay.Properties
             yield break;
         }
 
-        public void Apply(Level level, IChange change)
-        {
-        }
-
         public void Revert(Level level, IChange change)
         {
         }

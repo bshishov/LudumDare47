@@ -10,7 +10,6 @@ namespace Gameplay
 
     public interface IChange
     {
-        ICommand Command { get; }
         int TargetId { get; }
     }
 
@@ -18,7 +17,6 @@ namespace Gameplay
     {
         void OnTurnStarted(Level level);
         IEnumerable<IChange> Handle(Level level, ICommand command);
-        void Apply(Level level, IChange change);
         void Revert(Level level, IChange change);
     }
 
@@ -34,12 +32,11 @@ namespace Gameplay
 
     public abstract class BaseChange : IChange
     {
-        public ICommand Command { get; }
-        public int TargetId => Command.TargetId;
+        public int TargetId {get; }
         
-        protected BaseChange(ICommand cmd)
+        protected BaseChange(int targetId)
         {
-            Command = cmd;
+            TargetId = targetId;
         }
     }
 
@@ -53,6 +50,11 @@ namespace Gameplay
             Direction = direction;
             UpdateOrientation = updateOrientation;
         }
+        
+        public override string ToString()
+        {
+            return $"MoveCommand(id: {TargetId}, {Direction})";
+        }
     }
 
     public class MoveChange : BaseChange
@@ -62,8 +64,13 @@ namespace Gameplay
         public Direction OriginalOrientation;
         public Direction TargetOrientation;
 
-        public MoveChange(ICommand cmd) : base(cmd)
+        public MoveChange(int targetId) : base(targetId)
         {
+        }
+
+        public override string ToString()
+        {
+            return $"MoveChange(id: {TargetId}, {OriginalPosition} -> {TargetPosition})";
         }
     }
 }
