@@ -11,7 +11,7 @@ namespace Gameplay
 
         private List<Entity> _entities;
         private Entity _playerEntity;
-        private readonly Queue<ICommand> _turnQueue = new Queue<ICommand>();
+        private readonly LinkedList<ICommand> _turnQueue = new LinkedList<ICommand>();
         private readonly Stack<Turn> _history = new Stack<Turn>();
         private float _currentRollbackCd;
         private const float RollbackCd = 0.08f;
@@ -39,7 +39,9 @@ namespace Gameplay
         {
             if (_turnQueue.Count > 0)
             {
-                Exec(_turnQueue.Dequeue());
+                var first = _turnQueue.First.Value;
+                _turnQueue.RemoveFirst();
+                Exec(first);
             }
             else
             {
@@ -100,7 +102,8 @@ namespace Gameplay
             // Rest of the objects move afterwards
             foreach (var entity in _entities)
             {
-                entity.OnTurnStarted(this);
+                if(entity.IsActive)
+                    entity.OnTurnStarted(this);
             }
         }
 
@@ -144,12 +147,18 @@ namespace Gameplay
         public void Dispatch(ICommand command)
         {
             Debug.Log($"Queued command {command} for {command.TargetId}");
-            _turnQueue.Enqueue(command);   
+            _turnQueue.AddLast(command);   
         }
 
-        public Entity GetEntityAt(Vector2Int position)
+        public void DispatchEarly(ICommand command)
         {
-            return _entities.FirstOrDefault(entity => entity.Position == position);
+            Debug.Log($"Queued command {command} for {command.TargetId}");
+            _turnQueue.AddFirst(command);
+        }
+
+        public Entity GetActiveEntityAt(Vector2Int position)
+        {
+            return _entities.FirstOrDefault(entity => entity.IsActive && entity.Position == position);
         }
         
         public static readonly Vector3 CellCenter = new Vector3(0.5f, 0, 0.5f);

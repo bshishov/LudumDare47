@@ -57,6 +57,45 @@ namespace Gameplay
         }
     }
 
+    public class DestroyCommand : BaseCommand
+    {
+        public int SourceId;
+        
+        public DestroyCommand(int target, int sourceId) : base(target)
+        {
+            SourceId = sourceId;
+        }
+        
+        public override string ToString()
+        {
+            return $"DestroyCommand(id: {TargetId})";
+        }
+    }
+
+    public class DestroyedChange : BaseChange
+    {
+        public DestroyedChange(int targetId) : base(targetId)
+        {
+        }
+    }
+    
+    public class HitCommand : BaseCommand
+    {
+        public int SourceId;
+        public Direction Direction;
+        
+        public HitCommand(int target, int sourceId, Direction direction) : base(target)
+        {
+            SourceId = sourceId;
+            Direction = direction;
+        }
+        
+        public override string ToString()
+        {
+            return $"HitCommand(id: {TargetId})";
+        }
+    }
+
     public class MoveChange : BaseChange
     {
         public Vector2Int OriginalPosition;
@@ -71,6 +110,13 @@ namespace Gameplay
         public override string ToString()
         {
             return $"MoveChange(id: {TargetId}, {OriginalPosition} -> {TargetPosition})";
+        }
+    }
+
+    public class StoppedMoving : BaseChange
+    {
+        public StoppedMoving(int targetId) : base(targetId)
+        {
         }
     }
 }

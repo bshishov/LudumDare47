@@ -20,9 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c9fd4d0-46ee-4c10-be98-dbd3a4128fd8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/TestGrey.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/TestGrey.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Destroyable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Destroyable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/KillsOnHit.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/KillsOnHit.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Obstacle.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Obstacle.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameplayTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameplayTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Command.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/MovementAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/MovementAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Level.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Level.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Movable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Movable.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,12 +60,15 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/MovementAnimator.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/PlayerControlled.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Moving.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Command.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Turn.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Level.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Movable.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/MovementAnimator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Obstacle.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Command.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Movable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Level.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Destroyable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/KillsOnHit.cs" />
       </list>
     </option>
   </component>
@@ -190,10 +204,10 @@
       <screen x="78" y="0" width="2116" height="1234" />
     </state>
     <state width="2073" height="452" key="GridCell.Tab.3.right/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601752764526" />
-    <state x="966" y="291" key="RiderGenerateDialog" timestamp="1601745350347">
+    <state x="966" y="291" key="RiderGenerateDialog" timestamp="1601762774848">
       <screen x="78" y="0" width="2116" height="1234" />
     </state>
-    <state x="966" y="291" key="RiderGenerateDialog/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601745350347" />
+    <state x="966" y="291" key="RiderGenerateDialog/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601762774848" />
     <state x="645" y="262" key="SettingsEditor" timestamp="1601752691144">
       <screen x="78" y="0" width="2116" height="1234" />
     </state>
@@ -202,9 +216,9 @@
       <screen x="78" y="0" width="2116" height="1234" />
     </state>
     <state x="171" y="93" width="1930" height="1048" key="VCS.FileHistoryDialog/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601752046082" />
-    <state x="799" y="274" width="672" height="678" key="search.everywhere.popup" timestamp="1601734877674">
+    <state x="799" y="274" width="672" height="678" key="search.everywhere.popup" timestamp="1601765048762">
       <screen x="78" y="0" width="2116" height="1234" />
     </state>
-    <state x="799" y="274" width="672" height="678" key="search.everywhere.popup/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601734877674" />
+    <state x="799" y="274" width="672" height="678" key="search.everywhere.popup/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601765048762" />
   </component>
 </project>

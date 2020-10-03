@@ -7,8 +7,8 @@ namespace Gameplay
     {
         public Vector2Int Position { get; private set; }
         public Direction Orientation { get; private set; }
-        public bool IsActive = true;
-        
+        public bool IsActive { get; private set; }
+
         [Header("Visuals")]
         public Vector3 Offset = Vector3.zero;
         public bool AlignOnStart = true;
@@ -17,7 +17,6 @@ namespace Gameplay
         public int Id { get; private set; }  // Level-bound id
 
         private MovementAnimator _movementAnimator;
-
 
         private void Start()
         {
@@ -28,6 +27,7 @@ namespace Gameplay
         public void Initialize(int id)
         {
             Id = id;
+            IsActive = true;
             if (AlignOnStart)
                 Align();
         }
@@ -88,6 +88,20 @@ namespace Gameplay
             Orientation = tgtOrientation;
         }
 
+        public void Deactivate()
+        {
+            // TODO: Animate
+            GetComponent<MeshRenderer>().enabled = false;
+            IsActive = false;
+        }
+
+        public void Activate()
+        {
+            // TODO: Animate
+            GetComponent<MeshRenderer>().enabled = true;
+            IsActive = true;
+        }
+        
         private void SetPositionAndOrientationFromTransform()
         {
             Position = Level.WorldToLevel(transform.position - Offset);

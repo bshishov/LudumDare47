@@ -6,7 +6,9 @@ namespace Gameplay.Properties
     [RequireComponent(typeof(Entity))]
     public class Movable : MonoBehaviour, ICommandHandler
     {
+        public bool IsProjectile = false;
         private Entity _entity;
+        private bool _isMoving = true;
 
         private void Start()
         {
@@ -30,6 +32,10 @@ namespace Gameplay.Properties
         {
             if (change is MoveChange moveChange)
                 _entity.MoveTo(moveChange.OriginalPosition, moveChange.OriginalOrientation, 2f);
+            else if (change is StoppedMoving)
+            {
+                _isMoving = true;
+            }
         }
 
         public static Vector2Int MoveDelta(Direction dir)
@@ -53,40 +59,66 @@ namespace Gameplay.Properties
         {
             // Recursive movement ability checking
             var targetPos = _entity.Position + MoveDelta(dir);
-            var entityInTargetPos = level.GetEntityAt(targetPos);
+            var entityInTargetPos = level.GetActiveEntityAt(targetPos);
             if (entityInTargetPos != null)
             {
                 var movable = entityInTargetPos.GetComponent<Movable>();
                 if(movable != null)
                     return movable.CanMove(level, dir);
+
+                var obstacle = entityInTargetPos.GetComponent<Obstacle>();
+                if (obstacle != null)
+                {
+                    if (IsProjectile)
+                        return !obstacle.BlockProjectiles;
+                    return !obstacle.BlockObjects;
+                }
             }
 
-            // TODO: Check walls and non-movable
+            // No obstacles
             return true;
         }
 
         public IEnumerable<IChange> DoMove(Level level, Direction direction, bool updateOrientation)
         {
-            if(!CanMove(level, direction))
+            if(!_isMoving)
                 yield break;
+
+
+            var canMove = CanMove(level, direction);
             
             // Update logical position
             var targetPos = _entity.Position + MoveDelta(direction);
 
             // Move neighbor movable (push)
-            var entityInTargetPos = level.GetEntityAt(targetPos);
+            var entityInTargetPos = level.GetActiveEntityAt(targetPos);
             if (entityInTargetPos != null)
             {
-                var movable = entityInTargetPos.GetComponent<Movable>();
-                if (movable != null)
+                // Collisions
+                level.DispatchEarly(new HitCommand(entityInTargetPos.Id, _entity.Id, direction));
+                level.DispatchEarly(new HitCommand(_entity.Id, entityInTargetPos.Id, RevertDirection(direction)));
+                
+                // Push
+                if (canMove)
                 {
-                    foreach (var change in movable.DoMove(level, direction, false))
+                    var movable = entityInTargetPos.GetComponent<Movable>();
+                    if (movable != null)
                     {
-                        yield return change;
+                        foreach (var change in movable.DoMove(level, direction, false))
+                        {
+                            yield return change;
+                        }
                     }
                 }
             }
             
+            // If we were moving but cant move now - stop
+            if (!canMove)
+            {
+                yield return new StoppedMoving(_entity.Id);
+                yield break;
+            }
+
             // Move self
             targetPos = _entity.Position + MoveDelta(direction);
             var targetOrientation = _entity.Orientation;
@@ -102,6 +134,23 @@ namespace Gameplay.Properties
             };
             _entity.MoveTo(targetPos, targetOrientation);
             yield return selfMove;
+        }
+
+        private static Direction RevertDirection(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Down:
+                    return Direction.Up;
+                case Direction.Up:
+                    return Direction.Down;
+                case Direction.Left:
+                    return Direction.Right;
+                case Direction.Right:
+                    return Direction.Left;
+                default:
+                    return direction;
+            }
         }
     }
 }
