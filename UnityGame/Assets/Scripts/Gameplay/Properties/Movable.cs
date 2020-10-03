@@ -29,7 +29,7 @@ namespace Gameplay.Properties
         public void Revert(Level level, IChange change)
         {
             if (change is MoveChange moveChange)
-                _entity.MoveTo(moveChange.OriginalPosition, moveChange.OriginalOrientation);
+                _entity.MoveTo(moveChange.OriginalPosition, moveChange.OriginalOrientation, 2f);
         }
 
         public static Vector2Int MoveDelta(Direction dir)

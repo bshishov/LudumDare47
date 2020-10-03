@@ -67,7 +67,7 @@ namespace Gameplay
             }
         }
 
-        public void MoveTo(Vector2Int tgtPosition, Direction tgtOrientation)
+        public void MoveTo(Vector2Int tgtPosition, Direction tgtOrientation, float animationSpeed = 1f)
         {
             if (_movementAnimator != null)
             {
@@ -75,8 +75,8 @@ namespace Gameplay
                     Level.LevelToWorld(Position) + Offset,
                     Level.DirectionToRotation(Orientation),
                     Level.LevelToWorld(tgtPosition) + Offset,
-                    Level.DirectionToRotation(tgtOrientation)
-                    );
+                    Level.DirectionToRotation(tgtOrientation),
+                    animationSpeed);
             }
             else
             {

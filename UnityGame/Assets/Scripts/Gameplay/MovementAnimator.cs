@@ -16,12 +16,13 @@ namespace Gameplay
         private Quaternion _tgtRotation;
         private float _tPos;
         private float _tRot;
+        private float _speed = 1f;
         
         private void Update()
         {
             if (_isMoving)
             {
-                _tPos += Time.deltaTime / _moveTime;
+                _tPos += _speed * Time.deltaTime / _moveTime;
                 if (_tPos > 1f)
                 {
                     _tPos = 1f;
@@ -33,7 +34,7 @@ namespace Gameplay
 
             if (_isRotating)
             {
-                _tRot += Time.deltaTime / _rotTime;
+                _tRot += _speed * Time.deltaTime / _rotTime;
                 if (_tRot > 1f)
                 {
                     _tRot = 1f;
@@ -44,7 +45,7 @@ namespace Gameplay
             }
         }
 
-        public void StartAnimation(Vector3 startPos, Quaternion startRot, Vector3 endPos, Quaternion endRot)
+        public void StartAnimation(Vector3 startPos, Quaternion startRot, Vector3 endPos, Quaternion endRot, float animationSpeed = 1f)
         {
             _isMoving = true;
             _isRotating = true;
@@ -56,6 +57,8 @@ namespace Gameplay
             _srcRotation = transform.rotation;
             _tgtPosition = endPos;
             _tgtRotation = endRot;
+
+            _speed = animationSpeed;
         }
     }
 }
