@@ -429,7 +429,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141578816}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -2.215, y: 3, z: -1.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -449,7 +449,6 @@ GameObject:
   - component: {fileID: 1529457297}
   - component: {fileID: 1529457296}
   - component: {fileID: 1529457302}
-  - component: {fileID: 1529457301}
   - component: {fileID: 1529457303}
   m_Layer: 0
   m_Name: Player
@@ -550,18 +549,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1529457301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529457295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99840639db274d408b176a903021345f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1529457302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,6 +820,7 @@ GameObject:
   - component: {fileID: 1929094525}
   - component: {fileID: 1929094524}
   - component: {fileID: 1929094530}
+  - component: {fileID: 1929094531}
   m_Layer: 0
   m_Name: Crate (3)
   m_TagString: Untagged
@@ -936,13 +924,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929094523}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.46, y: 0.5, z: 2.5}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalPosition: {x: 4.5, y: 0.5, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -94.598, z: 0}
 --- !u!114 &1929094530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -953,6 +941,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1929094531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929094523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d35121bd1a545bbbd09c4e45668ba58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2026816151
