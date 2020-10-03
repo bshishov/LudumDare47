@@ -7,6 +7,11 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Prefabs" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="UI" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="Editor" t="Include">
             <e p="BuildCommand.cs" t="Include" />
@@ -28,6 +33,7 @@
             <e p="Turn.cs" t="Include" />
           </e>
           <e p="UI" t="Include">
+            <e p="LookAtCamera.cs" t="Include" />
             <e p="ShowTurns.cs" t="Include" />
           </e>
           <e p="Utils" t="Include">

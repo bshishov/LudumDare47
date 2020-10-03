@@ -12,6 +12,7 @@ namespace Gameplay
         [Header("Visuals")]
         public Vector3 Offset = Vector3.zero;
         public bool AlignOnStart = true;
+
         private ICommandHandler[] _handlers;
 
         public int Id { get; private set; }  // Level-bound id
@@ -91,14 +92,14 @@ namespace Gameplay
         public void Deactivate()
         {
             // TODO: Animate
-            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<Renderer>().enabled = false;
             IsActive = false;
         }
 
         public void Activate()
         {
             // TODO: Animate
-            GetComponent<MeshRenderer>().enabled = true;
+            GetComponent<Renderer>().enabled = true;
             IsActive = true;
         }
         
