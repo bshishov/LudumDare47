@@ -80,6 +80,8 @@ namespace Gameplay
                 var target = _entities[command.TargetId];
                 target.Execute(this, command);
             }
+            
+            _history.Add(command);
         }
 
         public void Dispatch(ICommand command)

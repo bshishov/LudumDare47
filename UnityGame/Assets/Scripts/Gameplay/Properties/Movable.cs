@@ -20,7 +20,15 @@ namespace Gameplay.Properties
                DoMove(level, moveCommand.Direction, moveCommand.UpdateOrientation);
             }
         }
-        
+
+        public void Revert(Level level, ICommand command)
+        {
+            if (command is MoveCommand moveCommand)
+            {
+                
+            }
+        }
+
         public static Vector2Int MoveDelta(Direction dir)
         {
             switch (dir)

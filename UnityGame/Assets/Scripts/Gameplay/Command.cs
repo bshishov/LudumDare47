@@ -10,6 +10,7 @@ namespace Gameplay
     public interface ICommandHandler
     {
         void Handle(Level level, ICommand command);
+        void Revert(Level level, ICommand command);
     }
 
     public abstract class BaseCommand : ICommand
