@@ -14,7 +14,7 @@ public class VertexColorUpdate : MonoBehaviour
 
     private void GetMeshes()
     {
-        if (Application.isEditor)
+        if (!Application.isPlaying)
         {
             meshes = new MeshFilter[transform.childCount];
             for (int i = 0; i < transform.childCount; i++)
@@ -27,7 +27,7 @@ public class VertexColorUpdate : MonoBehaviour
 
     void Update()
     {
-        if (Application.isEditor)
+        if (!Application.isPlaying)
         {
             if (numberOfChildren != transform.childCount)
             {
