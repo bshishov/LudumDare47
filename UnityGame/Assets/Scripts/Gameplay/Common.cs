@@ -22,7 +22,8 @@ namespace Gameplay
         // Collision between A and B means that two object cant stay on the same cell
         public static readonly HashSet<CPair> CollideMap = new HashSet<CPair>
         {
-            new CPair(ObjectType.Character, ObjectType.Character), 
+            new CPair(ObjectType.Character, ObjectType.Character),
+            new CPair(ObjectType.Character, ObjectType.Wall),
             new CPair(ObjectType.Character, ObjectType.Player),
             new CPair(ObjectType.Player, ObjectType.Character),
             new CPair(ObjectType.Player, ObjectType.Player),

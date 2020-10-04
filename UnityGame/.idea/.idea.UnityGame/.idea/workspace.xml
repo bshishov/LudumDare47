@@ -23,22 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c9fd4d0-46ee-4c10-be98-dbd3a4128fd8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Animation/CatGirl.controller" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animation/CatGirl.controller.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animation/Player.controller" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animation/Player.controller.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animation/Shooter.controller" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Animation/Shooter.controller.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Man/PLayer animator controller.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Man/PLayer animator controller.controller.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Characters/Prefabs/CatGirl.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Characters/Prefabs/CatGirl.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Characters/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Characters/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Characters/Prefabs/Shooter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Characters/Prefabs/Shooter.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameplayTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameplayTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Spawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Common.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Common.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +52,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/MovementAnimator.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/PlayerControlled.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Turn.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/MovementAnimator.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Obstacle.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Destroyable.cs" />
         <option value="$PROJECT_DIR$/Assets/Prefabs/Scripts/Gameplay/Entity.cs" />
@@ -74,7 +59,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/EnumMaskProperty.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Editor/EnumMaskPropertyDrawer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Direction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/KillsOnHit.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/DelayedAutoDestroy.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Moving.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Path.cs" />
@@ -91,10 +75,12 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Fuse.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/IgniteOnHit.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Common.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/DestroyableByHit.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Movable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/MovementAnimator.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/Spawner.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Properties/KillsOnHit.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Gameplay/Common.cs" />
       </list>
     </option>
   </component>
@@ -246,9 +232,9 @@
       <screen x="78" y="0" width="2116" height="1234" />
     </state>
     <state x="809" y="216" width="654" height="801" key="find.popup/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601809092535" />
-    <state x="799" y="274" width="672" height="678" key="search.everywhere.popup" timestamp="1601833380523">
+    <state x="799" y="274" width="672" height="678" key="search.everywhere.popup" timestamp="1601852590020">
       <screen x="78" y="0" width="2116" height="1234" />
     </state>
-    <state x="799" y="274" width="672" height="678" key="search.everywhere.popup/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601833380523" />
+    <state x="799" y="274" width="672" height="678" key="search.everywhere.popup/3950.577.1938.1152/78.0.2116.1234/-1920.572.1920.1050@78.0.2116.1234" timestamp="1601852590020" />
   </component>
 </project>
