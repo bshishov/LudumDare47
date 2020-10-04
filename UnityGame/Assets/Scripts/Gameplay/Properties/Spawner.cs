@@ -8,6 +8,10 @@ namespace Gameplay.Properties
     {
         public GameObject Prefab;
         public int Delay = 0;
+
+        [Header("Visuals")]
+        public Animator Animator;
+        public string AnimOnSpawnTrigger;
         
         private Entity _entity;
 
@@ -33,10 +37,12 @@ namespace Gameplay.Properties
                     Prefab, 
                     _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
+
+                if (Animator != null)
+                    Animator.SetTrigger(AnimOnSpawnTrigger);
+
                 if (entity != null)
-                {
                     yield return new SpawnChange(_entity.Id, entity.Id);
-                }
             }
         }
 

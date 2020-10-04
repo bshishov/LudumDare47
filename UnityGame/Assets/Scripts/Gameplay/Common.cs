@@ -42,6 +42,9 @@ namespace Gameplay
             new CPair(ObjectType.Box, ObjectType.Fence),
             new CPair(ObjectType.Fence, ObjectType.Box),
             new CPair(ObjectType.Box, ObjectType.Box),
+            new CPair(ObjectType.Fence, ObjectType.Wall),
+            new CPair(ObjectType.Fence, ObjectType.Player),
+            new CPair(ObjectType.Fence, ObjectType.Character),
         };
         
         // Who can hit whom?
@@ -60,14 +63,12 @@ namespace Gameplay
         
         // Who can push whom?
         public static readonly HashSet<CPair> PushMap = new HashSet<CPair>
-        {
-            new CPair(ObjectType.Character, ObjectType.Character), 
+        {           
             new CPair(ObjectType.Character, ObjectType.Player),
             new CPair(ObjectType.Player, ObjectType.Character),
             new CPair(ObjectType.Player, ObjectType.Player),
             new CPair(ObjectType.Player, ObjectType.Projectile),
-            new CPair(ObjectType.Player, ObjectType.Box),
-            new CPair(ObjectType.Character, ObjectType.Box),            
+            new CPair(ObjectType.Player, ObjectType.Box),                     
         };
         
         public static bool ObjectsCollide(ObjectType a, ObjectType b)
