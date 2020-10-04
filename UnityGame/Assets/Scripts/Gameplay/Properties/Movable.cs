@@ -43,21 +43,22 @@ namespace Gameplay.Properties
         {
             // Recursive movement ability checking
             var targetPos = _entity.Position + Utils.MoveDelta(dir);
-            var entityInTargetPos = level.GetActiveEntityAt(targetPos);
-            
-            // If there is an active entity in target position
-            if (entityInTargetPos != null)
+            foreach (var entityInTargetPos in level.GetActiveEntitiesAt(targetPos))
             {
-                var movable = entityInTargetPos.GetComponent<Movable>();
-                if (movable != null)
+                // If there is an active entity in target position
+                if (entityInTargetPos != null)
                 {
-                    // If we collide with object in a target position and an object can be pushed
-                    // Then recursively check whether it has some space to move
-                    if((CollidesWith & entityInTargetPos.ObjectType) > 0)
+                    var movable = entityInTargetPos.GetComponent<Movable>();
+                    if (movable != null)
                     {
-                        if(CanPush && movable.CanBePushed)
-                            return movable.CanMove(level, dir);
-                        return false;
+                        // If we collide with object in a target position and an object can be pushed
+                        // Then recursively check whether it has some space to move
+                        if((CollidesWith & entityInTargetPos.ObjectType) > 0)
+                        {
+                            if(CanPush && movable.CanBePushed)
+                                return movable.CanMove(level, dir);
+                            return false;
+                        }
                     }
                 }
             }
@@ -74,30 +75,32 @@ namespace Gameplay.Properties
             var targetPos = _entity.Position + Utils.MoveDelta(direction);
 
             // Move neighbor movable (push)
-            var entityInTargetPos = level.GetActiveEntityAt(targetPos);
-            if (entityInTargetPos != null)
+            foreach (var entityInTargetPos in level.GetActiveEntitiesAt(targetPos))
             {
-                // If current object collides with target object
-                if((CollidesWith & entityInTargetPos.ObjectType) > 0)
+                if (entityInTargetPos != null)
                 {
-                    level.DispatchEarly(new CollisionEvent(
-                        target: entityInTargetPos.Id, 
-                        sourceId: _entity.Id, 
-                        direction: Utils.RelativeDirection(direction, entityInTargetPos.Orientation)));
-                    level.DispatchEarly(new CollisionEvent(
-                        target:_entity.Id, 
-                        sourceId: entityInTargetPos.Id, 
-                        direction: Utils.RelativeDirection(direction, _entity.Orientation)));
-                    
-                    // Push (collidable only)
-                    if (canMove && CanPush)
+                    // If current object collides with target object
+                    if((CollidesWith & entityInTargetPos.ObjectType) > 0)
                     {
-                        var movable = entityInTargetPos.GetComponent<Movable>();
-                        if (movable != null && movable.CanBePushed)
+                        level.DispatchEarly(new CollisionEvent(
+                            target: entityInTargetPos.Id, 
+                            sourceId: _entity.Id, 
+                            direction: Utils.AbsoluteDirectionToRelative(direction, entityInTargetPos.Orientation)));
+                        level.DispatchEarly(new CollisionEvent(
+                            target:_entity.Id, 
+                            sourceId: entityInTargetPos.Id, 
+                            direction: Utils.AbsoluteDirectionToRelative(direction, _entity.Orientation)));
+                    
+                        // Push (collidable only)
+                        if (canMove && CanPush)
                         {
-                            foreach (var change in movable.DoMove(level, direction, false))
+                            var movable = entityInTargetPos.GetComponent<Movable>();
+                            if (movable != null && movable.CanBePushed)
                             {
-                                yield return change;
+                                foreach (var change in movable.DoMove(level, direction, false))
+                                {
+                                    yield return change;
+                                }
                             }
                         }
                     }

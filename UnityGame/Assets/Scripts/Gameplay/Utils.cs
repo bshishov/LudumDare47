@@ -81,7 +81,31 @@ namespace Gameplay
             return (Direction) (((int) direction + 2) % 4);
         }
 
-        public static Direction RelativeDirection(Direction absoluteHitDirection, Direction entityOrientation)
+        public static Direction AbsoluteDirectionToRelative(Direction absoluteDirection, Direction entityOrientation)
+        {
+            /*
+            Front = 0
+            Right = 1
+            Back = 2
+            Left = 3
+             */
+            var absolute = (int)absoluteDirection;
+            var orientation = (int)entityOrientation;
+            
+            
+            /* absolute    orientation   Relative
+             * Front  0    Front 0       Front 0
+             * Front  0    Right 1       Left  3
+             * Front  0    Back  2       Back  2
+             * Front  0    Left  3       Right 1
+             * Right  1    Front 0       Right 1
+             * Right  1    Right 1       Fron  0
+             */
+
+            return (Direction)((absolute - orientation + 4) % 4);
+        }
+        
+        public static Direction RelativeDirectionToAbsolute(Direction relativeDirection, Direction entityOrientation)
         {
             /*
             Front = 0,
@@ -89,20 +113,20 @@ namespace Gameplay
             Back = 2,
             Left = 3
              */
-            var absolute = (int)absoluteHitDirection;
+            var relative = (int)relativeDirection;
             var orientation = (int)entityOrientation;
             
             
-            /* absoluteHitDirection   entityOrientation    Relative
-             * Front  0               Front 0              Front 0
-             * Front  0               Right 1              Left  3
-             * Front  0               Back  2              Back  2
-             * Front  0               Left  3              Right 1
-             * Right  1               Front 0              Right 1
-             * Right  1               Right 1              Fron  0
+            /* relative    orientation  Absolute
+             * Front  0    Front 0      Front 0
+             * Front  0    Right 1      Right 1
+             * Front  0    Back  2      Back  2
+             * Front  0    Left  3      Left  3
+             * Right  1    Front 0      Right 1
+             * Right  1    Right 1      Back  2
              */
 
-            return (Direction)((absolute - orientation + 4) % 4);
+            return (Direction)((relative + orientation) % 4);
         }
 
         public static bool IsInsideRadius(Vector2Int source, Vector2Int target, int radius)
