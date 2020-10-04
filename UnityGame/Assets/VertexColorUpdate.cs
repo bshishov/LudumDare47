@@ -27,18 +27,22 @@ public class VertexColorUpdate : MonoBehaviour
 
     void Update()
     {
-        if (numberOfChildren != transform.childCount)
+        if (Application.isEditor)
         {
-            GetMeshes();
-        }
-        for (int i = 0; i < meshes.Length; i++)
-        {
-            if (i>0)
+            if (numberOfChildren != transform.childCount)
             {
-                meshes[i].sharedMesh.colors = meshes[0].sharedMesh.colors;
+                GetMeshes();
             }
-            meshes[i].transform.localPosition= new Vector3(0,i* sampleDistance, 0);
+            for (int i = 0; i < meshes.Length; i++)
+            {
+                if (i > 0)
+                {
+                    meshes[i].sharedMesh.colors = meshes[0].sharedMesh.colors;
+                }
+                meshes[i].transform.localPosition = new Vector3(0, i * sampleDistance, 0);
+            }
         }
+        
     }
 }
 #endif
