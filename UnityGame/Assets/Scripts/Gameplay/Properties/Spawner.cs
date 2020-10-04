@@ -33,9 +33,8 @@ namespace Gameplay.Properties
             var currentTurn = level.GetCurrentTurn();
             if (currentTurn.Number == Delay)
             {
-                //level.Dispatch(new SpawnCommand(_entity.Id));
+                level.Dispatch(new SpawnCommand(_entity.Id));
             }
-            level.Dispatch(new SpawnCommand(_entity.Id));
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
