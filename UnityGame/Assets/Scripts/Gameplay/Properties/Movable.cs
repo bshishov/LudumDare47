@@ -1,18 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Utils;
 
 namespace Gameplay.Properties
 {
     [RequireComponent(typeof(Entity))]
     public class Movable : MonoBehaviour, ICommandHandler
     {
-        [EnumMask] public ObjectType CollidesWith = Gameplay.ObjectType.None;
-        
-        public bool CanPush = true;
-        public bool CanBePushed = true;
-
         private Entity _entity;
 
         private void Start()
@@ -53,9 +46,11 @@ namespace Gameplay.Properties
                     {
                         // If we collide with object in a target position and an object can be pushed
                         // Then recursively check whether it has some space to move
-                        if((CollidesWith & entityInTargetPos.ObjectType) > 0)
+                        if(CollisionConfig.ObjectsCollide(_entity.ObjectType, entityInTargetPos.ObjectType))
                         {
-                            if(CanPush && movable.CanBePushed)
+                            if(CollisionConfig.CanPush(
+                                _entity.ObjectType, 
+                                entityInTargetPos.ObjectType))
                                 return movable.CanMove(level, dir);
                             return false;
                         }
@@ -80,7 +75,7 @@ namespace Gameplay.Properties
                 if (entityInTargetPos != null)
                 {
                     // If current object collides with target object
-                    if((CollidesWith & entityInTargetPos.ObjectType) > 0)
+                    if(CollisionConfig.ObjectsCollide(_entity.ObjectType, entityInTargetPos.ObjectType))
                     {
                         level.DispatchEarly(new CollisionEvent(
                             target: entityInTargetPos.Id, 
@@ -92,10 +87,12 @@ namespace Gameplay.Properties
                             direction: Utils.AbsoluteDirectionToRelative(direction, _entity.Orientation)));
                     
                         // Push (collidable only)
-                        if (canMove && CanPush)
+                        if (canMove && CollisionConfig.CanPush(
+                            _entity.ObjectType,
+                            entityInTargetPos.ObjectType))
                         {
                             var movable = entityInTargetPos.GetComponent<Movable>();
-                            if (movable != null && movable.CanBePushed)
+                            if (movable != null)
                             {
                                 foreach (var change in movable.DoMove(level, direction, false))
                                 {
@@ -103,6 +100,18 @@ namespace Gameplay.Properties
                                 }
                             }
                         }
+                    }
+
+                    if (canMove && CollisionConfig.ObjectsHit(_entity.ObjectType, entityInTargetPos.ObjectType))
+                    {
+                        level.DispatchEarly(new HitCommand(
+                            target: entityInTargetPos.Id, 
+                            sourceId: _entity.Id, 
+                            direction: Utils.AbsoluteDirectionToRelative(direction, entityInTargetPos.Orientation)));
+                        level.DispatchEarly(new HitCommand(
+                            target:_entity.Id, 
+                            sourceId: entityInTargetPos.Id, 
+                            direction: Utils.AbsoluteDirectionToRelative(direction, _entity.Orientation)));
                     }
                 }
             }

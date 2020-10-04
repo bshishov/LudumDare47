@@ -6,7 +6,7 @@ namespace Gameplay
 {
     public class Entity : MonoBehaviour
     {
-        [EnumMask] public ObjectType ObjectType = Gameplay.ObjectType.Wall;
+        public ObjectType ObjectType = Gameplay.ObjectType.Default;
         public Vector2Int Position { get; private set; }
         public Direction Orientation { get; private set; }
         public bool IsActive { get; private set; }

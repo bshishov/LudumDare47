@@ -7,7 +7,6 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="ReverceParticleTime.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Editor" t="Include">
             <e p="BuildCommand.cs" t="Include" />
@@ -108,8 +107,13 @@
             <e p="TinyMessenger.cs" t="Include" />
             <e p="UICanvasGroupFader.cs" t="Include" />
           </e>
+          <e p="VFX" t="Include">
+            <e p="DestroyIfNotPlaying.cs" t="Include" />
+            <e p="Emit.cs" t="Include" />
+            <e p="ReverceParticleTime.cs" t="Include" />
+            <e p="VertexColorUpdate.cs" t="Include" />
+          </e>
         </e>
-        <e p="VertexColorUpdate.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
