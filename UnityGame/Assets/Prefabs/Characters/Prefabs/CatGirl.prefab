@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &6295196950306372938
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733632307555305563}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d3382e754af7c8b47b9ca695834777ec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5085328881420716826
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,7 +50,7 @@ Transform:
   m_LocalPosition: {x: 11.5, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4690515307008911837}
+  - {fileID: 100682411912057569}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,6 +69,10 @@ MonoBehaviour:
   ObjectType: 1
   Offset: {x: 0, y: 0, z: 0}
   AlignOnStart: 1
+  Animator: {fileID: 6295196950306372938}
+  AnimMoveTrigger: Dash
+  AnimDeathBool: Death
+  DisableRenderersWhenInactive: 0
 --- !u!114 &5085328881420716830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,9 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollidesWith: -1
-  CanPush: 1
-  CanBePushed: 1
 --- !u!114 &5085328881420716824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &5085328880788639286
+--- !u!1001 &499630606638429450
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -114,17 +134,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fa5374ff25f07e54881c92ebb399a569,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fa5374ff25f07e54881c92ebb399a569,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fa5374ff25f07e54881c92ebb399a569,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fa5374ff25f07e54881c92ebb399a569,
         type: 3}
@@ -158,9 +178,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa5374ff25f07e54881c92ebb399a569, type: 3}
---- !u!4 &4690515307008911837 stripped
+--- !u!1 &733632307555305563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fa5374ff25f07e54881c92ebb399a569,
+    type: 3}
+  m_PrefabInstance: {fileID: 499630606638429450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &100682411912057569 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fa5374ff25f07e54881c92ebb399a569,
     type: 3}
-  m_PrefabInstance: {fileID: 5085328880788639286}
+  m_PrefabInstance: {fileID: 499630606638429450}
   m_PrefabAsset: {fileID: 0}
