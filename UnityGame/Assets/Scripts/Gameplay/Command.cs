@@ -44,6 +44,7 @@ namespace Gameplay
     {
         public readonly Direction Direction;
         public readonly bool UpdateOrientation;
+        public readonly MovementType MovementType = MovementType.Default;
 
         public MoveCommand(int target, Direction direction, bool updateOrientation) : base(target)
         {
@@ -117,6 +118,7 @@ namespace Gameplay
         public Vector2Int TargetPosition;
         public Direction OriginalOrientation;
         public Direction TargetOrientation;
+        public MovementType MovementType;
 
         public MoveChange(int targetId) : base(targetId)
         {

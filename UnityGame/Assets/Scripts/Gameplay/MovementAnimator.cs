@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Gameplay
 {
@@ -76,6 +74,7 @@ namespace Gameplay
             Quaternion startRot, 
             Vector3 endPos, 
             Quaternion endRot, 
+            MovementType movementType,
             float animationSpeed = 1f)
         {
             _isMoving = true;
@@ -90,11 +89,11 @@ namespace Gameplay
             _tgtRotation = endRot;
 
             _speed = animationSpeed;
-
-            if (_smokeParticles != null)
+            
+            if (movementType == MovementType.Default && _smokeParticles != null)
                 _smokeParticles.Emit(1);
             
-            if(_pushedParticles != null)
+            if(movementType == MovementType.Pushed && _pushedParticles != null)
                 _pushedParticles.Play();
         }
     }
