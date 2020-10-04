@@ -6,7 +6,9 @@ namespace Gameplay.Properties
     [RequireComponent(typeof(Entity))]
     public class KillsOnHit : MonoBehaviour, ICommandHandler
     {
+        public bool KillsOnCollide = true;
         public bool SelfDestroyOnHit = true;
+        public bool SelfDestroyOnCollide = true;
         
         [Header("Deadly sides")]
         public bool Front = true;
@@ -33,10 +35,10 @@ namespace Gameplay.Properties
                 if (SelfDestroyOnHit)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
             }
-            else if(command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
+            else if(KillsOnCollide && command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
             {
                 level.DispatchEarly(new DestroyCommand(collisionEvent.SourceId));
-                if (SelfDestroyOnHit)
+                if (SelfDestroyOnCollide)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
             }
             yield break;
