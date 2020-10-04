@@ -67,16 +67,16 @@ namespace Gameplay
             if (_movementAnimator != null)
             {
                 _movementAnimator.StartAnimation(
-                    Level.LevelToWorld(Position) + Offset,
-                    Level.DirectionToRotation(Orientation),
-                    Level.LevelToWorld(tgtPosition) + Offset,
-                    Level.DirectionToRotation(tgtOrientation),
+                    Utils.LevelToWorld(Position) + Offset,
+                    Utils.DirectionToRotation(Orientation),
+                    Utils.LevelToWorld(tgtPosition) + Offset,
+                    Utils.DirectionToRotation(tgtOrientation),
                     animationSpeed);
             }
             else
             {
-                transform.position = Level.LevelToWorld(tgtPosition) + Offset;
-                transform.rotation = Level.DirectionToRotation(tgtOrientation);
+                transform.position = Utils.LevelToWorld(tgtPosition) + Offset;
+                transform.rotation = Utils.DirectionToRotation(tgtOrientation);
             }
 
             Position = tgtPosition;
@@ -103,31 +103,31 @@ namespace Gameplay
         
         private void SetPositionAndOrientationFromTransform()
         {
-            Position = Level.WorldToLevel(transform.position - Offset);
-            Orientation = Level.DirectionFromForwardVector(transform.forward);
+            Position = Utils.WorldToLevel(transform.position - Offset);
+            Orientation = Utils.DirectionFromForwardVector(transform.forward);
         }
 
         private void SetTransformFromPositionAndOrientation()
         {
             // Set world position from level position
-            transform.position = Level.LevelToWorld(Position) + Offset;
-            transform.rotation = Level.DirectionToRotation(Orientation);
+            transform.position = Utils.LevelToWorld(Position) + Offset;
+            transform.rotation = Utils.DirectionToRotation(Orientation);
         }
 
         private void OnDrawGizmos()
         {
-            var levelPos = Level.WorldToLevel(transform.position - Offset);
-            var orientation = Level.DirectionFromForwardVector(transform.forward);
+            var levelPos = Utils.WorldToLevel(transform.position - Offset);
+            var orientation = Utils.DirectionFromForwardVector(transform.forward);
             DrawLogicalTransformGizmos(levelPos, orientation, Color.magenta);
             DrawLogicalTransformGizmos(Position, Orientation, Color.black);
         }
 
         private void DrawLogicalTransformGizmos(Vector2Int levelPos, Direction orientation, Color color)
         {
-            var worldCellCenter = Level.LevelToWorld(levelPos);
+            var worldCellCenter = Utils.LevelToWorld(levelPos);
             
             Gizmos.color = color;
-            Gizmos.DrawWireCube(worldCellCenter, Level.CellSize);
+            Gizmos.DrawWireCube(worldCellCenter, Utils.CellSize);
 
             var orientationGizmoPosition = worldCellCenter;
             switch (orientation)

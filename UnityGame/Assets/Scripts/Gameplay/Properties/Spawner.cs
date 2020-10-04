@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Properties
 {
+    [RequireComponent(typeof(Entity))]
     public class Spawner : MonoBehaviour, ICommandHandler
     {
         public GameObject Prefab;
@@ -30,7 +31,7 @@ namespace Gameplay.Properties
             {
                 var entity = level.Spawn(
                     Prefab, 
-                    _entity.Position + Movable.MoveDelta(_entity.Orientation),
+                    _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
                 if (entity != null)
                 {

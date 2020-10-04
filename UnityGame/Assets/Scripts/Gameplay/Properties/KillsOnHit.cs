@@ -29,20 +29,15 @@ namespace Gameplay.Properties
         {
             if (command is HitCommand hitCommand && IsDeadlySide(hitCommand.Direction))
             {
-                // TODO: Side detection
-                level.DispatchEarly(new DestroyCommand(target: hitCommand.SourceId, sourceId: _entity.Id));
+                level.DispatchEarly(new DestroyCommand(hitCommand.SourceId));
                 if (SelfDestroyOnHit)
-                {
-                    level.DispatchEarly(new DestroyCommand(target: _entity.Id, sourceId: _entity.Id));
-                }
+                    level.DispatchEarly(new DestroyCommand(_entity.Id));
             }
             else if(command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
             {
-                level.DispatchEarly(new DestroyCommand(target: collisionEvent.SourceId, sourceId: _entity.Id));
+                level.DispatchEarly(new DestroyCommand(collisionEvent.SourceId));
                 if (SelfDestroyOnHit)
-                {
-                    level.DispatchEarly(new DestroyCommand(target: _entity.Id, sourceId: _entity.Id));
-                }
+                    level.DispatchEarly(new DestroyCommand(_entity.Id));
             }
             yield break;
         }

@@ -39,27 +39,10 @@ namespace Gameplay.Properties
                 _entity.MoveTo(moveChange.OriginalPosition, moveChange.OriginalOrientation, 2f);
         }
 
-        public static Vector2Int MoveDelta(Direction dir)
-        {
-            switch (dir)
-            {
-                case Direction.Front:
-                    return Vector2Int.up;
-                case Direction.Right:
-                    return Vector2Int.right;
-                case Direction.Back:
-                    return Vector2Int.down;
-                case Direction.Left:
-                    return Vector2Int.left;
-                default:
-                    return Vector2Int.zero;
-            }
-        }
-
         public bool CanMove(Level level, Direction dir)
         {
             // Recursive movement ability checking
-            var targetPos = _entity.Position + MoveDelta(dir);
+            var targetPos = _entity.Position + Utils.MoveDelta(dir);
             var entityInTargetPos = level.GetActiveEntityAt(targetPos);
             
             // If there is an active entity in target position
@@ -88,7 +71,7 @@ namespace Gameplay.Properties
             var canMove = CanMove(level, direction);
             
             // Update logical position
-            var targetPos = _entity.Position + MoveDelta(direction);
+            var targetPos = _entity.Position + Utils.MoveDelta(direction);
 
             // Move neighbor movable (push)
             var entityInTargetPos = level.GetActiveEntityAt(targetPos);
@@ -100,11 +83,11 @@ namespace Gameplay.Properties
                     level.DispatchEarly(new CollisionEvent(
                         target: entityInTargetPos.Id, 
                         sourceId: _entity.Id, 
-                        direction: RelativeDirection(direction, entityInTargetPos.Orientation)));
+                        direction: Utils.RelativeDirection(direction, entityInTargetPos.Orientation)));
                     level.DispatchEarly(new CollisionEvent(
                         target:_entity.Id, 
                         sourceId: entityInTargetPos.Id, 
-                        direction: RelativeDirection(direction, _entity.Orientation)));
+                        direction: Utils.RelativeDirection(direction, _entity.Orientation)));
                     
                     // Push (collidable only)
                     if (canMove && CanPush)
@@ -125,7 +108,7 @@ namespace Gameplay.Properties
                 yield break;            
 
             // Finally, move self
-            targetPos = _entity.Position + MoveDelta(direction);
+            targetPos = _entity.Position + Utils.MoveDelta(direction);
             var targetOrientation = _entity.Orientation;
             if (updateOrientation)
                 targetOrientation = direction;
@@ -141,39 +124,6 @@ namespace Gameplay.Properties
             yield return selfMove;
         }
 
-        private static Direction RevertDirection(Direction direction)
-        {
-            /*
-            Front 0  ->  Back 2
-            Right 1  ->  Left 3
-            Back  2  ->  Front 0
-            Left  3  ->  Right 1
-             */
-            return (Direction) (((int) direction + 2) % 4);
-        }
-
-        private static Direction RelativeDirection(Direction absoluteHitDirection, Direction entityOrientation)
-        {
-            /*
-            Front = 0,
-            Right = 1,
-            Back = 2,
-            Left = 3
-             */
-            var absolute = (int)absoluteHitDirection;
-            var orientation = (int)entityOrientation;
-            
-            
-            /* absoluteHitDirection   entityOrientation    Relative
-             * Front  0               Front 0              Front 0
-             * Front  0               Right 1              Left  3
-             * Front  0               Back  2              Back  2
-             * Front  0               Left  3              Right 1
-             * Right  1               Front 0              Right 1
-             * Right  1               Right 1              Fron  0
-             */
-
-            return (Direction)((absolute - orientation + 4) % 4);
-        }
+        
     }
 }

@@ -24,9 +24,9 @@ namespace Gameplay
     {
         public int TargetId { get; }
 
-        protected BaseCommand(int target)
+        protected BaseCommand(int targetId)
         {
-            TargetId = target;
+            TargetId = targetId;
         }
     }
 
@@ -59,11 +59,8 @@ namespace Gameplay
 
     public class DestroyCommand : BaseCommand
     {
-        public int SourceId;
-        
-        public DestroyCommand(int target, int sourceId) : base(target)
+        public DestroyCommand(int targetId) : base(targetId)
         {
-            SourceId = sourceId;
         }
         
         public override string ToString()
@@ -140,18 +137,22 @@ namespace Gameplay
 
     public class SpawnCommand : BaseCommand
     {
-        public SpawnCommand(int target) : base(target)
-        {
-        }
+        public SpawnCommand(int target) : base(target){}
     }
 
     public class SpawnChange : BaseChange
     {
-        public int SpawnedObjectId;
+        public readonly int SpawnedObjectId;
         
         public SpawnChange(int targetId, int spawnedObjectId) : base(targetId)
         {
             SpawnedObjectId = spawnedObjectId;
         }
+    }
+
+
+    public class DetonateCommand : BaseCommand
+    {
+        public DetonateCommand(int targetId) : base(targetId) {}
     }
 }

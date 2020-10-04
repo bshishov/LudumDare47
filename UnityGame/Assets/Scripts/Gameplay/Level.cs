@@ -9,13 +9,15 @@ namespace Gameplay
     {
         public int MaxTurns = 10;
 
+        public int CurrentTurn => GetCurrentTurn().Number;
+
         private readonly Dictionary<int, Entity> _entities = new Dictionary<int, Entity>();
         private Entity _playerEntity;
         private readonly LinkedList<ICommand> _turnQueue = new LinkedList<ICommand>();
         private readonly Stack<Turn> _history = new Stack<Turn>();
         private float _currentRollbackCd;
         private const float RollbackCd = 0.08f;
-        private int _lastEntityId = 0; 
+        private int _lastEntityId; 
 
         void Start()
         {
@@ -167,59 +169,12 @@ namespace Gameplay
         {
             return _entities.Values.FirstOrDefault(entity => entity.IsActive && entity.Position == position);
         }
-        
-        public static readonly Vector3 CellCenter = new Vector3(0.5f, 0, 0.5f);
-        public static readonly Vector3 CellSize = new Vector3(1f, 0, 1f);
-        public static Vector2Int WorldToLevel(Vector3 worldPos)
-        {
-            var pos = worldPos - CellCenter;
-            return new Vector2Int(
-                Mathf.RoundToInt(pos.x),
-                Mathf.RoundToInt(pos.z)
-            );
-        }
-
-        public static Vector3 LevelToWorld(Vector2Int pos)
-        {
-            return new Vector3(pos.x + CellCenter.x, CellCenter.y, pos.y + CellCenter.z);
-        }
-
-        public static Quaternion DirectionToRotation(Direction dir)
-        {
-            switch (dir)
-            {
-                case Direction.Front:
-                    return Quaternion.Euler(0, 0, 0);
-                case Direction.Right:
-                    return Quaternion.Euler(0, 90, 0);
-                case Direction.Back:
-                    return Quaternion.Euler(0, 180, 0);
-                case Direction.Left:
-                    return Quaternion.Euler(0, 270, 0);
-                default:
-                    return Quaternion.identity;        
-            }
-        }
-
-        public static Direction DirectionFromForwardVector(Vector3 fwd)
-        {
-            if (Mathf.Abs(fwd.x) > Mathf.Abs(fwd.z))
-            {
-                // Left or right
-                if (fwd.x > 0)
-                    return Direction.Right;
-                return Direction.Left;
-            }
-            
-            // up or down
-            if (fwd.z > 0)
-                return Direction.Front;
-            return Direction.Back;
-        }
 
         public Entity Spawn(GameObject prefab, Vector2Int entityPosition, Direction entityOrientation)
         {
-            var spawnedObject = Instantiate(prefab, LevelToWorld(entityPosition), DirectionToRotation(entityOrientation));
+            var spawnedObject = Instantiate(prefab, 
+                Utils.LevelToWorld(entityPosition), 
+                Utils.DirectionToRotation(entityOrientation));
             var entity = spawnedObject.GetComponent<Entity>();
             if (entity != null)
             {
@@ -232,7 +187,7 @@ namespace Gameplay
             return null;
         }
 
-        public Entity GetEntityById(int entityId)
+        private Entity GetEntityById(int entityId)
         {
             return _entities.ContainsKey(entityId) ? _entities[entityId] : null;
         }
@@ -245,6 +200,13 @@ namespace Gameplay
                 Destroy(entity.gameObject);
                 _entities.Remove(entityId);
             }
+        }
+
+        public IEnumerable<Entity> GetActiveEntitiesInRadius(Vector2Int position, int radius)
+        {
+            return _entities.Values
+                .Where(entity => entity.IsActive && 
+                                 Utils.IsInsideRadius(position, entity.Position, radius));
         }
     }
 }

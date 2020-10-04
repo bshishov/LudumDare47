@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Properties
 {
+    [RequireComponent(typeof(Entity))]
     public class Moving : MonoBehaviour, ICommandHandler
     {
         public bool StopOnFrontCollision = true;
