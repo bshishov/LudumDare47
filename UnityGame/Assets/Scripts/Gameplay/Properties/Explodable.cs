@@ -16,7 +16,6 @@ namespace Gameplay.Properties
             _entity = GetComponent<Entity>();
         }
 
-        
         public void OnTurnStarted(Level level)
         {
         }

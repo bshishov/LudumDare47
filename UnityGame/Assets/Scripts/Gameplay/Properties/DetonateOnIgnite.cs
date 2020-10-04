@@ -4,28 +4,23 @@ using UnityEngine;
 namespace Gameplay.Properties
 {
     [RequireComponent(typeof(Entity))]
-    public class DelayedDetonator : MonoBehaviour, ICommandHandler
+    public class DetonateOnIgnite: MonoBehaviour, ICommandHandler
     {
-        public int Delay = 3;
-        private int? _createdTurn;
         private Entity _entity;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
         }
-
+        
         public void OnTurnStarted(Level level)
         {
-            if (!_createdTurn.HasValue)
-                _createdTurn = level.CurrentTurn;
-
-            if (level.CurrentTurn - _createdTurn >= Delay)
-                level.Dispatch(new DetonateCommand(_entity.Id));
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
+            if (command is IgniteCommand)
+                level.Dispatch(new DetonateCommand(_entity.Id));
             yield break;
         }
 
