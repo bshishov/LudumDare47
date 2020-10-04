@@ -14,7 +14,12 @@ public class ReverceParticleTime : MonoBehaviour
     {
         if (ParticleSystem && reverce)
         {
-            ParticleSystem.time = ParticleSystem.time - Time.deltaTime/2;
+            ParticleSystem.Pause();
+            if (ParticleSystem.time>0)
+            {
+                ParticleSystem.time = ParticleSystem.time - Time.deltaTime / 2;
+            }
+           
         }
     }
 }
