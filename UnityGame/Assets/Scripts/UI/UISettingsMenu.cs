@@ -15,6 +15,4 @@ public class UISettingsMenu : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
     }
-
-
 }
