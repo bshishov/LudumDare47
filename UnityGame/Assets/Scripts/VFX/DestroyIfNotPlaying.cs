@@ -5,9 +5,9 @@ using UnityEngine;
 public class DestroyIfNotPlaying : MonoBehaviour
 {
     public ParticleSystem ParticleSystem;
-    void Start()
+    void Awake()
     {
-        ParticleSystem.GetComponent<ParticleSystem>();
+        ParticleSystem = ParticleSystem.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
