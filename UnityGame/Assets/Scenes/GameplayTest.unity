@@ -2487,7 +2487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectType: 2
+  ObjectType: 3
   Offset: {x: 0, y: 0.5, z: 0}
   AlignOnStart: 1
   Animator: {fileID: 0}
@@ -3087,6 +3087,8 @@ GameObject:
   - component: {fileID: 1120747909}
   - component: {fileID: 1120747908}
   - component: {fileID: 1120747907}
+  - component: {fileID: 1120747912}
+  - component: {fileID: 1120747913}
   m_Layer: 0
   m_Name: Spark
   m_TagString: Untagged
@@ -3143,7 +3145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectType: 0
+  ObjectType: 4
   Offset: {x: 0, y: 0, z: 0}
   AlignOnStart: 1
   Animator: {fileID: 0}
@@ -3165,6 +3167,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1120747912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120747906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5015f78511704cdf801b00e7a6333e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1120747913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120747906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1122753639
 GameObject:
   m_ObjectHideFlags: 0

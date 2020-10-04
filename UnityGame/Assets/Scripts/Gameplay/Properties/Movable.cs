@@ -117,7 +117,10 @@ namespace Gameplay.Properties
             }
 
             if (!canMove)
-                yield break;            
+                yield break;  
+            
+            if(!_entity.IsActive)
+                yield break;
 
             // Finally, move self
             targetPos = _entity.Position + Utils.MoveDelta(direction);
