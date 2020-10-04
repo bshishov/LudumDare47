@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace Gameplay
 {
     public class Entity : MonoBehaviour
     {
+        [EnumMask] public ObjectType ObjectType = Gameplay.ObjectType.Wall;
         public Vector2Int Position { get; private set; }
         public Direction Orientation { get; private set; }
         public bool IsActive { get; private set; }
@@ -43,15 +45,7 @@ namespace Gameplay
                 }
             }
         }
-        
-        public void Apply(Level level, IChange change)
-        {
-            foreach (var commandHandler in _handlers)
-            {
-                //commandHandler.Apply(level, change);
-            }
-        }
-        
+
         public void Revert(Level level, IChange change)
         {
             foreach (var commandHandler in _handlers)
@@ -91,16 +85,20 @@ namespace Gameplay
 
         public void Deactivate()
         {
-            // TODO: Animate
-            GetComponent<Renderer>().enabled = false;
             IsActive = false;
+            
+            // TODO: Animate
+            foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
+                rnd.enabled = false;
         }
 
         public void Activate()
         {
-            // TODO: Animate
-            GetComponent<Renderer>().enabled = true;
             IsActive = true;
+            
+            // TODO: Animate
+            foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
+                rnd.enabled = true;
         }
         
         private void SetPositionAndOrientationFromTransform()
@@ -134,13 +132,13 @@ namespace Gameplay
             var orientationGizmoPosition = worldCellCenter;
             switch (orientation)
             {
-                case Direction.Up:
+                case Direction.Front:
                     orientationGizmoPosition += Vector3.forward * 0.5f; 
                     break;
                 case Direction.Right:
                     orientationGizmoPosition += Vector3.right * 0.5f;
                     break;
-                case Direction.Down:
+                case Direction.Back:
                     orientationGizmoPosition += Vector3.back * 0.5f;
                     break;
                 case Direction.Left:

@@ -96,6 +96,24 @@ namespace Gameplay
         }
     }
 
+    public class CollisionEvent : BaseCommand
+    {
+        public int SourceId;
+        public Direction Direction;
+        
+        public CollisionEvent(int target, int sourceId, Direction direction) : base(target)
+        {
+            SourceId = sourceId;
+            Direction = direction;
+        }
+        
+        public override string ToString()
+        {
+            return $"CollisionEvent(id: {TargetId})";
+        }
+    }
+        
+
     public class MoveChange : BaseChange
     {
         public Vector2Int OriginalPosition;
@@ -117,6 +135,23 @@ namespace Gameplay
     {
         public StoppedMoving(int targetId) : base(targetId)
         {
+        }
+    }
+
+    public class SpawnCommand : BaseCommand
+    {
+        public SpawnCommand(int target) : base(target)
+        {
+        }
+    }
+
+    public class SpawnChange : BaseChange
+    {
+        public int SpawnedObjectId;
+        
+        public SpawnChange(int targetId, int spawnedObjectId) : base(targetId)
+        {
+            SpawnedObjectId = spawnedObjectId;
         }
     }
 }

@@ -2,9 +2,9 @@ namespace Gameplay
 {
     public enum Direction
     {
-        Up,
-        Right,
-        Down,
-        Left
+        Front = 0,
+        Right = 1,
+        Back = 2,
+        Left = 3
     }
 }

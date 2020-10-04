@@ -7,18 +7,15 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="Prefabs" t="Include">
-          <e p="Scripts" t="Include">
-            <e p="UI" t="Include" />
-          </e>
-        </e>
         <e p="Scripts" t="Include">
           <e p="Editor" t="Include">
             <e p="BuildCommand.cs" t="Include" />
+            <e p="EnumMaskPropertyDrawer.cs" t="Include" />
             <e p="PostBuildProcessor.cs" t="Include" />
           </e>
           <e p="Gameplay" t="Include">
             <e p="Command.cs" t="Include" />
+            <e p="Common.cs" t="Include" />
             <e p="Direction.cs" t="Include" />
             <e p="Entity.cs" t="Include" />
             <e p="Level.cs" t="Include" />
@@ -29,6 +26,7 @@
               <e p="Movable.cs" t="Include" />
               <e p="Moving.cs" t="Include" />
               <e p="Obstacle.cs" t="Include" />
+              <e p="Spawner.cs" t="Include" />
             </e>
             <e p="Turn.cs" t="Include" />
           </e>
@@ -71,6 +69,7 @@
               <e p="DragReceiver.cs" t="Include" />
               <e p="IDragData.cs" t="Include" />
             </e>
+            <e p="EnumMaskProperty.cs" t="Include" />
             <e p="EventBus.cs" t="Include" />
             <e p="FSM" t="Include">
               <e p="BaseStateBehaviour.cs" t="Include" />

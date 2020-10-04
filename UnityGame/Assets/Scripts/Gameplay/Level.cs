@@ -9,12 +9,13 @@ namespace Gameplay
     {
         public int MaxTurns = 10;
 
-        private List<Entity> _entities;
+        private readonly Dictionary<int, Entity> _entities = new Dictionary<int, Entity>();
         private Entity _playerEntity;
         private readonly LinkedList<ICommand> _turnQueue = new LinkedList<ICommand>();
         private readonly Stack<Turn> _history = new Stack<Turn>();
         private float _currentRollbackCd;
         private const float RollbackCd = 0.08f;
+        private int _lastEntityId = 0; 
 
         void Start()
         {
@@ -23,16 +24,22 @@ namespace Gameplay
 
         void Initialize()
         {
-            _entities = GameObject.FindObjectsOfType<Entity>().ToList();
+            var foundEntities = GameObject.FindObjectsOfType<Entity>();
             _playerEntity = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
-            var id = 0;
-            foreach (var entity in _entities)
+            foreach (var entity in foundEntities)
             {
-                entity.Initialize(id);
-                id++;
+                var newId = GetEntityId();
+                entity.Initialize(newId);
+                _entities.Add(newId, entity);
+                
             }
             _turnQueue.Clear();
             _history.Clear();
+        }
+
+        int GetEntityId()
+        {
+            return _lastEntityId++;
         }
 
         void Update()
@@ -70,12 +77,12 @@ namespace Gameplay
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
-                NewTurn(Direction.Up);
+                NewTurn(Direction.Front);
             }
 
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
-                NewTurn(Direction.Down);
+                NewTurn(Direction.Back);
             }
 
             if (_currentRollbackCd >= RollbackCd && Input.GetKey(KeyCode.R))
@@ -90,7 +97,7 @@ namespace Gameplay
         private void NewTurn(Direction dir)
         {
             var currentTurn = GetCurrentTurn();
-            var currentTurnNumber = 0;
+            var currentTurnNumber = -1;
             if (currentTurn != null)
                 currentTurnNumber = currentTurn.Number;
             _history.Push(new Turn(currentTurnNumber + 1));
@@ -100,7 +107,7 @@ namespace Gameplay
             Dispatch(new MoveCommand(playerId, dir, true));
 
             // Rest of the objects move afterwards
-            foreach (var entity in _entities)
+            foreach (var entity in _entities.Values)
             {
                 if(entity.IsActive)
                     entity.OnTurnStarted(this);
@@ -158,7 +165,7 @@ namespace Gameplay
 
         public Entity GetActiveEntityAt(Vector2Int position)
         {
-            return _entities.FirstOrDefault(entity => entity.IsActive && entity.Position == position);
+            return _entities.Values.FirstOrDefault(entity => entity.IsActive && entity.Position == position);
         }
         
         public static readonly Vector3 CellCenter = new Vector3(0.5f, 0, 0.5f);
@@ -181,11 +188,11 @@ namespace Gameplay
         {
             switch (dir)
             {
-                case Direction.Up:
+                case Direction.Front:
                     return Quaternion.Euler(0, 0, 0);
                 case Direction.Right:
                     return Quaternion.Euler(0, 90, 0);
-                case Direction.Down:
+                case Direction.Back:
                     return Quaternion.Euler(0, 180, 0);
                 case Direction.Left:
                     return Quaternion.Euler(0, 270, 0);
@@ -206,8 +213,38 @@ namespace Gameplay
             
             // up or down
             if (fwd.z > 0)
-                return Direction.Up;
-            return Direction.Down;
+                return Direction.Front;
+            return Direction.Back;
+        }
+
+        public Entity Spawn(GameObject prefab, Vector2Int entityPosition, Direction entityOrientation)
+        {
+            var spawnedObject = Instantiate(prefab, LevelToWorld(entityPosition), DirectionToRotation(entityOrientation));
+            var entity = spawnedObject.GetComponent<Entity>();
+            if (entity != null)
+            {
+                var newEntityId = GetEntityId();
+                entity.Initialize(newEntityId);
+                _entities.Add(newEntityId, entity);
+                return entity;
+            }
+
+            return null;
+        }
+
+        public Entity GetEntityById(int entityId)
+        {
+            return _entities.ContainsKey(entityId) ? _entities[entityId] : null;
+        }
+
+        public void DestroyEntity(int entityId)
+        {
+            var entity = GetEntityById(entityId);
+            if (entity != null)
+            {
+                Destroy(entity.gameObject);
+                _entities.Remove(entityId);
+            }
         }
     }
 }
