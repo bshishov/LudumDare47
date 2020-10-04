@@ -55,6 +55,7 @@ namespace Gameplay
             new CPair(ObjectType.Projectile, ObjectType.Player),
             new CPair(ObjectType.Projectile, ObjectType.Wall),
             new CPair(ObjectType.Projectile, ObjectType.Box),
+            new CPair(ObjectType.Wall, ObjectType.Character),
         };
         
         // Who can push whom?
