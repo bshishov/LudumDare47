@@ -119,7 +119,7 @@ namespace Gameplay
             var levelPos = Utils.WorldToLevel(transform.position - Offset);
             var orientation = Utils.DirectionFromForwardVector(transform.forward);
             DrawLogicalTransformGizmos(levelPos, orientation, Color.magenta);
-            DrawLogicalTransformGizmos(Position, Orientation, Color.black);
+            //DrawLogicalTransformGizmos(Position, Orientation, Color.black);
         }
 
         private void DrawLogicalTransformGizmos(Vector2Int levelPos, Direction orientation, Color color)
@@ -129,24 +129,35 @@ namespace Gameplay
             Gizmos.color = color;
             Gizmos.DrawWireCube(worldCellCenter, Utils.CellSize);
 
-            var orientationGizmoPosition = worldCellCenter;
+            var orTop = worldCellCenter;
+            var orLeft = worldCellCenter;
+            var orRight = worldCellCenter;
             switch (orientation)
             {
                 case Direction.Front:
-                    orientationGizmoPosition += Vector3.forward * 0.5f; 
+                    orTop += Vector3.forward * 0.5f;
+                    orLeft += Vector3.left * 0.5f;
+                    orRight += Vector3.right * 0.5f;
                     break;
                 case Direction.Right:
-                    orientationGizmoPosition += Vector3.right * 0.5f;
+                    orTop += Vector3.right * 0.5f;
+                    orLeft += Vector3.forward * 0.5f;
+                    orRight += Vector3.back * 0.5f;
                     break;
                 case Direction.Back:
-                    orientationGizmoPosition += Vector3.back * 0.5f;
+                    orTop += Vector3.back * 0.5f;
+                    orLeft += Vector3.right * 0.5f;
+                    orRight += Vector3.left * 0.5f;
                     break;
                 case Direction.Left:
-                    orientationGizmoPosition += Vector3.left * 0.5f;
+                    orTop += Vector3.left * 0.5f;
+                    orLeft += Vector3.forward * 0.5f;
+                    orRight += Vector3.forward * 0.5f;
                     break;
             }
-            
-            Gizmos.DrawSphere(orientationGizmoPosition, 0.2f);
+
+            Gizmos.DrawLine(orLeft, orTop);
+            Gizmos.DrawLine(orTop, orRight);
         }
 
         [ContextMenu("Align")]
