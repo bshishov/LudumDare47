@@ -12,6 +12,7 @@ namespace Gameplay.Properties
         [Header("Visuals")]
         public Animator Animator;
         public string AnimOnSpawnTrigger;
+        public ParticleSystem ShootParticles;
         
         private Entity _entity;
 
