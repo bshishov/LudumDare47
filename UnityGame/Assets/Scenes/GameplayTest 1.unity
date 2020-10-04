@@ -200,13 +200,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744200119}
-  m_LocalRotation: {x: 0.2368708, y: -0.0114163, z: 0.020938138, w: 0.97124845}
-  m_LocalPosition: {x: -0.000000016517493, y: 5.73, z: -10}
+  m_LocalRotation: {x: 0.7068534, y: -0.018929334, z: 0.018929334, w: 0.7068534}
+  m_LocalPosition: {x: -0.17, y: 5.67, z: 2.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 27.426, y: -0.791, z: 2.277}
+  m_LocalEulerAnglesHint: {x: 90, y: -0.791, z: 2.277}
 --- !u!114 &744200123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectType: 2
   Offset: {x: 0, y: 0.5, z: 0}
   AlignOnStart: 1
 --- !u!135 &905667341
@@ -441,7 +442,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsProjectile: 0
+  CollidesWith: 0
+  CanPush: 1
+  CanBePushed: 1
 --- !u!114 &905667346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,6 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectType: 2
   Offset: {x: 0, y: 0.5, z: 0}
   AlignOnStart: 1
 --- !u!135 &1529457297
@@ -738,7 +742,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsProjectile: 0
+  CollidesWith: 0
+  CanPush: 1
+  CanBePushed: 1
 --- !u!114 &1529457303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +791,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsProjectile: 0
+  CollidesWith: 0
+  CanPush: 1
+  CanBePushed: 1
 --- !u!114 &1534540953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,6 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectType: 2
   Offset: {x: 0, y: 0.5, z: 0}
   AlignOnStart: 1
 --- !u!135 &1534540954
@@ -1134,7 +1143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsProjectile: 0
+  CollidesWith: 0
+  CanPush: 1
+  CanBePushed: 1
 --- !u!114 &1929094525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1147,6 +1158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectType: 2
   Offset: {x: 0, y: 0.5, z: 0}
   AlignOnStart: 1
 --- !u!135 &1929094526
@@ -1249,6 +1261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d35121bd1a545bbbd09c4e45668ba58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StopOnFrontCollision: 1
 --- !u!1 &2026816151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,7 +1340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsProjectile: 0
+  CollidesWith: 0
+  CanPush: 1
+  CanBePushed: 1
 --- !u!114 &2048477449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1340,6 +1355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectType: 2
   Offset: {x: 0, y: 0.5, z: 0}
   AlignOnStart: 1
 --- !u!135 &2048477450

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 514802852994847418}
   - component: {fileID: 514802852994847417}
   - component: {fileID: 514802852994847422}
+  - component: {fileID: 331838868444697441}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -95,9 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectType: 2
+  ObjectType: 3
   Offset: {x: 0, y: 0.5, z: 0}
   AlignOnStart: 1
+  Animator: {fileID: 0}
+  AnimMoveTrigger: 
+  AnimDeathBool: 
+  DisableRenderersWhenInactive: 1
 --- !u!114 &514802852994847422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +115,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollidesWith: -1
-  CanPush: 0
-  CanBePushed: 0
+--- !u!114 &331838868444697441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514802852994847421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
