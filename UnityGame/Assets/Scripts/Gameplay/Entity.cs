@@ -151,7 +151,7 @@ namespace Gameplay
                     break;
                 case Direction.Left:
                     orTop += Vector3.left * 0.5f;
-                    orLeft += Vector3.forward * 0.5f;
+                    orLeft += Vector3.back * 0.5f;
                     orRight += Vector3.forward * 0.5f;
                     break;
             }
