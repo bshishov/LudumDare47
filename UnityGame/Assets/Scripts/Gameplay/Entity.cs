@@ -6,7 +6,7 @@ namespace Gameplay
 {
     public class Entity : MonoBehaviour
     {
-        [EnumMask] public ObjectType ObjectType = Gameplay.ObjectType.Wall;
+        public ObjectType ObjectType = Gameplay.ObjectType.Default;
         public Vector2Int Position { get; private set; }
         public Direction Orientation { get; private set; }
         public bool IsActive { get; private set; }
@@ -14,6 +14,10 @@ namespace Gameplay
         [Header("Visuals")]
         public Vector3 Offset = Vector3.zero;
         public bool AlignOnStart = true;
+        public Animator Animator;
+        public string AnimMoveTrigger;
+        public string AnimDeathBool;
+        public bool DisableRenderersWhenInactive = true;
 
         private ICommandHandler[] _handlers;
 
@@ -79,6 +83,9 @@ namespace Gameplay
                 transform.rotation = Utils.DirectionToRotation(tgtOrientation);
             }
 
+            if (this.Animator != null)
+                Animator.SetTrigger(AnimMoveTrigger);
+
             Position = tgtPosition;
             Orientation = tgtOrientation;
         }
@@ -86,19 +93,25 @@ namespace Gameplay
         public void Deactivate()
         {
             IsActive = false;
+
+            if (this.Animator != null)
+                Animator.SetBool(AnimDeathBool, true);
             
-            // TODO: Animate
-            foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
-                rnd.enabled = false;
+            if(DisableRenderersWhenInactive)
+                foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
+                    rnd.enabled = false;
         }
 
         public void Activate()
         {
             IsActive = true;
             
-            // TODO: Animate
-            foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
-                rnd.enabled = true;
+            if (this.Animator != null)
+                Animator.SetBool(AnimDeathBool, false);
+            
+            if(DisableRenderersWhenInactive)
+                foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
+                    rnd.enabled = true;
         }
         
         private void SetPositionAndOrientationFromTransform()
@@ -119,7 +132,7 @@ namespace Gameplay
             var levelPos = Utils.WorldToLevel(transform.position - Offset);
             var orientation = Utils.DirectionFromForwardVector(transform.forward);
             DrawLogicalTransformGizmos(levelPos, orientation, Color.magenta);
-            DrawLogicalTransformGizmos(Position, Orientation, Color.black);
+            //DrawLogicalTransformGizmos(Position, Orientation, Color.black);
         }
 
         private void DrawLogicalTransformGizmos(Vector2Int levelPos, Direction orientation, Color color)
@@ -129,24 +142,35 @@ namespace Gameplay
             Gizmos.color = color;
             Gizmos.DrawWireCube(worldCellCenter, Utils.CellSize);
 
-            var orientationGizmoPosition = worldCellCenter;
+            var orTop = worldCellCenter;
+            var orLeft = worldCellCenter;
+            var orRight = worldCellCenter;
             switch (orientation)
             {
                 case Direction.Front:
-                    orientationGizmoPosition += Vector3.forward * 0.5f; 
+                    orTop += Vector3.forward * 0.5f;
+                    orLeft += Vector3.left * 0.5f;
+                    orRight += Vector3.right * 0.5f;
                     break;
                 case Direction.Right:
-                    orientationGizmoPosition += Vector3.right * 0.5f;
+                    orTop += Vector3.right * 0.5f;
+                    orLeft += Vector3.forward * 0.5f;
+                    orRight += Vector3.back * 0.5f;
                     break;
                 case Direction.Back:
-                    orientationGizmoPosition += Vector3.back * 0.5f;
+                    orTop += Vector3.back * 0.5f;
+                    orLeft += Vector3.right * 0.5f;
+                    orRight += Vector3.left * 0.5f;
                     break;
                 case Direction.Left:
-                    orientationGizmoPosition += Vector3.left * 0.5f;
+                    orTop += Vector3.left * 0.5f;
+                    orLeft += Vector3.back * 0.5f;
+                    orRight += Vector3.forward * 0.5f;
                     break;
             }
-            
-            Gizmos.DrawSphere(orientationGizmoPosition, 0.2f);
+
+            Gizmos.DrawLine(orLeft, orTop);
+            Gizmos.DrawLine(orTop, orRight);
         }
 
         [ContextMenu("Align")]

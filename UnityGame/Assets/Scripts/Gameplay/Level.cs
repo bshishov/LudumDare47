@@ -170,6 +170,11 @@ namespace Gameplay
             return _entities.Values.FirstOrDefault(entity => entity.IsActive && entity.Position == position);
         }
 
+        public IEnumerable<Entity> GetActiveEntitiesAt(Vector2Int position)
+        {
+            return _entities.Values.Where(entity => entity.IsActive && entity.Position == position);
+        }
+
         public Entity Spawn(GameObject prefab, Vector2Int entityPosition, Direction entityOrientation)
         {
             var spawnedObject = Instantiate(prefab, 

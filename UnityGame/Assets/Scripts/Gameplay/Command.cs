@@ -155,4 +155,19 @@ namespace Gameplay
     {
         public DetonateCommand(int targetId) : base(targetId) {}
     }
+
+    public class IgniteCommand : BaseCommand
+    {
+        public IgniteCommand(int targetId) : base(targetId) {}
+    }
+
+    public class FuseIgnited : BaseChange
+    {
+        public readonly int Delay;
+
+        public FuseIgnited(int targetId, int delay) : base(targetId)
+        {
+            Delay = delay;
+        }
+    }
 }
