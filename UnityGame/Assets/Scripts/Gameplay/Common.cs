@@ -10,6 +10,7 @@ namespace Gameplay
         Wall,  // Or Train also?
         Projectile,
         Fence,
+        Box,
 
         // Any type you want goes here
         // The more generic the type is - the better
@@ -26,6 +27,21 @@ namespace Gameplay
             new CPair(ObjectType.Player, ObjectType.Character),
             new CPair(ObjectType.Player, ObjectType.Player),
             new CPair(ObjectType.Projectile, ObjectType.Wall),
+            new CPair(ObjectType.Player, ObjectType.Wall),
+            new CPair(ObjectType.Player, ObjectType.Projectile),
+            new CPair(ObjectType.Projectile, ObjectType.Player),
+            new CPair(ObjectType.Projectile, ObjectType.Projectile),
+            new CPair(ObjectType.Player, ObjectType.Box),
+            new CPair(ObjectType.Box, ObjectType.Player),
+            new CPair(ObjectType.Projectile, ObjectType.Box),
+            new CPair(ObjectType.Box, ObjectType.Projectile),
+            new CPair(ObjectType.Box, ObjectType.Wall),
+            new CPair(ObjectType.Wall, ObjectType.Box),
+            new CPair(ObjectType.Box, ObjectType.Character),
+            new CPair(ObjectType.Character, ObjectType.Box),
+            new CPair(ObjectType.Box, ObjectType.Fence),
+            new CPair(ObjectType.Fence, ObjectType.Box),
+            new CPair(ObjectType.Box, ObjectType.Box),
         };
         
         // Who can hit whom?
@@ -37,6 +53,8 @@ namespace Gameplay
             new CPair(ObjectType.Player, ObjectType.Player),
             new CPair(ObjectType.Projectile, ObjectType.Character),
             new CPair(ObjectType.Projectile, ObjectType.Player),
+            new CPair(ObjectType.Projectile, ObjectType.Wall),
+            new CPair(ObjectType.Projectile, ObjectType.Box),
         };
         
         // Who can push whom?
@@ -46,6 +64,9 @@ namespace Gameplay
             new CPair(ObjectType.Character, ObjectType.Player),
             new CPair(ObjectType.Player, ObjectType.Character),
             new CPair(ObjectType.Player, ObjectType.Player),
+            new CPair(ObjectType.Player, ObjectType.Projectile),
+            new CPair(ObjectType.Player, ObjectType.Box),
+            new CPair(ObjectType.Character, ObjectType.Box),            
         };
         
         public static bool ObjectsCollide(ObjectType a, ObjectType b)
@@ -69,7 +90,7 @@ namespace Gameplay
         /// <returns></returns>
         public static bool CanPush(ObjectType pusher, ObjectType pushee)
         {
-            return PushMap.Contains(new CPair(pushee, pushee));
+            return PushMap.Contains(new CPair(pusher, pushee));
         }
     }
 
