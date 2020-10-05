@@ -23,7 +23,7 @@ namespace Gameplay
         public static readonly HashSet<CPair> CollideMap = new HashSet<CPair>
         {
             new CPair(ObjectType.Character, ObjectType.Character),
-           // new CPair(ObjectType.Character, ObjectType.Wall),
+            new CPair(ObjectType.Character, ObjectType.Wall),
             new CPair(ObjectType.Character, ObjectType.Player),
             new CPair(ObjectType.Player, ObjectType.Character),
             new CPair(ObjectType.Player, ObjectType.Player),

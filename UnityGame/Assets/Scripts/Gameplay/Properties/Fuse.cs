@@ -39,6 +39,9 @@ namespace Gameplay.Properties
                 {
                     level.DispatchEarly(new DetonateCommand(_entity.Id));
                     Sparks?.Stop();
+                    
+                    if (_uiTimerManager != null)
+                        _uiTimerManager.DeleteTimer(gameObject);
                 }
                 else if(remaining > 0)
                 {
@@ -63,6 +66,9 @@ namespace Gameplay.Properties
         {
             if (change is FuseIgnited)
             {
+                if (_uiTimerManager != null)
+                    _uiTimerManager.DeleteTimer(gameObject);
+                
                 Ignited = false;
                 Sparks?.Stop();
             }
