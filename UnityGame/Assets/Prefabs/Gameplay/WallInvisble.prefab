@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5399557308324429158}
   - component: {fileID: 5399557308324429153}
   - component: {fileID: 5283015955080248510}
-  - component: {fileID: 5605827822315057122}
   m_Layer: 0
   m_Name: WallInvisble
   m_TagString: Untagged
@@ -49,10 +48,6 @@ MonoBehaviour:
   ObjectType: 3
   Offset: {x: 0, y: 0.5, z: 0}
   AlignOnStart: 1
-  Animator: {fileID: 0}
-  AnimMoveTrigger: 
-  AnimDeathBool: 
-  DisableRenderersWhenInactive: 1
 --- !u!114 &5399557308324429153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,18 +72,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokeParticlesPrefab: {fileID: 0}
-  PushedParticlesPrefab: {fileID: 0}
---- !u!114 &5605827822315057122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5399557308324429154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DestroyedFx: {fileID: 0}
+  PushedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  MoveFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimMoveTrigger: 
+  AnimPushedTrigger: 
