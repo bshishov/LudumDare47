@@ -16,6 +16,8 @@ public class UITimerManager : MonoBehaviour
 
     public void SetTimer(GameObject parent, int timer)
     {
+        if (_objectToCanvas.ContainsKey(parent.GetInstanceID()))
+            GameObject.Destroy(_objectToCanvas[parent.GetInstanceID()]);
         var panel = (GameObject)Instantiate(WorldCanvas);
         panel.transform.SetParent(parent.transform, false);
         panel.GetComponentInChildren<Text>().text = timer.ToString();
