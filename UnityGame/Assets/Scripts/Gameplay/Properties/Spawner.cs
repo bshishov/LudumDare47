@@ -12,31 +12,14 @@ namespace Gameplay.Properties
         [Header("Visuals")]
         public Animator Animator;
         public string AnimOnSpawnTrigger;
-        public ParticleSystem ShootParticles;
-        public GameObject ShootFx;
-        
+        public FxObject ShootFx;
+
         private Entity _entity;
-        private ObjectType _prefabObjectType = ObjectType.Default;
-        private ParticleSystem _shootParticles;
         private int? _createdTurn;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
-            if (ShootParticles != null)
-            {
-                _shootParticles = Instantiate(ShootParticles, transform);
-                _shootParticles.Stop();
-            }
-
-            if (Prefab != null)
-            {
-                var entity = Prefab.GetComponent<Entity>();
-                if (entity != null)
-                {
-                    _prefabObjectType = entity.ObjectType;
-                }
-            }
         }
         
         public void OnTurnStarted(Level level)
@@ -59,15 +42,11 @@ namespace Gameplay.Properties
 
                 if (entity != null)
                 {
-                    if(_shootParticles != null)
-                        _shootParticles.Emit(1);
-                    
                     if (Animator != null)
                         Animator.SetTrigger(AnimOnSpawnTrigger);
-
-                    if (ShootFx != null)
-                        Instantiate(ShootFx, transform);
                     
+                    ShootFx?.Trigger(transform);
+
                     yield return new SpawnChange(_entity.Id, entity.Id);
                 }
             }

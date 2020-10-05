@@ -4,9 +4,12 @@ namespace Gameplay
 {
     public class MovementAnimator : MonoBehaviour
     {
-        [Header("FX")] 
-        public ParticleSystem SmokeParticlesPrefab;
-        public ParticleSystem PushedParticlesPrefab;
+        [Header("Visuals")]
+        public FxObject PushedFx;
+        public FxObject MoveFx;
+        public Animator Animator;
+        public string AnimMoveTrigger;
+        public string AnimPushedTrigger;
 
         // GLOBAL MOVEMENT ANIMATION
         static readonly float _moveTime = 0.2f;
@@ -22,24 +25,6 @@ namespace Gameplay
         private float _tRot;
         private float _speed = 1f;
 
-        private ParticleSystem _smokeParticles;
-        private ParticleSystem _pushedParticles;
-
-        private void Start()
-        {
-            if (SmokeParticlesPrefab != null)
-            {
-                _smokeParticles = Instantiate(SmokeParticlesPrefab, transform);
-                _smokeParticles.Stop();
-            }
-
-            if (PushedParticlesPrefab != null)
-            {
-                _pushedParticles = Instantiate(PushedParticlesPrefab, transform);
-                _pushedParticles.Stop();
-            }
-        }
-
         private void Update()
         {
             if (_isMoving)
@@ -49,8 +34,8 @@ namespace Gameplay
                 {
                     _tPos = 1f;
                     _isMoving = false;
-                    if(_pushedParticles != null)
-                        _pushedParticles.Stop();
+                    PushedFx?.Stop();
+                    MoveFx?.Stop();
                 }
                 
                 transform.position = Vector3.Lerp(_srcPosition, _tgtPosition, _tPos);
@@ -89,12 +74,20 @@ namespace Gameplay
             _tgtRotation = endRot;
 
             _speed = animationSpeed;
-            
-            if (movementType == MovementType.Default && _smokeParticles != null)
-                _smokeParticles.Emit(1);
-            
-            if(movementType == MovementType.Pushed && _pushedParticles != null)
-                _pushedParticles.Play();
+
+            if (movementType == MovementType.Default)
+            {
+                if(Animator != null)
+                    Animator.SetTrigger(AnimMoveTrigger);
+                MoveFx?.Trigger(transform);
+            }
+
+            if (movementType == MovementType.Pushed)
+            {
+                if(Animator != null)
+                    Animator.SetTrigger(AnimPushedTrigger);
+                PushedFx?.Trigger(transform);
+            }
         }
     }
 }

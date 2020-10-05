@@ -70,10 +70,6 @@ MonoBehaviour:
   ObjectType: 2
   Offset: {x: 0, y: 0, z: 0}
   AlignOnStart: 1
-  Animator: {fileID: 1981615362851662262}
-  AnimMoveTrigger: Dash
-  AnimDeathBool: Death
-  DisableRenderersWhenInactive: 0
 --- !u!114 &6686721562521046073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +82,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 1981615362851662262}
+  AnimDiedBool: Death
+  DisableRenderersWhenInactive: 0
 --- !u!114 &6686721562521046074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,10 +119,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokeParticlesPrefab: {fileID: 3346227575600646357, guid: befdb4e9f31f76b4698e066d39ca1bb9,
-    type: 3}
-  PushedParticlesPrefab: {fileID: 8201902784455637194, guid: b5a89366049a12c469d67da070618e5d,
-    type: 3}
+  PushedFx:
+    FX: {fileID: 3346227575600646359, guid: befdb4e9f31f76b4698e066d39ca1bb9, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 1
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  MoveFx:
+    FX: {fileID: 3346227575600646359, guid: befdb4e9f31f76b4698e066d39ca1bb9, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 1
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 1981615362851662262}
+  AnimMoveTrigger: Dash
+  AnimPushedTrigger: Dash
 --- !u!114 &6686721562521046076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,8 +158,16 @@ MonoBehaviour:
   Delay: 0
   Animator: {fileID: 1981615362851662262}
   AnimOnSpawnTrigger: Shoot
-  ShootParticles: {fileID: 0}
-  ShootFx: {fileID: 9134080029821884795, guid: 430db8c5967fde24281a59240659fbd6, type: 3}
+  ShootFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
 --- !u!1001 &6540966562669618075
 PrefabInstance:
   m_ObjectHideFlags: 0
