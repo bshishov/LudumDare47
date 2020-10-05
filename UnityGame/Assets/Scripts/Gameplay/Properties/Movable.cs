@@ -112,14 +112,15 @@ namespace Gameplay.Properties
 
                     if (canMove && CollisionConfig.ObjectsHit(_entity.ObjectType, entityInTargetPos.ObjectType))
                     {
+                        Debug.Log($"{entityInTargetPos} got hit by {_entity} from {moveDirection}");
                         level.DispatchEarly(new HitCommand(
                             target: entityInTargetPos.Id, 
                             sourceId: _entity.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(moveDirection, entityInTargetPos.Orientation)));
+                            direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(moveDirection), entityInTargetPos.Orientation)));
                         level.DispatchEarly(new HitCommand(
                             target:_entity.Id, 
                             sourceId: entityInTargetPos.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(moveDirection), _entity.Orientation)));
+                            direction: Utils.AbsoluteDirectionToRelative(moveDirection, _entity.Orientation)));
                     }
                 }
             }

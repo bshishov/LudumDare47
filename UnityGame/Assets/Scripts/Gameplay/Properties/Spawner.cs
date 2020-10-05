@@ -16,10 +16,13 @@ namespace Gameplay.Properties
 
         private Entity _entity;
         private int? _createdTurn;
+        private UITimerManager _uiTimerManager;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
+            _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
+            
         }
         
         public void OnTurnStarted(Level level)
@@ -27,8 +30,19 @@ namespace Gameplay.Properties
             if (!_createdTurn.HasValue)
                 _createdTurn = level.CurrentTurnNumber;
 
-            if (level.CurrentTurnNumber - _createdTurn == Delay)
+            var remaining = level.CurrentTurnNumber - _createdTurn.Value - Delay;
+
+            if (remaining > 0)
+            {
+                if (_uiTimerManager != null)
+                    _uiTimerManager.SetTimer(gameObject, remaining);
+            }
+            else if(remaining == 0)
+            {
+                if (_uiTimerManager != null && Delay > 0)
+                    _uiTimerManager.DeleteTimer(gameObject);
                 level.Dispatch(new SpawnCommand(_entity.Id));
+            }
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
