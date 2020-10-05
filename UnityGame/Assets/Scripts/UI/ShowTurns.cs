@@ -28,7 +28,7 @@ public class ShowTurns : MonoBehaviour
 
     public void SetTurnsNumber(int numberOfTurns)
     {
-        _numberOfTurns = numberOfTurns;
+        _numberOfTurns = numberOfTurns + 1;
         float width = ParentalPanel.GetComponent<RectTransform>().rect.width;
         float height = ParentalPanel.GetComponent<RectTransform>().rect.height;
         _turnPanels = new GameObject[_numberOfTurns];
@@ -47,22 +47,31 @@ public class ShowTurns : MonoBehaviour
     }
     public void NextTurn()
     {
-        _currentTurn++;
-        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
-        _turnPanels[_currentTurn-1].GetComponent<Image>().color = Color.red;
+        if (_currentTurn < _numberOfTurns - 1)
+        {
+            _currentTurn++;
+            _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
+            _turnPanels[_currentTurn - 1].GetComponent<Image>().color = Color.red;
+        }
     }
 
     public void BackTurn()
     {
-        _currentTurn--;
-        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
-        _turnPanels[_currentTurn + 1].GetComponent<Image>().color = Color.red;
+        if (_currentTurn > 0)
+        {
+            _currentTurn--;
+            _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
+            _turnPanels[_currentTurn + 1].GetComponent<Image>().color = Color.red;
+        }
     }
     public void SetTurn(int turn)
     {
-        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.red;
-        _currentTurn = turn;
-        _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
+        if ((turn >= 0) && (turn < _numberOfTurns))
+        {
+            _turnPanels[_currentTurn].GetComponent<Image>().color = Color.red;
+            _currentTurn = turn;
+            _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
+        }
     }
 
 }
