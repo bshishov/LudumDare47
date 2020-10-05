@@ -201,6 +201,29 @@ namespace Gameplay
 
         public Entity Spawn(GameObject prefab, Vector2Int entityPosition, Direction entityOrientation)
         {
+            if (prefab == null)
+            {
+                Debug.LogWarning($"Trying to spawn null prefab at {entityPosition}");
+                return null;
+            }
+
+            var prefabEntity = prefab.GetComponent<Entity>();
+            if (prefabEntity == null)
+            {
+                Debug.LogWarning($"Prefab {prefab} missing Entity Component");
+                return null;
+            }
+
+            var objectType = prefabEntity.ObjectType;
+            foreach (var obstacle in GetActiveEntitiesAt(entityPosition))
+            {
+                if (CollisionConfig.ObjectsCollide(objectType, obstacle.ObjectType))
+                {
+                    Debug.Log($"Trying to spawn object {prefab} that collides with {obstacle}");
+                    return null;
+                }
+            }
+            
             var spawnedObject = Instantiate(prefab, 
                 Utils.LevelToWorld(entityPosition), 
                 Utils.DirectionToRotation(entityOrientation));
@@ -212,7 +235,8 @@ namespace Gameplay
                 _entities.Add(newEntityId, entity);
                 return entity;
             }
-
+            
+            Debug.LogWarning($"Failed to spawn prefab {prefab}");
             return null;
         }
 

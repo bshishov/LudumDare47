@@ -16,7 +16,9 @@ namespace Gameplay.Properties
         public GameObject ShootFx;
         
         private Entity _entity;
+        private ObjectType _prefabObjectType = ObjectType.Default;
         private ParticleSystem _shootParticles;
+        private int? _createdTurn;
 
         private void Start()
         {
@@ -26,15 +28,24 @@ namespace Gameplay.Properties
                 _shootParticles = Instantiate(ShootParticles, transform);
                 _shootParticles.Stop();
             }
+
+            if (Prefab != null)
+            {
+                var entity = Prefab.GetComponent<Entity>();
+                if (entity != null)
+                {
+                    _prefabObjectType = entity.ObjectType;
+                }
+            }
         }
         
         public void OnTurnStarted(Level level)
         {
-            var currentTurn = level.GetCurrentTurn();
-            if (currentTurn.Number == Delay)
-            {
+            if (!_createdTurn.HasValue)
+                _createdTurn = level.CurrentTurn;
+
+            if (level.CurrentTurn - _createdTurn == Delay)
                 level.Dispatch(new SpawnCommand(_entity.Id));
-            }
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
@@ -46,17 +57,19 @@ namespace Gameplay.Properties
                     _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
 
-                if (Animator != null)
-                    Animator.SetTrigger(AnimOnSpawnTrigger);
-                
-                if(_shootParticles != null)
-                    _shootParticles.Emit(1);
-
-                if (ShootFx != null)
-                    Instantiate(ShootFx, transform);
-
                 if (entity != null)
+                {
+                    if(_shootParticles != null)
+                        _shootParticles.Emit(1);
+                    
+                    if (Animator != null)
+                        Animator.SetTrigger(AnimOnSpawnTrigger);
+
+                    if (ShootFx != null)
+                        Instantiate(ShootFx, transform);
+                    
                     yield return new SpawnChange(_entity.Id, entity.Id);
+                }
             }
         }
 
