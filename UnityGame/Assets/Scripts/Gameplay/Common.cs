@@ -48,6 +48,8 @@ namespace Gameplay
             new CPair(ObjectType.Fence, ObjectType.Character),
             new CPair(ObjectType.Character, ObjectType.Wall),
             new CPair(ObjectType.Wall, ObjectType.Wall),
+            new CPair(ObjectType.Projectile, ObjectType.Character),
+
         };
         
         // Who can hit whom?
@@ -64,6 +66,7 @@ namespace Gameplay
             new CPair(ObjectType.Wall, ObjectType.Character),
             new CPair(ObjectType.Wall, ObjectType.Player),
             new CPair(ObjectType.Box, ObjectType.Projectile),
+            new CPair(ObjectType.Character, ObjectType.Wall),
 
         };
         
