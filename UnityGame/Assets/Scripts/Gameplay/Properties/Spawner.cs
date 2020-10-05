@@ -25,21 +25,21 @@ namespace Gameplay.Properties
         public void OnTurnStarted(Level level)
         {
             if (!_createdTurn.HasValue)
-                _createdTurn = level.CurrentTurn;
+                _createdTurn = level.CurrentTurnNumber;
 
-            if (level.CurrentTurn - _createdTurn == Delay)
+            if (level.CurrentTurnNumber - _createdTurn == Delay)
                 level.Dispatch(new SpawnCommand(_entity.Id));
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-            if (command is SpawnCommand spawnCommand)
+            if (command is SpawnCommand)
             {
                 var entity = level.Spawn(
                     Prefab, 
                     _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
-
+                Debug.Log($"Spawned {entity.Id}");
                 if (entity != null)
                 {
                     if (Animator != null)
@@ -56,7 +56,9 @@ namespace Gameplay.Properties
         {
             if (change is SpawnChange spawnChange)
             {
-                level.DestroyEntity(spawnChange.SpawnedObjectId);
+                Debug.Log($"Despawning {spawnChange.SpawnedObjectId}");
+                level.Despawn(spawnChange.SpawnedObjectId);
+                _createdTurn = null;
             }
         }
     }

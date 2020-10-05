@@ -18,9 +18,9 @@ namespace Gameplay.Properties
         public void OnTurnStarted(Level level)
         {
             if (!_createdTurn.HasValue)
-                _createdTurn = level.CurrentTurn;
+                _createdTurn = level.CurrentTurnNumber;
 
-            if (level.CurrentTurn - _createdTurn >= Delay)
+            if (level.CurrentTurnNumber - _createdTurn >= Delay)
                 level.Dispatch(new DetonateCommand(_entity.Id));
         }
 

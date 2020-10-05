@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Utils;
 
@@ -10,19 +8,38 @@ namespace Gameplay
 {
     public class Level : Singleton<Level>
     {
-        public int MaxTurns = 10;
+        enum GameState
+        {
+            WaitingForPlayerCommand,
+            ExecutingTurnCommands,
+            CatGirlDied,
+            PlayerDied
+        }
 
-        public int CurrentTurn => GetCurrentTurn().Number;
+        public int MaxTurns = 10;
+        public string NextLevel;
+        public Entity CatGirl;
+
+        public int CurrentTurnNumber => GetCurrentTurn()?.Number ?? -1;
         public bool IsPaused => Time.timeScale < 0.5f;
 
+        private bool CanRollbackFromCurrentState => 
+            _state == GameState.WaitingForPlayerCommand || 
+            _state == GameState.PlayerDied ||
+            _state == GameState.CatGirlDied;
+
+        private GameState _state = GameState.WaitingForPlayerCommand;
         private readonly Dictionary<int, Entity> _entities = new Dictionary<int, Entity>();
         private Entity _playerEntity;
-        private readonly LinkedList<ICommand> _turnQueue = new LinkedList<ICommand>();
         private readonly Stack<Turn> _history = new Stack<Turn>();
-        private float _currentRollbackCd;
+        private float _timeSinceRollbackPressed;
         private const float RollbackCd = 0.08f;
         private int _lastEntityId;
-        private ShowTurns _turnsUi;
+
+        // UI
+        private ShowTurns _uiTurns;
+        private UIWinLose _uiWinLose;
+        private UILoad _uiLoad;
 
         private void Awake()
         {
@@ -31,49 +48,68 @@ namespace Gameplay
 
         void Start()
         {
-            Initialize();
-        }
-
-        void Initialize()
-        {
             var foundEntities = GameObject.FindObjectsOfType<Entity>();
             _playerEntity = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
             foreach (var entity in foundEntities)
             {
-                var newId = GetEntityId();
+                var newId = GetNewEntityId();
                 entity.Initialize(newId);
                 _entities.Add(newId, entity);
                 
             }
-            _turnQueue.Clear();
             _history.Clear();
             
-            _turnsUi = GameObject.FindObjectOfType<ShowTurns>(true);
-            if (_turnsUi != null)
-                _turnsUi.Initialize(MaxTurns);
+            _uiTurns = GameObject.FindObjectOfType<ShowTurns>(true);
+            if (_uiTurns != null)
+                _uiTurns.Initialize(MaxTurns);
+            
+            _uiWinLose = GameObject.FindObjectOfType<UIWinLose>(true);
+            _uiLoad = GameObject.FindObjectOfType<UILoad>(true);
+            if (_uiLoad != null && string.IsNullOrEmpty(NextLevel))
+                _uiLoad.SetNextLevel(NextLevel);
+
+            _state = GameState.WaitingForPlayerCommand;
         }
 
-        int GetEntityId()
+        int GetNewEntityId()
         {
-            return _lastEntityId++;
+            _lastEntityId++;
+            return _lastEntityId;
         }
 
         void Update()
         {
-            // If paused - do nothing
             if(IsPaused)
                 return;
-            
-            if (_turnQueue.Count > 0)
+
+            if (_state == GameState.ExecutingTurnCommands)
             {
-                var first = _turnQueue.First.Value;
-                _turnQueue.RemoveFirst();
-                Exec(first);
+                var command = GetCurrentTurn().PopCommand();
+                if (command != null)
+                {
+                    Exec(command);
+                }
+                else
+                {
+                    HandleTurnEnd();
+                }
             }
-            else
-            {
+            else if (_state == GameState.WaitingForPlayerCommand)
                 HandleInput();
+            
+            if (CanRollbackFromCurrentState && _history.Count > 0)
+            {
+                if (_timeSinceRollbackPressed >= RollbackCd && Input.GetKey(KeyCode.R))
+                {
+                    if (_uiWinLose != null)
+                        _uiWinLose.HideLoseWindow();
+
+                    RollbackTurn();
+                    _timeSinceRollbackPressed = 0.0f;
+                }
             }
+
+            _timeSinceRollbackPressed += Time.deltaTime;
         }
 
         public Turn GetCurrentTurn()
@@ -86,45 +122,24 @@ namespace Gameplay
         private void HandleInput()
         {
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            {
                 NewTurn(Direction.Right);
-            }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-            {
                 NewTurn(Direction.Left);
-            }
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-            {
                 NewTurn(Direction.Front);
-            }
 
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-            {
                 NewTurn(Direction.Back);
-            }
-
-            if (_currentRollbackCd >= RollbackCd && Input.GetKey(KeyCode.R))
-            {
-                RollbackTurn();
-                _currentRollbackCd = 0.0f;
-            }
-
-            _currentRollbackCd += Time.deltaTime;
         }
 
         private void NewTurn(Direction dir)
         {
             var currentTurn = GetCurrentTurn();
-            var currentTurnNumber = -1;
-            if (currentTurn != null)
-                currentTurnNumber = currentTurn.Number;
-            _history.Push(new Turn(currentTurnNumber + 1));
-            
-            if(_turnsUi != null)
-                _turnsUi.NextTurn();
-            
+            var turn = new Turn(currentTurn?.Number + 1 ?? 0);
+            _history.Push(turn);
+
             // Player moves first
             var playerId = _playerEntity.Id;
             Dispatch(new MoveCommand(playerId, dir, true));
@@ -135,58 +150,93 @@ namespace Gameplay
                 if(entity.IsActive)
                     entity.OnTurnStarted(this);
             }
+            
+            // Proceed to executing turns
+            SwitchState(GameState.ExecutingTurnCommands);
         }
 
-        private void RollbackTurn()
+        private void HandleTurnEnd()
         {
-            if (_history.Count > 0)
+            var turn = GetCurrentTurn();
+            turn.Complete();
+            if(_uiTurns != null)
+              _uiTurns.NextTurn();
+            Debug.Log($"Turn {turn.Number} completed");
+
+            if (!_playerEntity.IsActive)
             {
-                if(_turnsUi != null)
-                    _turnsUi.BackTurn();
+                SwitchState(GameState.PlayerDied);
+                if(_uiWinLose != null)
+                    _uiWinLose.ShowLoseWindow(FailReason.PlayerDied);
                 
-                var turn = _history.Pop();
-                foreach (var change in turn.IterateChangesFromNewestToOldest())
+            }
+            else if (CatGirl != null && !CatGirl.IsActive)
+            {
+                SwitchState(GameState.CatGirlDied);
+                if (_uiWinLose != null)
                 {
-                    Revert(change);
+                    Debug.Log("Showing CAT DIED");
+                    _uiWinLose.ShowLoseWindow(FailReason.CatDied);
                 }
             }
+            else
+            {
+                if(turn.Number >= MaxTurns && _uiWinLose != null)
+                    _uiWinLose.ShowWinWindow();
+                SwitchState(GameState.WaitingForPlayerCommand);
+            }
+        }
+        
+        private void RollbackTurn()
+        {
+            if (_history.Count == 0)
+            {
+                Debug.LogWarning("Trying to rollback an empty history");
+                return;
+            }
+
+            var rollbackTurn = _history.Pop();
+            
+            foreach (var change in rollbackTurn.IterateChangesFromNewestToOldest())
+                Revert(change);
+
+            if(_uiTurns != null)
+                _uiTurns.BackTurn();
+
+            _state = GameState.WaitingForPlayerCommand;
         }
 
         private void Revert(IChange change)
         {
-            if (change.TargetId >= 0)
-            {
-                var target = _entities[change.TargetId];
+            if (_entities.TryGetValue(change.TargetId, out var target))
                 target.Revert(this, change);
-            }
+            else
+                Debug.LogWarning($"Trying to revert change {change} but entityId is missing: {change.TargetId}");
         }
         
         private void Exec(ICommand command)
         {
-            Debug.Log($"Executing command {command} for {command.TargetId}");
-
-            if (command.TargetId >= 0)
-            {
-                var target = _entities[command.TargetId];
-                var currentTurn = GetCurrentTurn();
+            if (_entities.TryGetValue(command.TargetId, out var target))
                 foreach (var change in target.Execute(this, command))
-                {
-                    Debug.Log($"Change: {change.TargetId}: {change}");
-                    currentTurn.Changelog.Push(change);        
-                }
-            }
+                    GetCurrentTurn().LogChange(change);
+            else
+                Debug.LogWarning($"Trying to execute command {command} but entityId is invalid: {command.TargetId}");
+        }
+
+        private void SwitchState(GameState state)
+        {
+            Debug.Log($"Level: {state}");
+            _state = state;
         }
 
         public void Dispatch(ICommand command)
         {
-            Debug.Log($"Queued command {command} for {command.TargetId}");
-            _turnQueue.AddLast(command);   
+            GetCurrentTurn().PushCommand(command);   
         }
 
         public void DispatchEarly(ICommand command)
         {
-            Debug.Log($"Queued command {command} for {command.TargetId}");
-            _turnQueue.AddFirst(command);
+            GetCurrentTurn().PushCommandEarly(command);
         }
 
         public Entity GetActiveEntityAt(Vector2Int position)
@@ -230,7 +280,7 @@ namespace Gameplay
             var entity = spawnedObject.GetComponent<Entity>();
             if (entity != null)
             {
-                var newEntityId = GetEntityId();
+                var newEntityId = GetNewEntityId();
                 entity.Initialize(newEntityId);
                 _entities.Add(newEntityId, entity);
                 return entity;
@@ -245,14 +295,11 @@ namespace Gameplay
             return _entities.ContainsKey(entityId) ? _entities[entityId] : null;
         }
 
-        public void DestroyEntity(int entityId)
+        public void Despawn(int entityId)
         {
-            var entity = GetEntityById(entityId);
-            if (entity != null)
-            {
-                Destroy(entity.gameObject);
-                _entities.Remove(entityId);
-            }
+            var entity = _entities[entityId];
+            Destroy(entity.gameObject);
+            _entities.Remove(entityId);
         }
 
         public IEnumerable<Entity> GetActiveEntitiesInRadius(Vector2Int position, int radius)

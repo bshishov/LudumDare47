@@ -31,7 +31,7 @@ namespace Gameplay.Properties
             }
             else
             {
-                if (level.CurrentTurn - _igniteTurn >= Delay)
+                if (level.CurrentTurnNumber - _igniteTurn >= Delay)
                 {
                     level.DispatchEarly(new DetonateCommand(_entity.Id));
                     Sparks?.Stop();
@@ -44,7 +44,7 @@ namespace Gameplay.Properties
             if (command is IgniteCommand && !Ignited)
             {
                 Ignited = true;
-                _igniteTurn = level.CurrentTurn;
+                _igniteTurn = level.CurrentTurnNumber;
                 Sparks?.Trigger(transform);
                 yield return new FuseIgnited(_entity.Id, Delay);
             }
