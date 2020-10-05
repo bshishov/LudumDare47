@@ -16,16 +16,17 @@ public class LookAtCamera : MonoBehaviour
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera");
         _dif = transform.parent.position - transform.position;
+        transform.Rotate(0, -transform.parent.eulerAngles.y, 0);
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         transform.position = transform.parent.position - _dif;
-        Vector3 v = transform.position - _camera.transform.position;
-        v.x = 0;
-        v.z = 0;
-        transform.rotation = Quaternion.LookRotation(v - _camera.transform.position);       
+
+        transform.LookAt(transform.position + _camera.transform.rotation * Vector3.forward, _camera.transform.rotation * Vector3.up);
+
+
     }
 
 }
