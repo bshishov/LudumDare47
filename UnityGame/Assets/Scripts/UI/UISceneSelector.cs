@@ -9,7 +9,7 @@ public class UISceneSelector : MonoBehaviour
     public GameObject ParentObject;
     public GameObject LevelPrefab;
     public GameObject Fader;
-    public Object[] scenes;
+    public string[] scenes;
     
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class UISceneSelector : MonoBehaviour
         {
             var panel = Instantiate(LevelPrefab);
             panel.transform.SetParent(ParentObject.transform, false);
-            panel.GetComponent<UIChooseLevel>().SetSceneSettings(i+1, scenes[i].name, Fader);
+            panel.GetComponent<UIChooseLevel>().SetSceneSettings(i+1, scenes[i], Fader);
         }
     }
 
