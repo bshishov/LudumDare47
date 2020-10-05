@@ -981,6 +981,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6989532326780574868}
+  - component: {fileID: 3277612265163878168}
+  - component: {fileID: 6864959932438085688}
+  - component: {fileID: 8466693474707481025}
+  - component: {fileID: 4580575395028688307}
+  - component: {fileID: 6686778508770741375}
+  - component: {fileID: 4834512056947422696}
   m_Layer: 0
   m_Name: Train
   m_TagString: Untagged
@@ -1018,6 +1024,125 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3277612265163878168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760861261745473070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectType: 3
+  Offset: {x: 0, y: 0, z: 0}
+  AlignOnStart: 1
+--- !u!114 &6864959932438085688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760861261745473070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8466693474707481025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760861261745473070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb1f3762e8d4873904e300ee89e6b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PathName: Rails
+--- !u!114 &4580575395028688307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760861261745473070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a1dccc92554dff8328dc6e419a928f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KillsOnCollide: 0
+  SelfDestroyOnHit: 0
+  SelfDestroyOnCollide: 0
+  Front: 1
+  Back: 0
+  Left: 0
+  Right: 0
+--- !u!114 &6686778508770741375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760861261745473070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushedFx:
+    FX: {fileID: 8201902784455637192, guid: b5a89366049a12c469d67da070618e5d, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 1
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  MoveFx:
+    FX: {fileID: 8201902784455637192, guid: b5a89366049a12c469d67da070618e5d, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 1
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimMoveTrigger: 
+  AnimPushedTrigger: 
+--- !u!114 &4834512056947422696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760861261745473070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyedFx:
+    FX: {fileID: 7530732646851939585, guid: ad6f62f0f7259074fa4840afa31ebe82, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimDiedBool: 
+  DisableRenderersWhenInactive: 0
 --- !u!1 &7816524370815411289
 GameObject:
   m_ObjectHideFlags: 0
