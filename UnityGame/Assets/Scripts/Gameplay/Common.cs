@@ -46,7 +46,7 @@ namespace Gameplay
             new CPair(ObjectType.Fence, ObjectType.Wall),
             new CPair(ObjectType.Fence, ObjectType.Player),
             new CPair(ObjectType.Fence, ObjectType.Character),
-            new CPair(ObjectType.Character, ObjectType.Wall),
+            new CPair(ObjectType.Character, ObjectType.Wall),           
         };
         
         // Who can hit whom?
@@ -62,6 +62,7 @@ namespace Gameplay
             new CPair(ObjectType.Projectile, ObjectType.Box),
             new CPair(ObjectType.Wall, ObjectType.Character),
             new CPair(ObjectType.Wall, ObjectType.Player),
+            new CPair(ObjectType.Box, ObjectType.Projectile),
 
         };
         
@@ -72,7 +73,8 @@ namespace Gameplay
             new CPair(ObjectType.Player, ObjectType.Character),
             new CPair(ObjectType.Player, ObjectType.Player),
             new CPair(ObjectType.Player, ObjectType.Projectile),
-            new CPair(ObjectType.Player, ObjectType.Box),                     
+            new CPair(ObjectType.Player, ObjectType.Box),
+            new CPair(ObjectType.Box, ObjectType.Projectile),
         };
         
         public static bool ObjectsCollide(ObjectType a, ObjectType b)
