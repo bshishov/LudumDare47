@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Gameplay
@@ -10,6 +13,7 @@ namespace Gameplay
         public int MaxTurns = 10;
 
         public int CurrentTurn => GetCurrentTurn().Number;
+        public bool IsPaused => Time.timeScale < 0.5f;
 
         private readonly Dictionary<int, Entity> _entities = new Dictionary<int, Entity>();
         private Entity _playerEntity;
@@ -17,7 +21,13 @@ namespace Gameplay
         private readonly Stack<Turn> _history = new Stack<Turn>();
         private float _currentRollbackCd;
         private const float RollbackCd = 0.08f;
-        private int _lastEntityId; 
+        private int _lastEntityId;
+        private ShowTurns _turnsUi;
+
+        private void Awake()
+        {
+            SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+        }
 
         void Start()
         {
@@ -37,6 +47,10 @@ namespace Gameplay
             }
             _turnQueue.Clear();
             _history.Clear();
+            
+            _turnsUi = GameObject.FindObjectOfType<ShowTurns>(true);
+            if (_turnsUi != null)
+                _turnsUi.Initialize(MaxTurns);
         }
 
         int GetEntityId()
@@ -46,6 +60,10 @@ namespace Gameplay
 
         void Update()
         {
+            // If paused - do nothing
+            if(IsPaused)
+                return;
+            
             if (_turnQueue.Count > 0)
             {
                 var first = _turnQueue.First.Value;
@@ -104,6 +122,9 @@ namespace Gameplay
                 currentTurnNumber = currentTurn.Number;
             _history.Push(new Turn(currentTurnNumber + 1));
             
+            if(_turnsUi != null)
+                _turnsUi.NextTurn();
+            
             // Player moves first
             var playerId = _playerEntity.Id;
             Dispatch(new MoveCommand(playerId, dir, true));
@@ -120,6 +141,9 @@ namespace Gameplay
         {
             if (_history.Count > 0)
             {
+                if(_turnsUi != null)
+                    _turnsUi.BackTurn();
+                
                 var turn = _history.Pop();
                 foreach (var change in turn.IterateChangesFromNewestToOldest())
                 {
