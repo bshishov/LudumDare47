@@ -31,16 +31,22 @@ namespace Gameplay.Properties
         {
             if (command is HitCommand hitCommand && IsDeadlySide(hitCommand.Direction))
             {
+                Debug.LogWarning($"{gameObject.name} received hit from {hitCommand.Direction}");
+                
                 level.DispatchEarly(new DestroyCommand(hitCommand.SourceId));
                 if (SelfDestroyOnHit)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
             }
-            else if(KillsOnCollide && command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
+            
+            if(KillsOnCollide && command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
             {
+                Debug.LogWarning($"{gameObject.name} received collision from {collisionEvent.Direction}");
+                
                 level.DispatchEarly(new DestroyCommand(collisionEvent.SourceId));
                 if (SelfDestroyOnCollide)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
             }
+            
             yield break;
         }
 
