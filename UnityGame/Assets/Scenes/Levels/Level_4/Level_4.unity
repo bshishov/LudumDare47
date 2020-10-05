@@ -800,32 +800,32 @@ PrefabInstance:
     - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -0.035107374
+      value: -0.024575144
       objectReference: {fileID: 0}
     - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
         type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: -0.3916307
+      value: -0.2741415
       objectReference: {fileID: 0}
     - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.0034137964
+      value: -0.0023896545
       objectReference: {fileID: 0}
     - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.41532695
+      value: 0.29072884
       objectReference: {fileID: 0}
     - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
         type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.5092101
+      value: 0.3564471
       objectReference: {fileID: 0}
     - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.32452068
+      value: 0.22716449
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47eaf54d943432a4f8b0dc894bfb4368, type: 3}
@@ -2094,6 +2094,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7918fd3f0396d85478d1c7a75da3135b, type: 3}
+--- !u!114 &1153602605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5085328881420716829, guid: 0a3131f61b4e95d489594abdd99e99e8,
+    type: 3}
+  m_PrefabInstance: {fileID: 406178837}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1295558189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3411,6 +3423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxTurns: 6
+  NextLevel: Level_5
+  CatGirl: {fileID: 1153602605}
 --- !u!4 &2057886198
 Transform:
   m_ObjectHideFlags: 0
