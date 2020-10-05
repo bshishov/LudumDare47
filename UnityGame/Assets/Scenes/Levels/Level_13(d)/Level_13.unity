@@ -1320,7 +1320,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b61377de1a4f754098f8cc56c82c97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTurns: 10
+  MaxTurns: 6
+  NextLevel: 
+  CatGirl: {fileID: 0}
 --- !u!4 &409608515
 Transform:
   m_ObjectHideFlags: 0
@@ -3200,6 +3202,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6686721562521046076, guid: 7918fd3f0396d85478d1c7a75da3135b,
+        type: 3}
+      propertyPath: Delay
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6686721562521046077, guid: 7918fd3f0396d85478d1c7a75da3135b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3512,6 +3519,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6686721562521046076, guid: 7918fd3f0396d85478d1c7a75da3135b,
+        type: 3}
+      propertyPath: Delay
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6686721562521046077, guid: 7918fd3f0396d85478d1c7a75da3135b,
         type: 3}
       propertyPath: m_LocalPosition.x
