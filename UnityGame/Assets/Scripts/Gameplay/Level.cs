@@ -102,7 +102,10 @@ namespace Gameplay
                 if (_timeSinceRollbackPressed >= RollbackCd && Input.GetKey(KeyCode.R))
                 {
                     if (_uiWinLose != null)
+                    {
                         _uiWinLose.HideLoseWindow();
+                        _uiWinLose.HideWinWindow();
+                    }
 
                     RollbackTurn();
                     _timeSinceRollbackPressed = 0.0f;

@@ -23,5 +23,9 @@ public class UIWinLose : MonoBehaviour
     {        
         LoseWindow.SetActive(false);
     }
-
+    
+    public void HideWinWindow()
+    {        
+        WinWindow.SetActive(false);
+    }
 }
