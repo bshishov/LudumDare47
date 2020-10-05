@@ -374,6 +374,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimDiedBool: 
+  DisableRenderersWhenInactive: 0
 --- !u!1 &93870598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1273,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimDiedBool: 
+  DisableRenderersWhenInactive: 0
 --- !u!1001 &417817093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1657,6 +1683,7 @@ Transform:
   - {fileID: 1789948323}
   - {fileID: 2034641870}
   - {fileID: 1736736862}
+  - {fileID: 1910631603}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4331,6 +4358,80 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620900740}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1662751892
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 610023028}
+    m_Modifications:
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.058573127
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.1463456
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.24391317
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514802852994847418, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 504569f852647d3418c0ee6a3252370c, type: 2}
+    - target: {fileID: 514802852994847421, guid: b115c5c0206098544a16599549c6c33e,
+        type: 3}
+      propertyPath: m_Name
+      value: Wall (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b115c5c0206098544a16599549c6c33e, type: 3}
 --- !u!1001 &1686776861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4993,6 +5094,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845829443}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1910631602 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 514802852994847421, guid: b115c5c0206098544a16599549c6c33e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1662751892}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1910631603 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 514802852994847412, guid: b115c5c0206098544a16599549c6c33e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1662751892}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1910631604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910631602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimDiedBool: 
+  DisableRenderersWhenInactive: 0
 --- !u!1001 &1917186932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5333,6 +5471,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimDiedBool: 
+  DisableRenderersWhenInactive: 0
 --- !u!1001 &2034641869
 PrefabInstance:
   m_ObjectHideFlags: 0
