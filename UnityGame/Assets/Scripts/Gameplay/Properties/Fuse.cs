@@ -8,6 +8,9 @@ namespace Gameplay.Properties
     {
         public int Delay = 3;
         public bool AutoIgnite = true;
+
+        [Header("Visuals")] 
+        public FxObject Sparks;
         
         public bool Ignited { get; private set; }
         
@@ -39,6 +42,7 @@ namespace Gameplay.Properties
             {
                 Ignited = true;
                 _igniteTurn = level.CurrentTurn;
+                Sparks?.Trigger(transform);
                 yield return new FuseIgnited(_entity.Id, Delay);
             }
         }
@@ -48,6 +52,7 @@ namespace Gameplay.Properties
             if (change is FuseIgnited)
             {
                 Ignited = false;
+                Sparks?.Stop();
             }
         }
     }

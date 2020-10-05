@@ -7,6 +7,7 @@ namespace Gameplay
         [Header("FX")] 
         public ParticleSystem SmokeParticlesPrefab;
         public ParticleSystem PushedParticlesPrefab;
+        public FxObject PushedFx;
 
         // GLOBAL MOVEMENT ANIMATION
         static readonly float _moveTime = 0.2f;
@@ -51,6 +52,7 @@ namespace Gameplay
                     _isMoving = false;
                     if(_pushedParticles != null)
                         _pushedParticles.Stop();
+                    PushedFx?.Stop();
                 }
                 
                 transform.position = Vector3.Lerp(_srcPosition, _tgtPosition, _tPos);
@@ -92,9 +94,12 @@ namespace Gameplay
             
             if (movementType == MovementType.Default && _smokeParticles != null)
                 _smokeParticles.Emit(1);
-            
-            if(movementType == MovementType.Pushed && _pushedParticles != null)
+
+            if (movementType == MovementType.Pushed && _pushedParticles != null)
+            {
                 _pushedParticles.Play();
+                PushedFx?.Trigger(transform);
+            }
         }
     }
 }

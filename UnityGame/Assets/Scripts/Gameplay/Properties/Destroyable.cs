@@ -7,7 +7,7 @@ namespace Gameplay.Properties
     public class Destroyable : MonoBehaviour, ICommandHandler
     {
         [Header("Visuals")] 
-        public GameObject DestroyedFx;
+        public FxObject DestroyedFx;
         
         private Entity _entity;
 
@@ -24,9 +24,7 @@ namespace Gameplay.Properties
         {
             if (command is DestroyCommand)
             {
-                if (DestroyedFx != null)
-                    Instantiate(DestroyedFx, transform.position, transform.rotation);
-                
+                DestroyedFx?.Trigger(transform);
                 _entity.Deactivate();
                 yield return new DestroyedChange(_entity.Id);
             }
@@ -36,6 +34,7 @@ namespace Gameplay.Properties
         {
             if (change is DestroyedChange)
             {
+                DestroyedFx?.Stop();
                 _entity.Activate();
             }
         }
