@@ -817,6 +817,7 @@ GameObject:
   - component: {fileID: 547307470}
   - component: {fileID: 547307471}
   - component: {fileID: 547307472}
+  - component: {fileID: 547307473}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -931,6 +932,20 @@ MonoBehaviour:
   WinWindow: {fileID: 312157555}
   LoseWindow: {fileID: 1022704355}
   LoseText: {fileID: 276012182}
+--- !u!114 &547307473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547307465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083d9405c707218439715560bfb41ffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WorldCanvas: {fileID: 5726107667257125252, guid: cf4e4ef245b9f80409391830a1e03b3f,
+    type: 3}
 --- !u!1 &619219103
 GameObject:
   m_ObjectHideFlags: 0
