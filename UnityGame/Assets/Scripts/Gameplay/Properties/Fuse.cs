@@ -16,10 +16,12 @@ namespace Gameplay.Properties
         
         private int _igniteTurn;
         private Entity _entity;
+        private UITimerManager _uiTimerManager;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
+            _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
         }
 
         public void OnTurnStarted(Level level)
@@ -31,10 +33,17 @@ namespace Gameplay.Properties
             }
             else
             {
-                if (level.CurrentTurnNumber - _igniteTurn >= Delay)
+                var remaining =  (_igniteTurn + Delay) - level.CurrentTurnNumber;
+                
+                if (remaining == 0)
                 {
                     level.DispatchEarly(new DetonateCommand(_entity.Id));
                     Sparks?.Stop();
+                }
+                else if(remaining > 0)
+                {
+                    if (_uiTimerManager != null)
+                        _uiTimerManager.SetTimer(gameObject, remaining);
                 }
             }
         }
