@@ -7,6 +7,8 @@ public class ShowTurns : MonoBehaviour
 {
     public GameObject ParentalPanel;
     public GameObject PanelPrefab;
+    public Sprite ActiveImage;
+    public Sprite PassiveImage;
 
     private int _numberOfTurns;
     private int _currentTurn;
@@ -43,15 +45,15 @@ public class ShowTurns : MonoBehaviour
             panel.transform.SetParent(ParentalPanel.transform, false);
             _turnPanels[i] = panel;
         }
-        _turnPanels[0].GetComponent<Image>().color = Color.green;
+        _turnPanels[0].GetComponent<Image>().sprite = ActiveImage;
     }
     public void NextTurn()
     {
         if (_currentTurn < _numberOfTurns - 1)
         {
             _currentTurn++;
-            _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
-            _turnPanels[_currentTurn - 1].GetComponent<Image>().color = Color.red;
+            _turnPanels[_currentTurn].GetComponent<Image>().sprite = ActiveImage;
+           // _turnPanels[_currentTurn - 1].GetComponent<Image>().color = Color.red;
         }
     }
 
@@ -60,17 +62,19 @@ public class ShowTurns : MonoBehaviour
         if (_currentTurn > 0)
         {
             _currentTurn--;
-            _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
-            _turnPanels[_currentTurn + 1].GetComponent<Image>().color = Color.red;
+            //_turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
+            _turnPanels[_currentTurn + 1].GetComponent<Image>().sprite = PassiveImage;
         }
     }
     public void SetTurn(int turn)
     {
         if ((turn >= 0) && (turn < _numberOfTurns))
         {
-            _turnPanels[_currentTurn].GetComponent<Image>().color = Color.red;
+            for (int i = 0; i <= turn; i++)
+                _turnPanels[i].GetComponent<Image>().GetComponent<Image>().sprite = ActiveImage;
+            for (int i = turn+1; i <= _currentTurn; i++)
+                _turnPanels[i].GetComponent<Image>().GetComponent<Image>().sprite = PassiveImage;
             _currentTurn = turn;
-            _turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
         }
     }
 
