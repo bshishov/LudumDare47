@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class LookAtCamera : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject Camera;
-    public Text InitiativeText;
+    //public GameObject Camera;   
     public Text TimerText;
 
+    private GameObject _camera;
     private Vector3 _dif;
 
     void Start()
     {
+        _camera = GameObject.FindGameObjectWithTag("MainCamera");
         _dif = transform.parent.position - transform.position;
     }
 
@@ -21,12 +22,10 @@ public class LookAtCamera : MonoBehaviour
     void Update()
     {
         transform.position = transform.parent.position - _dif;
-        Vector3 v = transform.position - Camera.transform.position;
+        Vector3 v = transform.position - _camera.transform.position;
         v.x = 0;
         v.z = 0;
-        transform.rotation = Quaternion.LookRotation(v - Camera.transform.position);
-        //InitiativeText.text = GetComponentInParent<Initiative>().initiative;
-        //TimerText.text = GetComponentInParent<Timer>().Timer;
+        transform.rotation = Quaternion.LookRotation(v - _camera.transform.position);       
     }
 
 }
