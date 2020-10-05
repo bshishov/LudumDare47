@@ -32,6 +32,8 @@ namespace Gameplay
             IsActive = true;
             if (AlignOnStart)
                 Align();
+            else
+                SetPositionAndOrientationFromTransform();
         }
 
         public IEnumerable<IChange> Execute(Level level, ICommand command)
