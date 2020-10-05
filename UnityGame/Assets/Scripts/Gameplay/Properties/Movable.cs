@@ -21,7 +21,11 @@ namespace Gameplay.Properties
         {
             if (command is MoveCommand moveCommand)
             {
-                foreach (var change in DoMove(level, moveCommand.Direction, moveCommand.UpdateOrientation))
+                foreach (var change in DoMove(
+                    level, 
+                    moveCommand.Direction, 
+                    moveCommand.UpdateOrientation, 
+                    moveCommand.MovementType))
                     yield return change;
             }
         }
@@ -29,7 +33,11 @@ namespace Gameplay.Properties
         public void Revert(Level level, IChange change)
         {
             if (change is MoveChange moveChange)
-                _entity.MoveTo(moveChange.OriginalPosition, moveChange.OriginalOrientation, 2f);
+                _entity.MoveTo(
+                    moveChange.OriginalPosition, 
+                    moveChange.OriginalOrientation, 
+                    moveChange.MovementType,
+                    2f);
         }
 
         public bool CanMove(Level level, Direction dir)
@@ -62,7 +70,7 @@ namespace Gameplay.Properties
             return true;
         }
 
-        public IEnumerable<IChange> DoMove(Level level, Direction direction, bool updateOrientation)
+        public IEnumerable<IChange> DoMove(Level level, Direction direction, bool updateOrientation, MovementType movementType)
         {
             var canMove = CanMove(level, direction);
             
@@ -94,7 +102,7 @@ namespace Gameplay.Properties
                             var movable = entityInTargetPos.GetComponent<Movable>();
                             if (movable != null)
                             {
-                                foreach (var change in movable.DoMove(level, direction, false))
+                                foreach (var change in movable.DoMove(level, direction, false, MovementType.Pushed))
                                 {
                                     yield return change;
                                 }
@@ -133,9 +141,10 @@ namespace Gameplay.Properties
                 OriginalOrientation = _entity.Orientation,
                 OriginalPosition = _entity.Position,
                 TargetOrientation = targetOrientation,
-                TargetPosition = targetPos
+                TargetPosition = targetPos,
+                MovementType = movementType
             };
-            _entity.MoveTo(targetPos, targetOrientation);
+            _entity.MoveTo(targetPos, targetOrientation, movementType);
             yield return selfMove;
         }
 

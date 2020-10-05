@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 8007122770504750702}
   - component: {fileID: 8007122770504750700}
   - component: {fileID: 8007122770504750701}
+  - component: {fileID: 8352976728498175481}
   m_Layer: 0
   m_Name: Train
   m_TagString: Untagged
@@ -144,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectType: 2
+  ObjectType: 3
   Offset: {x: 0, y: 0, z: 0}
   AlignOnStart: 1
   Animator: {fileID: 0}
@@ -176,6 +177,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SmokeParticlesPrefab: {fileID: 8201902784455637194, guid: b5a89366049a12c469d67da070618e5d,
+    type: 3}
+  PushedParticlesPrefab: {fileID: 8201902784455637194, guid: b5a89366049a12c469d67da070618e5d,
+    type: 3}
 --- !u!114 &8007122770504750700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +205,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8352976728498175481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8007122770504750699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a1dccc92554dff8328dc6e419a928f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KillsOnCollide: 0
+  SelfDestroyOnHit: 0
+  SelfDestroyOnCollide: 0
+  Front: 1
+  Back: 0
+  Left: 0
+  Right: 0
 --- !u!1001 &9137874825858610633
 PrefabInstance:
   m_ObjectHideFlags: 0

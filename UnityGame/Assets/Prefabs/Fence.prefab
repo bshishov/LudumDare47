@@ -103,7 +103,7 @@ MonoBehaviour:
   Animator: {fileID: 0}
   AnimMoveTrigger: 
   AnimDeathBool: 
-  DisableRenderersWhenInactive: 1
+  DisableRenderersWhenInactive: 0
 --- !u!114 &8101265777272256588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SmokeParticlesPrefab: {fileID: 0}
+  PushedParticlesPrefab: {fileID: 0}
 --- !u!114 &355305661609236995
 MonoBehaviour:
   m_ObjectHideFlags: 0

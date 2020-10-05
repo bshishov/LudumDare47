@@ -13,12 +13,19 @@ namespace Gameplay.Properties
         public Animator Animator;
         public string AnimOnSpawnTrigger;
         public ParticleSystem ShootParticles;
+        public GameObject ShootFx;
         
         private Entity _entity;
+        private ParticleSystem _shootParticles;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
+            if (ShootParticles != null)
+            {
+                _shootParticles = Instantiate(ShootParticles, transform);
+                _shootParticles.Stop();
+            }
         }
         
         public void OnTurnStarted(Level level)
@@ -41,6 +48,12 @@ namespace Gameplay.Properties
 
                 if (Animator != null)
                     Animator.SetTrigger(AnimOnSpawnTrigger);
+                
+                if(_shootParticles != null)
+                    _shootParticles.Emit(1);
+
+                if (ShootFx != null)
+                    Instantiate(ShootFx, transform);
 
                 if (entity != null)
                     yield return new SpawnChange(_entity.Id, entity.Id);
