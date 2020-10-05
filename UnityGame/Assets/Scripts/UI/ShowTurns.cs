@@ -49,21 +49,18 @@ public class ShowTurns : MonoBehaviour
     }
     public void NextTurn()
     {
-        if (_currentTurn < _numberOfTurns - 1)
-        {
-            _currentTurn++;
+        _currentTurn++;
+        if (_currentTurn < _numberOfTurns)         
             _turnPanels[_currentTurn].GetComponent<Image>().sprite = ActiveImage;
-           // _turnPanels[_currentTurn - 1].GetComponent<Image>().color = Color.red;
-        }
     }
 
     public void BackTurn()
     {
         if (_currentTurn > 0)
         {
+            if (_currentTurn < _numberOfTurns)
+                _turnPanels[_currentTurn].GetComponent<Image>().sprite = PassiveImage;
             _currentTurn--;
-            //_turnPanels[_currentTurn].GetComponent<Image>().color = Color.green;
-            _turnPanels[_currentTurn + 1].GetComponent<Image>().sprite = PassiveImage;
         }
     }
     public void SetTurn(int turn)
@@ -72,7 +69,7 @@ public class ShowTurns : MonoBehaviour
         {
             for (int i = 0; i <= turn; i++)
                 _turnPanels[i].GetComponent<Image>().GetComponent<Image>().sprite = ActiveImage;
-            for (int i = turn+1; i <= _currentTurn; i++)
+            for (int i = turn+1; i <= Mathf.Min(_currentTurn, _numberOfTurns); i++)
                 _turnPanels[i].GetComponent<Image>().GetComponent<Image>().sprite = PassiveImage;
             _currentTurn = turn;
         }
