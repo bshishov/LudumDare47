@@ -2519,7 +2519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b61377de1a4f754098f8cc56c82c97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTurns: 10
+  MaxTurns: 17
 --- !u!4 &809122192
 Transform:
   m_ObjectHideFlags: 0
@@ -3588,6 +3588,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.035107374
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: -0.3916307
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
+        type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.0034137964
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.41532695
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.5092101
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251351917595311751, guid: 47eaf54d943432a4f8b0dc894bfb4368,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.32452068
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47eaf54d943432a4f8b0dc894bfb4368, type: 3}
