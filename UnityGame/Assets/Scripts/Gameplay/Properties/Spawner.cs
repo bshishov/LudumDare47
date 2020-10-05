@@ -39,9 +39,11 @@ namespace Gameplay.Properties
                     Prefab, 
                     _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
-                Debug.Log($"Spawned {entity.Id}");
+                
                 if (entity != null)
                 {
+                    Debug.Log($"Spawned {entity.Id}");
+                    
                     if (Animator != null)
                         Animator.SetTrigger(AnimOnSpawnTrigger);
                     
