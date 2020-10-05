@@ -17,7 +17,7 @@ namespace Assets.Scripts.Utils.UI
         {
             if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
             {
-                Time.timeScale = 0f;
+                Time.timeScale = 0.4f;
             }
 
             if (_fader.State == UICanvasGroupFader.FaderState.FadedOut)
@@ -30,12 +30,17 @@ namespace Assets.Scripts.Utils.UI
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
-                    _fader.FadeOut();
-
-                if (_fader.State == UICanvasGroupFader.FaderState.FadedOut)
-                    _fader.FadeIn();
+                ChangeState();
             }
+        }
+
+        public void ChangeState()
+        {
+            if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
+                _fader.FadeOut();
+
+            if (_fader.State == UICanvasGroupFader.FaderState.FadedOut)
+                _fader.FadeIn();
         }
     }
 }
