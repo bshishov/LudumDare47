@@ -65,7 +65,7 @@ namespace Gameplay
             
             _uiWinLose = GameObject.FindObjectOfType<UIWinLose>(true);
             _uiLoad = GameObject.FindObjectOfType<UILoad>(true);
-            if (_uiLoad != null && string.IsNullOrEmpty(NextLevel))
+            if (_uiLoad != null && !string.IsNullOrEmpty(NextLevel))
                 _uiLoad.SetNextLevel(NextLevel);
 
             _state = GameState.WaitingForPlayerCommand;
