@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6889810704582596694}
   - component: {fileID: 6889810704582596695}
   - component: {fileID: 403738026921544757}
+  - component: {fileID: 4222437547487178475}
   m_Layer: 0
   m_Name: Barrel_M
   m_TagString: Untagged
@@ -96,6 +97,31 @@ MonoBehaviour:
   Animator: {fileID: 0}
   AnimMoveTrigger: 
   AnimPushedTrigger: 
+--- !u!114 &4222437547487178475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6889810704582596688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimDiedBool: 
+  DisableRenderersWhenInactive: 1
 --- !u!1001 &6889810705059540886
 PrefabInstance:
   m_ObjectHideFlags: 0

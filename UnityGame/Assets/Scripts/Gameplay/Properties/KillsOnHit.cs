@@ -31,6 +31,7 @@ namespace Gameplay.Properties
         {
             if (command is HitCommand hitCommand && IsDeadlySide(hitCommand.Direction))
             {
+                Debug.Log($"{_entity} got hit from {hitCommand.Direction}");
                 level.DispatchEarly(new DestroyCommand(hitCommand.SourceId));
                 if (SelfDestroyOnHit)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
