@@ -11,7 +11,7 @@ namespace Gameplay
         Projectile,
         Fence,
         Box,
-
+        Spark,
         // Any type you want goes here
         // The more generic the type is - the better
     }
@@ -67,7 +67,10 @@ namespace Gameplay
             new CPair(ObjectType.Wall, ObjectType.Player),
             new CPair(ObjectType.Box, ObjectType.Projectile),
             new CPair(ObjectType.Character, ObjectType.Wall),
-
+            
+            // Spark
+            new CPair(ObjectType.Spark, ObjectType.Character),
+            new CPair(ObjectType.Spark, ObjectType.Player),
         };
         
         // Who can push whom?
