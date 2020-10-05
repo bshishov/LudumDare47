@@ -6,6 +6,9 @@ namespace Gameplay.Properties
     [RequireComponent(typeof(Entity))]
     public class Destroyable : MonoBehaviour, ICommandHandler
     {
+        [Header("Visuals")] 
+        public GameObject DestroyedFx;
+        
         private Entity _entity;
 
         private void Start()
@@ -19,8 +22,11 @@ namespace Gameplay.Properties
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-            if (command is DestroyCommand destroyCommand)
+            if (command is DestroyCommand)
             {
+                if (DestroyedFx != null)
+                    Instantiate(DestroyedFx, transform.position, transform.rotation);
+                
                 _entity.Deactivate();
                 yield return new DestroyedChange(_entity.Id);
             }

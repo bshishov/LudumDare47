@@ -79,8 +79,8 @@ namespace Gameplay
     
     public class HitCommand : BaseCommand
     {
-        public int SourceId;
-        public Direction Direction;
+        public readonly int SourceId;
+        public readonly Direction Direction;
         
         public HitCommand(int target, int sourceId, Direction direction) : base(target)
         {

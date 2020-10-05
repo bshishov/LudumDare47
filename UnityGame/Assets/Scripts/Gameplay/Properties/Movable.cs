@@ -70,12 +70,12 @@ namespace Gameplay.Properties
             return true;
         }
 
-        public IEnumerable<IChange> DoMove(Level level, Direction direction, bool updateOrientation, MovementType movementType)
+        public IEnumerable<IChange> DoMove(Level level, Direction moveDirection, bool updateOrientation, MovementType movementType)
         {
-            var canMove = CanMove(level, direction);
+            var canMove = CanMove(level, moveDirection);
             
             // Update logical position
-            var targetPos = _entity.Position + Utils.MoveDelta(direction);
+            var targetPos = _entity.Position + Utils.MoveDelta(moveDirection);
 
             // Move neighbor movable (push)
             foreach (var entityInTargetPos in level.GetActiveEntitiesAt(targetPos))
@@ -88,11 +88,11 @@ namespace Gameplay.Properties
                         level.DispatchEarly(new CollisionEvent(
                             target: entityInTargetPos.Id, 
                             sourceId: _entity.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(direction, entityInTargetPos.Orientation)));
+                            direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(moveDirection), entityInTargetPos.Orientation)));
                         level.DispatchEarly(new CollisionEvent(
                             target:_entity.Id, 
                             sourceId: entityInTargetPos.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(direction, _entity.Orientation)));
+                            direction: Utils.AbsoluteDirectionToRelative(moveDirection, _entity.Orientation)));
                     
                         // Push (collidable only)
                         if (canMove && CollisionConfig.CanPush(
@@ -102,7 +102,7 @@ namespace Gameplay.Properties
                             var movable = entityInTargetPos.GetComponent<Movable>();
                             if (movable != null)
                             {
-                                foreach (var change in movable.DoMove(level, direction, false, MovementType.Pushed))
+                                foreach (var change in movable.DoMove(level, moveDirection, false, MovementType.Pushed))
                                 {
                                     yield return change;
                                 }
@@ -115,11 +115,11 @@ namespace Gameplay.Properties
                         level.DispatchEarly(new HitCommand(
                             target: entityInTargetPos.Id, 
                             sourceId: _entity.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(direction, entityInTargetPos.Orientation)));
+                            direction: Utils.AbsoluteDirectionToRelative(moveDirection, entityInTargetPos.Orientation)));
                         level.DispatchEarly(new HitCommand(
                             target:_entity.Id, 
                             sourceId: entityInTargetPos.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(direction, _entity.Orientation)));
+                            direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(moveDirection), _entity.Orientation)));
                     }
                 }
             }
@@ -131,10 +131,10 @@ namespace Gameplay.Properties
                 yield break;
 
             // Finally, move self
-            targetPos = _entity.Position + Utils.MoveDelta(direction);
+            targetPos = _entity.Position + Utils.MoveDelta(moveDirection);
             var targetOrientation = _entity.Orientation;
             if (updateOrientation)
-                targetOrientation = direction;
+                targetOrientation = moveDirection;
             
             var selfMove = new MoveChange(_entity.Id)
             {

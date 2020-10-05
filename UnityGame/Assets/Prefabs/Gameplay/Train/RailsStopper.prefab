@@ -90,8 +90,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8129184133512280130}
+  - component: {fileID: -8762015907920727458}
+  - component: {fileID: -3071330716297058652}
   m_Layer: 0
-  m_Name: mesh_Stopper
+  m_Name: RailsStopper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +115,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8762015907920727458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906846049827414776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectType: 3
+  Offset: {x: 0, y: 0, z: 0}
+  AlignOnStart: 1
+  Animator: {fileID: 0}
+  AnimMoveTrigger: 
+  AnimDeathBool: 
+  DisableRenderersWhenInactive: 1
+--- !u!114 &-3071330716297058652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906846049827414776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9044319260827893843
 GameObject:
   m_ObjectHideFlags: 0
