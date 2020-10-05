@@ -70,10 +70,6 @@ MonoBehaviour:
   ObjectType: 1
   Offset: {x: 0, y: 0, z: 0}
   AlignOnStart: 1
-  Animator: {fileID: 8034635627664391476}
-  AnimMoveTrigger: Dash
-  AnimDeathBool: Death
-  DisableRenderersWhenInactive: 0
 --- !u!114 &1928229676038552578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,10 +94,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokeParticlesPrefab: {fileID: 3346227575600646357, guid: befdb4e9f31f76b4698e066d39ca1bb9,
-    type: 3}
-  PushedParticlesPrefab: {fileID: 8201902784455637194, guid: b5a89366049a12c469d67da070618e5d,
-    type: 3}
+  PushedFx:
+    FX: {fileID: 3346227575600646359, guid: befdb4e9f31f76b4698e066d39ca1bb9, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 1
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  MoveFx:
+    FX: {fileID: 3346227575600646359, guid: befdb4e9f31f76b4698e066d39ca1bb9, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 1
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 8034635627664391476}
+  AnimMoveTrigger: Dash
+  AnimPushedTrigger: Dash
 --- !u!114 &1928229676038552580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +129,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 8034635627664391476}
+  AnimDiedBool: Death
+  DisableRenderersWhenInactive: 0
 --- !u!1001 &1530046128081662042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -265,32 +293,32 @@ PrefabInstance:
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -0.010237396
+      value: -0.035107434
       objectReference: {fileID: 0}
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: -0.39563125
+      value: -0.39163065
       objectReference: {fileID: 0}
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.019250572
+      value: -0.003413856
       objectReference: {fileID: 0}
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.3881368
+      value: 0.41532725
       objectReference: {fileID: 0}
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.51321065
+      value: 0.5092101
       objectReference: {fileID: 0}
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.3096277
+      value: 0.3245209
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7397d3160fd2cf4c81830c1b3ae4801, type: 3}

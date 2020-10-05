@@ -31,8 +31,11 @@ namespace Gameplay.Properties
             }
             else
             {
-                if(level.CurrentTurn - _igniteTurn >= Delay)
+                if (level.CurrentTurn - _igniteTurn >= Delay)
+                {
                     level.DispatchEarly(new DetonateCommand(_entity.Id));
+                    Sparks?.Stop();
+                }
             }
         }
 

@@ -53,10 +53,6 @@ MonoBehaviour:
   ObjectType: 4
   Offset: {x: 0, y: 1, z: 0}
   AlignOnStart: 1
-  Animator: {fileID: 0}
-  AnimMoveTrigger: 
-  AnimDeathBool: 
-  DisableRenderersWhenInactive: 1
 --- !u!114 &1992404149819614328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,8 +77,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f0c449caf14c32aa05a390570a5a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokeParticlesPrefab: {fileID: 0}
-  PushedParticlesPrefab: {fileID: 0}
+  PushedFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  MoveFx:
+    FX: {fileID: 0}
+    IsPrefab: 1
+    IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimMoveTrigger: 
+  AnimPushedTrigger: 
 --- !u!114 &1992404149819614343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +153,10 @@ MonoBehaviour:
     AttachToParent: 0
     Delay: 0
     SingleInstance: 1
+    Scale: 1
+  Animator: {fileID: 0}
+  AnimDiedBool: 
+  DisableRenderersWhenInactive: 1
 --- !u!1001 &3358637336240965513
 PrefabInstance:
   m_ObjectHideFlags: 0

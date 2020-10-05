@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Utils;
 
 namespace Gameplay
 {
@@ -14,10 +13,6 @@ namespace Gameplay
         [Header("Visuals")]
         public Vector3 Offset = Vector3.zero;
         public bool AlignOnStart = true;
-        public Animator Animator;
-        public string AnimMoveTrigger;
-        public string AnimDeathBool;
-        public bool DisableRenderersWhenInactive = true;
 
         private ICommandHandler[] _handlers;
 
@@ -85,9 +80,6 @@ namespace Gameplay
                 transform.rotation = Utils.DirectionToRotation(tgtOrientation);
             }
 
-            if (this.Animator != null)
-                Animator.SetTrigger(AnimMoveTrigger);
-
             Position = tgtPosition;
             Orientation = tgtOrientation;
         }
@@ -95,25 +87,11 @@ namespace Gameplay
         public void Deactivate()
         {
             IsActive = false;
-
-            if (this.Animator != null)
-                Animator.SetBool(AnimDeathBool, true);
-            
-            if(DisableRenderersWhenInactive)
-                foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
-                    rnd.enabled = false;
         }
 
         public void Activate()
         {
             IsActive = true;
-            
-            if (this.Animator != null)
-                Animator.SetBool(AnimDeathBool, false);
-            
-            if(DisableRenderersWhenInactive)
-                foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
-                    rnd.enabled = true;
         }
         
         private void SetPositionAndOrientationFromTransform()
