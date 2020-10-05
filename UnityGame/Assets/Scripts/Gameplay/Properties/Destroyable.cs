@@ -25,6 +25,9 @@ namespace Gameplay.Properties
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
+            if (_entity == null)
+                yield break;
+            
             if (command is DestroyCommand)
             {
                 DestroyedFx?.Trigger(transform);
