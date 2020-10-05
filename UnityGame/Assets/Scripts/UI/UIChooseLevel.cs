@@ -32,20 +32,16 @@ namespace Assets.Scripts.UI
 
         public void LoadLevel()
         {
-
-            if (_unlocked)
+            Debug.Log("Here");
+            _fader.FadeIn();
+            _fader.StateChanged += () =>
             {
-                Debug.Log("Here");
-                _fader.FadeIn();
-                _fader.StateChanged += () =>
+                if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
                 {
-                    if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
-                    {
-                        SceneManager.LoadScene(_levelName);
-                    }
-                };
-               
-            }             
+                    SceneManager.LoadScene(_levelName);
+                }
+            };
+           
         }
 
         [ContextMenu("UnlockLevel")]
