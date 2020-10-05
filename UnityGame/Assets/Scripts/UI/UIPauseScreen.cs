@@ -4,7 +4,7 @@ namespace Assets.Scripts.Utils.UI
 {
     [RequireComponent(typeof(UICanvasGroupFader))]
     public class UIPauseScreen : MonoBehaviour
-    {
+    {        
         private UICanvasGroupFader _fader;
 
         void Start()
