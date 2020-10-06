@@ -1,30 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class UITimerManager : MonoBehaviour
 {
-    public GameObject WorldCanvas;
-    private Dictionary<int, GameObject> _objectToCanvas = new Dictionary<int, GameObject>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
+    public RectTransform TimersOverlay;
+    public GameObject TimerPrefab;
+    
+    private readonly Dictionary<int, TextMeshProUGUI> _objectToCanvas = new Dictionary<int, TextMeshProUGUI>();
 
     public void SetTimer(GameObject parent, int timer)
     {
-        if (_objectToCanvas.ContainsKey(parent.GetInstanceID()))
-            GameObject.Destroy(_objectToCanvas[parent.GetInstanceID()]);
-        var panel = (GameObject)Instantiate(WorldCanvas);
-        panel.transform.SetParent(parent.transform, false);
-        panel.GetComponentInChildren<Text>().text = timer.ToString();
-        _objectToCanvas[parent.GetInstanceID()] = panel;
+        if(TimerPrefab == null || TimersOverlay == null || parent == null)
+            return;
+
+        var textComponent = GetOrCreateUiTextTimer(parent);
+        if(textComponent != null)
+            textComponent.text = timer.ToString();
     }
+
+    private TextMeshProUGUI GetOrCreateUiTextTimer(GameObject parent)
+    {
+        var key = parent.GetInstanceID();
+
+        if (_objectToCanvas.ContainsKey(key))
+            return _objectToCanvas[key];
+        
+        var uiFollowObj = Instantiate(TimerPrefab, TimersOverlay);
+        var uiFollow = uiFollowObj.GetComponent<UIFollowSceneObject>();
+        if(uiFollow != null)
+            uiFollow.SetTarget(parent.transform);
+        var textComponent = uiFollow.GetComponent<TextMeshProUGUI>();
+        if(textComponent != null)
+            _objectToCanvas.Add(key, textComponent);
+        return textComponent;
+    }
+    
     public void DeleteTimer(GameObject parent)
-    {        
-        GameObject.Destroy(_objectToCanvas[parent.GetInstanceID()]);
+    {
+        var key = parent.GetInstanceID();
+        if(_objectToCanvas.ContainsKey(key))
+            GameObject.Destroy(_objectToCanvas[key]);
     }
 }
