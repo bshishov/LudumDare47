@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Utils.UI;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
