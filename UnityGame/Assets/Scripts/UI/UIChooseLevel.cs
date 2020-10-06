@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Utils.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ namespace Assets.Scripts.UI
 {
     public class UIChooseLevel : MonoBehaviour
     {
-        public Text TextNumber;
+        public TextMeshProUGUI TextNumber;
         private bool _unlocked = false;
         private string _levelName;
         private UICanvasGroupFader _fader;
