@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Gameplay.Properties;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -32,6 +33,7 @@ namespace Gameplay
         private GameState _state = GameState.WaitingForPlayerCommand;
         private readonly Dictionary<int, Entity> _entities = new Dictionary<int, Entity>();
         private Entity _playerEntity;
+        private Movable _playerMovable;
         private readonly Stack<Turn> _history = new Stack<Turn>();
         private float _timeSinceRollbackPressed;
         private const float RollbackCd = 0.08f;
@@ -56,6 +58,8 @@ namespace Gameplay
             // Turn0 by default
             var foundEntities = GameObject.FindObjectsOfType<Entity>();
             _playerEntity = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+            _playerMovable = _playerEntity.GetComponent<Movable>();
+            
             foreach (var entity in foundEntities)
             {
                 var newId = GetNewEntityId();
@@ -69,6 +73,7 @@ namespace Gameplay
             
             _uiWinLose = GameObject.FindObjectOfType<UIWinLose>(true);
             _state = GameState.WaitingForPlayerCommand;
+            
         }
 
         int GetNewEntityId()
@@ -145,6 +150,12 @@ namespace Gameplay
 
         private void PlayerMove(Direction dir)
         {
+            if (!_playerMovable.CanMove(this, dir))
+            {
+                // If player cant move, discard the turn attempt
+                return;
+            }
+
             // Player moves first
             var playerId = _playerEntity.Id;
             Dispatch(new MoveCommand(playerId, dir, true));
