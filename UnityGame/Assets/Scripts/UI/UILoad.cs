@@ -14,16 +14,18 @@ public class UILoad : MonoBehaviour
     void Start()
     {
         _fader.FadeOut();
+        Time.timeScale = 1f;
     }
 
-    private void LoadLevel(string LevelString)
+    private void LoadLevel(string levelString)
     {
         _fader.FadeIn();
         _fader.StateChanged += () =>
         {
             if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
             {
-                SceneManager.LoadScene(LevelString); 
+                SceneManager.LoadScene(levelString);
+                Time.timeScale = 1f;
             }
         };
         

@@ -12134,6 +12134,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873886411}
   m_CullTransparentMesh: 0
+--- !u!1 &875610006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1938352418713866642, guid: c227906f70fbc5d468b58fe2f57bf334,
+    type: 3}
+  m_PrefabInstance: {fileID: 2073053071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &875610007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875610006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3e64d806e2c7f4789387754370ce8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &878750255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31060,7 +31078,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 875610007}
     - target: {fileID: 1938352418713866640, guid: c227906f70fbc5d468b58fe2f57bf334,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
