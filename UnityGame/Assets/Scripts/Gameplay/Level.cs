@@ -53,7 +53,7 @@ namespace Gameplay
             foreach (var entity in foundEntities)
             {
                 var newId = GetNewEntityId();
-                entity.Initialize(newId);
+                entity.Initialize(this, newId);
                 _entities.Add(newId, entity);
                 
             }
@@ -84,15 +84,20 @@ namespace Gameplay
 
             if (_state == GameState.ExecutingTurnCommands)
             {
-                var command = GetCurrentTurn().PopCommand();
-                if (command != null)
+                while (true)
                 {
-                    Exec(command);
+                    var command = GetCurrentTurn().PopCommand();
+                    if (command != null)
+                    {
+                        Exec(command);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                else
-                {
-                    HandleTurnEnd();
-                }
+                
+                HandleTurnEnd();
             }
             else if (_state == GameState.WaitingForPlayerCommand)
                 HandleInput();
@@ -203,6 +208,12 @@ namespace Gameplay
             foreach (var change in rollbackTurn.IterateChangesFromNewestToOldest())
                 Revert(change);
 
+            foreach (var entity in _entities.Values)
+            {
+                if (entity.IsActive)
+                    entity.OnTurnRolledBack(this);
+            }
+
             if(_uiTurns != null)
                 _uiTurns.BackTurn();
 
@@ -284,7 +295,7 @@ namespace Gameplay
             if (entity != null)
             {
                 var newEntityId = GetNewEntityId();
-                entity.Initialize(newEntityId);
+                entity.Initialize(this, newEntityId);
                 _entities.Add(newEntityId, entity);
                 return entity;
             }

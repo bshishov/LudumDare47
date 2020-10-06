@@ -22,18 +22,22 @@ namespace Gameplay
 
         private void Start()
         {
-            _movementAnimator = GetComponent<MovementAnimator>();
-            _handlers = gameObject.GetComponentsInChildren<ICommandHandler>();
         }
 
-        public void Initialize(int id)
+        public void Initialize(Level level, int id)
         {
+            _movementAnimator = GetComponent<MovementAnimator>();
+            _handlers = gameObject.GetComponentsInChildren<ICommandHandler>();
+            
             Id = id;
             IsActive = true;
             if (AlignOnStart)
                 Align();
             else
                 SetPositionAndOrientationFromTransform();
+
+            foreach (var commandHandler in _handlers)
+                commandHandler.OnInitialized(level);
         }
 
         public IEnumerable<IChange> Execute(Level level, ICommand command)
@@ -60,6 +64,14 @@ namespace Gameplay
             foreach (var commandHandler in _handlers)
             {
                 commandHandler.OnTurnStarted(level);
+            }
+        }
+
+        public void OnTurnRolledBack(Level level)
+        {
+            foreach (var commandHandler in _handlers)
+            {
+                commandHandler.OnTurnRolledBack(level);
             }
         }
 

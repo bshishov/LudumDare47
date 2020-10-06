@@ -15,35 +15,30 @@ namespace Gameplay.Properties
         public FxObject ShootFx;
 
         private Entity _entity;
-        private int? _createdTurn;
+        private int? _shootAt;
         private UITimerManager _uiTimerManager;
 
         private void Start()
         {
+        }
+
+        public void OnInitialized(Level level)
+        {
             _entity = GetComponent<Entity>();
             _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
+            
+            if (!_shootAt.HasValue)
+                _shootAt = level.CurrentTurnNumber + Delay;
+            
+            if (_uiTimerManager != null)
+                _uiTimerManager.SetTimer(gameObject, Delay);
         }
-        
+
         public void OnTurnStarted(Level level)
         {
-            if (!_createdTurn.HasValue)
-                _createdTurn = level.CurrentTurnNumber;
-
-            var remaining =  (_createdTurn.Value + Delay) - level.CurrentTurnNumber;
-
-            if (remaining > 0)
-            {
-                Debug.Log($"Timer {gameObject}: {remaining}");
-                if (_uiTimerManager != null)
-                    _uiTimerManager.SetTimer(gameObject, remaining);
-            }
-            else if(remaining == 0)
-            {
-                Debug.Log($"Clearing timer for {gameObject}");
-                if (_uiTimerManager != null && Delay > 0)
-                    _uiTimerManager.DeleteTimer(gameObject);
+            UpdateTimer(level);
+            if(_shootAt.Value == level.CurrentTurnNumber)
                 level.Dispatch(new SpawnCommand(_entity.Id));
-            }
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
@@ -75,7 +70,28 @@ namespace Gameplay.Properties
             {
                 Debug.Log($"Despawning {spawnChange.SpawnedObjectId}");
                 level.Despawn(spawnChange.SpawnedObjectId);
-                _createdTurn = null;
+            }
+        }
+
+        public void OnTurnRolledBack(Level level)
+        {
+            UpdateTimer(level);
+        }
+
+        private void UpdateTimer(Level level)
+        {
+            var turnsRemaining =  _shootAt.Value - level.CurrentTurnNumber;
+            
+            if (turnsRemaining >= 0)
+            {
+                if (_uiTimerManager != null)
+                    _uiTimerManager.SetTimer(gameObject, turnsRemaining);
+            }
+            else
+            {
+                Debug.Log($"Clearing timer for {gameObject}");
+                if (_uiTimerManager != null)
+                    _uiTimerManager.DeleteTimer(gameObject);
             }
         }
     }

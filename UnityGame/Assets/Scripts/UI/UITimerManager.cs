@@ -42,7 +42,10 @@ public class UITimerManager : MonoBehaviour
     public void DeleteTimer(GameObject parent)
     {
         var key = parent.GetInstanceID();
-        if(_objectToCanvas.ContainsKey(key))
+        if (_objectToCanvas.ContainsKey(key))
+        {
             GameObject.Destroy(_objectToCanvas[key]);
+            _objectToCanvas.Remove(key);
+        }
     }
 }

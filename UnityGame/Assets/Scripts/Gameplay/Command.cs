@@ -15,9 +15,11 @@ namespace Gameplay
 
     public interface ICommandHandler
     {
+        void OnInitialized(Level level);
         void OnTurnStarted(Level level);
         IEnumerable<IChange> Handle(Level level, ICommand command);
         void Revert(Level level, IChange change);
+        void OnTurnRolledBack(Level level);
     }
 
     public abstract class BaseCommand : ICommand

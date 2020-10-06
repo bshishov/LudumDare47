@@ -13,6 +13,10 @@ namespace Gameplay.Properties
             _entity = GetComponent<Entity>();
         }
 
+        public void OnInitialized(Level level)
+        {
+        }
+
         public void OnTurnStarted(Level level)
         {
         }
@@ -38,6 +42,10 @@ namespace Gameplay.Properties
                     moveChange.OriginalOrientation, 
                     moveChange.MovementType,
                     2f);
+        }
+
+        public void OnTurnRolledBack(Level level)
+        {
         }
 
         public bool CanMove(Level level, Direction dir)

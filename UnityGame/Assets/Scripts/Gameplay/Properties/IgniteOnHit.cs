@@ -6,6 +6,10 @@ namespace Gameplay.Properties
     [RequireComponent(typeof(Entity))]
     public class IgniteOnHit : MonoBehaviour, ICommandHandler
     {
+        public void OnInitialized(Level level)
+        {
+        }
+
         public void OnTurnStarted(Level level)
         {
         }
@@ -20,6 +24,10 @@ namespace Gameplay.Properties
         }
 
         public void Revert(Level level, IChange change)
+        {
+        }
+
+        public void OnTurnRolledBack(Level level)
         {
         }
     }

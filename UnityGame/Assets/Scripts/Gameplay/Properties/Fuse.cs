@@ -24,6 +24,10 @@ namespace Gameplay.Properties
             _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
         }
 
+        public void OnInitialized(Level level)
+        {
+        }
+
         public void OnTurnStarted(Level level)
         {
             if (!Ignited)
@@ -72,6 +76,10 @@ namespace Gameplay.Properties
                 Ignited = false;
                 Sparks?.Stop();
             }
+        }
+
+        public void OnTurnRolledBack(Level level)
+        {
         }
     }
 }

@@ -16,6 +16,10 @@ namespace Gameplay.Properties
             _entity = GetComponent<Entity>();
         }
 
+        public void OnInitialized(Level level)
+        {
+        }
+
         public void OnTurnStarted(Level level)
         {
         }
@@ -37,6 +41,10 @@ namespace Gameplay.Properties
         }
 
         public void Revert(Level level, IChange change)
+        {
+        }
+
+        public void OnTurnRolledBack(Level level)
         {
         }
     }
