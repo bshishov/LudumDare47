@@ -19,7 +19,7 @@ namespace Gameplay.Properties
         {
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnAfterPlayerMove(Level level)
         {
             if (!_createdTurn.HasValue)
                 _createdTurn = level.CurrentTurnNumber;

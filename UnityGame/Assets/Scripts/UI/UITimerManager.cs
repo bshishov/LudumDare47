@@ -18,8 +18,10 @@ public class UITimerManager : MonoBehaviour
             return;
 
         var textComponent = GetOrCreateUiTextTimer(parent);
-        if(textComponent != null)
-            textComponent.text = timer.ToString();
+        if (textComponent != null)
+        {
+            textComponent.text = timer == 0 ? "!" : timer.ToString();
+        }
     }
 
     private TextMeshProUGUI GetOrCreateUiTextTimer(GameObject parent)

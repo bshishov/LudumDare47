@@ -16,7 +16,7 @@ namespace Gameplay
     public interface ICommandHandler
     {
         void OnInitialized(Level level);
-        void OnTurnStarted(Level level);
+        void OnAfterPlayerMove(Level level);
         IEnumerable<IChange> Handle(Level level, ICommand command);
         void Revert(Level level, IChange change);
         void OnTurnRolledBack(Level level);
@@ -172,6 +172,16 @@ namespace Gameplay
         public FuseIgnited(int targetId, int delay) : base(targetId)
         {
             Delay = delay;
+        }
+    }
+
+    public class UpdateTimer : BaseChange
+    {
+        public readonly int NewValue;
+
+        public UpdateTimer(int targetId, int newValue) : base(targetId)
+        {
+            NewValue = newValue;
         }
     }
 }

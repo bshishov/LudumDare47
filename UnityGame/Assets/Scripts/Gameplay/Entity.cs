@@ -63,7 +63,7 @@ namespace Gameplay
         {
             foreach (var commandHandler in _handlers)
             {
-                commandHandler.OnTurnStarted(level);
+                commandHandler.OnAfterPlayerMove(level);
             }
         }
 

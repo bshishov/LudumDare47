@@ -19,7 +19,7 @@ namespace Gameplay.Properties
         {
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnAfterPlayerMove(Level level)
         {
             var currentPathNode = GetPathNodeAt(level, _entity.Position);
             if (currentPathNode != null)

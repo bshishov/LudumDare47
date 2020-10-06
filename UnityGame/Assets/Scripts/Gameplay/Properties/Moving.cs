@@ -20,7 +20,7 @@ namespace Gameplay.Properties
         {
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnAfterPlayerMove(Level level)
         {
             if(_isMoving)
                 level.Dispatch(new MoveCommand(_entity.Id, _entity.Orientation, false));

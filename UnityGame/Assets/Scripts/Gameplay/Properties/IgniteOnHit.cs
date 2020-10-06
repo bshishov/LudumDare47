@@ -10,7 +10,7 @@ namespace Gameplay.Properties
         {
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnAfterPlayerMove(Level level)
         {
         }
 

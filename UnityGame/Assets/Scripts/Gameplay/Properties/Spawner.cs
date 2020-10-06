@@ -15,26 +15,31 @@ namespace Gameplay.Properties
         public FxObject ShootFx;
 
         private Entity _entity;
-        private int? _shootAt;
+        private int _spawnAtTurn;
         private UITimerManager _uiTimerManager;
 
         public void OnInitialized(Level level)
         {
             _entity = GetComponent<Entity>();
             _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
-            
-            if (!_shootAt.HasValue)
-                _shootAt = level.CurrentTurnNumber + Delay;
+            _spawnAtTurn = level.CurrentTurnNumber + Delay;
             
             if (_uiTimerManager != null)
                 _uiTimerManager.SetTimer(gameObject, Delay);
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnAfterPlayerMove(Level level)
         {
-            UpdateTimer(level);
-            if(_shootAt.Value == level.CurrentTurnNumber)
+            if (_spawnAtTurn == level.CurrentTurnNumber)
+            {
                 level.Dispatch(new SpawnCommand(_entity.Id));
+                if (_uiTimerManager != null)
+                    _uiTimerManager.DeleteTimer(gameObject);
+            }
+            else
+            {
+                UpdateTimer(level);    
+            }
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
@@ -71,7 +76,7 @@ namespace Gameplay.Properties
 
         private void UpdateTimer(Level level)
         {
-            var turnsRemaining =  _shootAt.Value - level.CurrentTurnNumber;
+            var turnsRemaining =  _spawnAtTurn - level.CurrentTurnNumber;
             
             if (turnsRemaining >= 0)
             {
