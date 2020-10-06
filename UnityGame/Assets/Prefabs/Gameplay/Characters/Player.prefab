@@ -155,7 +155,9 @@ MonoBehaviour:
     Scale: 1
   Animator: {fileID: 8034635627664391476}
   AnimDiedBool: Death
-  DisableRenderersWhenInactive: 0
+  DisableAllRenderersWhenInactive: 0
+  DisableRenderersWhenInactive:
+  - {fileID: 6251351917595311751}
 --- !u!1001 &1530046128081662042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -342,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -0.024575144
+      value: -0.024575174
       objectReference: {fileID: 0}
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
@@ -357,7 +359,7 @@ PrefabInstance:
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.29072875
+      value: 0.2907288
       objectReference: {fileID: 0}
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
@@ -367,7 +369,7 @@ PrefabInstance:
     - target: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.22716442
+      value: 0.22716445
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7397d3160fd2cf4c81830c1b3ae4801, type: 3}
@@ -380,6 +382,12 @@ GameObject:
 --- !u!4 &627193035650557350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1463965474282150364, guid: f7397d3160fd2cf4c81830c1b3ae4801,
+    type: 3}
+  m_PrefabInstance: {fileID: 2082123632498900090}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6251351917595311751 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
     type: 3}
   m_PrefabInstance: {fileID: 2082123632498900090}
   m_PrefabAsset: {fileID: 0}

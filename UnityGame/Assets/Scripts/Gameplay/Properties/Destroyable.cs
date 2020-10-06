@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Properties
 {
@@ -10,7 +11,9 @@ namespace Gameplay.Properties
         public FxObject DestroyedFx;
         public Animator Animator;
         public string AnimDiedBool;
-        public bool DisableRenderersWhenInactive = false;
+        [FormerlySerializedAs("DisableRenderersWhenInactive")] 
+        public bool DisableAllRenderersWhenInactive = false;
+        public Renderer[] DisableRenderersWhenInactive;
         
         private Entity _entity;
         private UITimerManager _uiTimerManager;
@@ -45,10 +48,14 @@ namespace Gameplay.Properties
                 if(Animator != null)
                     Animator.SetBool(AnimDiedBool, true);
                 
-                if(DisableRenderersWhenInactive)
+                if(DisableAllRenderersWhenInactive)
                     foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
                         rnd.enabled = false;
-                
+
+                if (DisableRenderersWhenInactive != null)
+                    foreach (var rnd in DisableRenderersWhenInactive)
+                        rnd.enabled = false;
+
                 yield return new DestroyedChange(_entity.Id);
             }
         }
@@ -63,8 +70,12 @@ namespace Gameplay.Properties
                     Animator.SetBool(AnimDiedBool, false);
                 
                 
-                if(DisableRenderersWhenInactive)
+                if(DisableAllRenderersWhenInactive)
                     foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
+                        rnd.enabled = true;
+                
+                if (DisableRenderersWhenInactive != null)
+                    foreach (var rnd in DisableRenderersWhenInactive)
                         rnd.enabled = true;
                 
                 _entity.Activate();

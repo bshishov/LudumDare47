@@ -108,13 +108,15 @@ MonoBehaviour:
     IsParticleSystem: 1
     Offset: {x: 0, y: 0.5, z: 0}
     RotationOffset: {x: 0, y: 0, z: 0}
-    AttachToParent: 0
+    AttachToParent: 1
     Delay: 0
     SingleInstance: 1
     Scale: 1
   Animator: {fileID: 0}
   AnimDiedBool: 
-  DisableRenderersWhenInactive: 1
+  DisableAllRenderersWhenInactive: 0
+  DisableRenderersWhenInactive:
+  - {fileID: 2273652932834469579}
 --- !u!114 &597913230487818054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +241,12 @@ PrefabInstance:
 --- !u!4 &1136753836271099300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c82cb06ba0ace0d4ca39785fec293939,
+    type: 3}
+  m_PrefabInstance: {fileID: 597913229699398223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2273652932834469579 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: c82cb06ba0ace0d4ca39785fec293939,
     type: 3}
   m_PrefabInstance: {fileID: 597913229699398223}
   m_PrefabAsset: {fileID: 0}
