@@ -1684,7 +1684,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -59.4}
+  m_AnchoredPosition: {x: 0, y: -59.399902}
   m_SizeDelta: {x: 795.29517, y: 160.49176}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &107668943
@@ -4944,9 +4944,9 @@ LightingSettings:
   m_AlbedoBoost: 1
   m_IndirectOutputScale: 1
   m_UsingShadowmask: 1
-  m_BakeBackend: 0
-  m_LightmapMaxSize: 1024
-  m_BakeResolution: 40
+  m_BakeBackend: 2
+  m_LightmapMaxSize: 128
+  m_BakeResolution: 2
   m_Padding: 2
   m_TextureCompression: 1
   m_AO: 0
@@ -4960,7 +4960,7 @@ LightingSettings:
   m_LightmapParameters: {fileID: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
-  m_RealtimeResolution: 2
+  m_RealtimeResolution: 1
   m_ForceWhiteAlbedo: 0
   m_ForceUpdates: 0
   m_FinalGather: 0
