@@ -17,7 +17,6 @@ namespace Gameplay
         }
 
         public int MaxTurns = 10;
-        public string NextLevel;
         public Entity CatGirl;
 
         public int CurrentTurnNumber => GetCurrentTurn()?.Number ?? -1;
@@ -65,9 +64,6 @@ namespace Gameplay
             
             _uiWinLose = GameObject.FindObjectOfType<UIWinLose>(true);
             _uiLoad = GameObject.FindObjectOfType<UILoad>(true);
-            if (_uiLoad != null && !string.IsNullOrEmpty(NextLevel))
-                _uiLoad.SetNextLevel(NextLevel);
-
             _state = GameState.WaitingForPlayerCommand;
         }
 

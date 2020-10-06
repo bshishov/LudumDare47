@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Utils.UI;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Gameplay;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +7,7 @@ public class UILoad : MonoBehaviour
 {
     public string MainMenu;
     public UICanvasGroupFader _fader;
+    public LevelSet Levels;
     private string _nextLevel;
 
     void Start()
@@ -30,18 +29,14 @@ public class UILoad : MonoBehaviour
         };
         
     }
-    public void SetNextLevel(string nextLevel)
-    {
-        _nextLevel = nextLevel;
-    }
 
     public void LoadMenu()
     {
-        LoadLevel(MainMenu);
+        LoadLevel(Levels.MenuScene);
     }
 
     public void LoadNext()
     {
-        LoadLevel(_nextLevel);
+        LoadLevel(Levels.GetNextLevel());
     }
 }

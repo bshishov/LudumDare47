@@ -18,10 +18,6 @@ namespace Gameplay.Properties
         private int? _shootAt;
         private UITimerManager _uiTimerManager;
 
-        private void Start()
-        {
-        }
-
         public void OnInitialized(Level level)
         {
             _entity = GetComponent<Entity>();
