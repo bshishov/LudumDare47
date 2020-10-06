@@ -44,7 +44,6 @@ namespace Gameplay.Properties
                 // Ignite phase is completed, send detonate command
                 // and stop ignite phase
                 level.DispatchEarly(new DetonateCommand(_entity.Id));
-                Sparks?.Stop();
             }
         }
 
@@ -57,6 +56,11 @@ namespace Gameplay.Properties
                 SetUiTimer(Delay - 1);
                 yield return new FuseIgnited(_entity.Id, Delay);
             }
+            else if(command is DetonateCommand)
+            {
+                SetUiTimer(null);
+                Sparks?.Stop();
+            }
         }
 
         public void Revert(Level level, IChange change)
@@ -64,7 +68,7 @@ namespace Gameplay.Properties
             if (change is FuseIgnited)
             {
                 _detonateAtTurn = -1;
-                Sparks?.Stop();
+                Sparks?.Trigger(transform);
                 SetUiTimer(null);
             }
         }
@@ -73,6 +77,10 @@ namespace Gameplay.Properties
         {
             var timeRemaining = _detonateAtTurn - level.CurrentTurnNumber;
             SetUiTimer(timeRemaining);
+            if (timeRemaining > 0)
+                Sparks?.Trigger(transform);
+            else
+                Sparks?.Stop();
         }
 
         private void SetUiTimer(int? number)
