@@ -59,7 +59,7 @@ namespace Gameplay
             }
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnAfterPlayerMove(Level level)
         {
             foreach (var commandHandler in _handlers)
             {
@@ -67,7 +67,7 @@ namespace Gameplay
             }
         }
 
-        public void OnTurnRolledBack(Level level)
+        public void AfterTurnRollback(Level level)
         {
             foreach (var commandHandler in _handlers)
             {
