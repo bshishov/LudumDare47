@@ -116,7 +116,6 @@ namespace Gameplay.Properties
 
                 if (CollisionConfig.ObjectsHit(_entity.ObjectType, entityInTargetPos.ObjectType))
                 {
-                    Debug.Log($"{entityInTargetPos} got hit by {_entity} from {moveDirection}");
                     level.DispatchEarly(new HitCommand(
                         target: entityInTargetPos.Id, 
                         sourceId: _entity.Id, 

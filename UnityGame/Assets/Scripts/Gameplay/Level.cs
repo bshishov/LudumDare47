@@ -165,7 +165,6 @@ namespace Gameplay
             // All turn command are finished
             var turn = GetCurrentTurn();
             turn.Complete();
-            Debug.Log($"Turn {turn.Number} completed");
 
             if (!_playerEntity.IsActive)
             {
@@ -194,7 +193,6 @@ namespace Gameplay
             
             // Starting new turn
             var newTurnNumber = turn.Number + 1;
-            Debug.Log($"Starting turn {newTurnNumber}");
             _history.Push(new Turn(newTurnNumber));
             if(_uiTurns != null)
                 _uiTurns.NextTurn();
@@ -268,7 +266,6 @@ namespace Gameplay
 
         private void SwitchState(GameState state)
         {
-            Debug.Log($"Level: {state}");
             _state = state;
         }
 

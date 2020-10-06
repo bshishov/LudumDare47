@@ -48,8 +48,6 @@ namespace Gameplay.Properties
                 
                 if (entity != null)
                 {
-                    Debug.Log($"Spawned {entity.Id}");
-                    
                     if (Animator != null)
                         Animator.SetTrigger(AnimOnSpawnTrigger);
                     
@@ -63,10 +61,7 @@ namespace Gameplay.Properties
         public void Revert(Level level, IChange change)
         {
             if (change is SpawnChange spawnChange)
-            {
-                Debug.Log($"Despawning {spawnChange.SpawnedObjectId}");
                 level.Despawn(spawnChange.SpawnedObjectId);
-            }
         }
 
         public void OnTurnRolledBack(Level level)
@@ -85,7 +80,6 @@ namespace Gameplay.Properties
             }
             else
             {
-                Debug.Log($"Clearing timer for {gameObject}");
                 if (_uiTimerManager != null)
                     _uiTimerManager.DeleteTimer(gameObject);
             }
