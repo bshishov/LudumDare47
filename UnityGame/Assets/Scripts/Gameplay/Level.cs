@@ -106,8 +106,7 @@ namespace Gameplay
             
             if (CanRollbackFromCurrentState)
             {
-                //if (_timeSinceRollbackPressed >= RollbackCd && Input.GetKey(KeyCode.R))
-                if (Input.GetKeyDown(KeyCode.R))
+                if (_timeSinceRollbackPressed >= RollbackCd && Input.GetKey(KeyCode.R))
                 {
                     if (_uiWinLose != null)
                     {
