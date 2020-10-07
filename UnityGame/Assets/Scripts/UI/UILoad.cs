@@ -37,8 +37,14 @@ public class UILoad : MonoBehaviour
     private void LoadLevel(string levelString)
     {
         _fader.FadeIn();
-        if(ScreenTransition != null)
-            ScreenTransition.FadeOutFromWorldPosition(_playerObject.transform.position);
+        if (ScreenTransition != null)
+        {
+            if(_playerObject != null)
+                ScreenTransition.FadeOutFromWorldPosition(_playerObject.transform.position);
+            else
+                ScreenTransition.FadeInFromScreenCenter();
+        }
+
         _fader.StateChanged += () =>
         {
             if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
