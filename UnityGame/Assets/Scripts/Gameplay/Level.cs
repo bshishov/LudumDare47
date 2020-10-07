@@ -46,7 +46,22 @@ namespace Gameplay
 
         private void Awake()
         {
-            SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+            LoadUIScene();
+        }
+
+        void LoadUIScene()
+        {
+            const string uiSceneName = "UI";
+            var isUiSceneLoaded = false;
+            for (var sceneIndex = 0; sceneIndex < SceneManager.sceneCount; sceneIndex++)
+            {
+                var scene = SceneManager.GetSceneAt(sceneIndex);
+                if (scene.name.Equals(uiSceneName))
+                    isUiSceneLoaded = true;
+            }
+            
+            if(!isUiSceneLoaded)
+                SceneManager.LoadScene(uiSceneName, LoadSceneMode.Additive);
         }
 
         void Start()
@@ -176,6 +191,9 @@ namespace Gameplay
             var turn = GetCurrentTurn();
             turn.Complete();
 
+            if(_uiTurns != null)
+                _uiTurns.TurnCompleted();
+
             if (!_playerEntity.IsActive)
             {
                 SwitchState(GameState.PlayerDied);
@@ -189,7 +207,7 @@ namespace Gameplay
                 if (_uiWinLose != null)
                     _uiWinLose.ShowLoseWindow(FailReason.CatDied);
             }
-            else if(turn.Number >= MaxTurns)
+            else if(turn.Number >= MaxTurns - 1)
             {
                 // If it was the last turn and everyobe is alive
                 SwitchState(GameState.Win);
@@ -204,8 +222,7 @@ namespace Gameplay
             // Starting new turn
             var newTurnNumber = turn.Number + 1;
             _history.Push(new Turn(newTurnNumber));
-            if(_uiTurns != null)
-                _uiTurns.NextTurn();
+
         }
         
         private void RollbackLastCompletedTurn()

@@ -115,7 +115,7 @@
 			    half2 diff = i.texcoord - center;
 			    diff.x *= ar;
                 float distanceToCenter = length(diff);
-                float k = sign(distanceToCenter - threshold);
+                float k = max(0, sign(distanceToCenter - threshold));
                 float4 color = float4(0, 0, 0, k * i.color.a);
 
 			    #ifdef UNITY_UI_CLIP_RECT

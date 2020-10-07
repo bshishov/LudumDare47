@@ -6,19 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class UILoad : MonoBehaviour
 {
-    public string MainMenu;
-    public UICanvasGroupFader _fader;
     public LevelSet Levels;
     public UIScreenTransition ScreenTransition;
+    public float FadeInAfterDelay = 0.5f;
+    
     private string _nextLevel;
     private GameObject _playerObject;
 
     IEnumerator Start()
     {
         Time.timeScale = 1f;
-        yield return new WaitForSeconds(1);
-        
-        _fader.FadeOut();
+        yield return new WaitForSeconds(FadeInAfterDelay);
 
         if (ScreenTransition != null)
         {
@@ -29,31 +27,32 @@ public class UILoad : MonoBehaviour
             }
             else
             {
-                ScreenTransition.FadeInFromScreenUv(0.5f, 0.5f);
+                ScreenTransition.FadeInFromScreenCenter();
             }
         }
     }
 
     private void LoadLevel(string levelString)
     {
-        _fader.FadeIn();
         if (ScreenTransition != null)
         {
             if(_playerObject != null)
                 ScreenTransition.FadeOutFromWorldPosition(_playerObject.transform.position);
             else
                 ScreenTransition.FadeInFromScreenCenter();
-        }
-
-        _fader.StateChanged += () =>
-        {
-            if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
+            ScreenTransition.StateChanged += (state) =>
             {
-                SceneManager.LoadScene(levelString);
-                Time.timeScale = 1f;
-            }
-        };
-        
+                if (state == UICanvasGroupFader.FaderState.FadedOut)
+                {
+                    Debug.Log($"[UILoad] Loading scene: {levelString}");
+                    SceneManager.LoadScene(levelString);
+                }
+            };
+        }
+        else
+        {
+            SceneManager.LoadScene(levelString);
+        }
     }
 
     public void LoadMenu()
