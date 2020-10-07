@@ -42,6 +42,7 @@ namespace Gameplay
         // UI
         private ShowTurns _uiTurns;
         private UIWinLose _uiWinLose;
+        private UILoad _uiLoad;
 
         private void Awake()
         {
@@ -72,8 +73,9 @@ namespace Gameplay
                 _uiTurns.Initialize(MaxTurns);
             
             _uiWinLose = GameObject.FindObjectOfType<UIWinLose>(true);
-            _state = GameState.WaitingForPlayerCommand;
+            _uiLoad = GameObject.FindObjectOfType<UILoad>(true);
             
+            SwitchState(GameState.WaitingForPlayerCommand);
         }
 
         int GetNewEntityId()
@@ -114,10 +116,7 @@ namespace Gameplay
                 if (_timeSinceRollbackPressed >= RollbackCd && Input.GetKey(KeyCode.R))
                 {
                     if (_uiWinLose != null)
-                    {
                         _uiWinLose.HideLoseWindow();
-                        _uiWinLose.HideWinWindow();
-                    }
 
                     RollbackLastCompletedTurn();
                     _timeSinceRollbackPressed = 0.0f;
@@ -194,8 +193,8 @@ namespace Gameplay
             {
                 // If it was the last turn and everyobe is alive
                 SwitchState(GameState.Win);
-                if(_uiWinLose != null)
-                    _uiWinLose.ShowWinWindow();
+                if(_uiLoad != null)
+                    _uiLoad.LoadNext();
             }
             else
             {
