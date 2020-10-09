@@ -8,6 +8,7 @@ namespace Gameplay.Properties
     public class PathFollower : MonoBehaviour, ICommandHandler
     {
         public string PathName = "Rails";
+        public bool DestroyIfNowhereToMove = false;
         private Entity _entity;
 
         private void Start()
@@ -29,6 +30,8 @@ namespace Gameplay.Properties
                 {
                     level.Dispatch(new MoveCommand(_entity.Id, directionToNextNode.Value, true));
                 }
+                else if (DestroyIfNowhereToMove)
+                    level.Dispatch(new DestroyCommand(_entity.Id));
             }
         }
 

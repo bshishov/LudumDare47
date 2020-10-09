@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PathName: Fuse
+  DestroyIfNowhereToMove: 1
 --- !u!114 &7423087211787518717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +150,8 @@ MonoBehaviour:
     Scale: 1
   Animator: {fileID: 0}
   AnimDiedBool: 
-  DisableRenderersWhenInactive: 1
+  DisableAllRenderersWhenInactive: 1
+  DisableRenderersWhenInactive: []
 --- !u!114 &2064390221698405546
 MonoBehaviour:
   m_ObjectHideFlags: 0
