@@ -101,6 +101,8 @@ namespace Gameplay
         public void Deactivate()
         {
             IsActive = false;
+            if (_movementAnimator != null)
+                _movementAnimator.FastForwardTransformMovement();
         }
 
         public void Activate()
