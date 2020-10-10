@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1315073372844386276}
   - component: {fileID: 1315073372844386282}
   - component: {fileID: 1315073372844386283}
+  - component: {fileID: 7270777518233683359}
   m_Layer: 5
   m_Name: UITimer
   m_TagString: Untagged
@@ -62,6 +63,24 @@ MonoBehaviour:
   ScreenOffset: {x: 0, y: 0, z: 0}
   Target: {fileID: 0}
   WorldOffset: {x: 0, y: 1.5, z: 0}
+--- !u!114 &7270777518233683359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315073372844386279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274a500dec0b03d4195c9b4bad02d6f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: {fileID: 2634630866672453624}
+  Background: {fileID: 5536678170737985148}
+  ThisTurnBgrColor: {r: 0.9254902, g: 0.0627451, b: 0.0627451, a: 1}
+  ThisTurnTextColor: {r: 1, g: 1, b: 1, a: 1}
+  ManyTurnsBgrColor: {r: 1, g: 1, b: 1, a: 1}
+  ManyTurnsTextColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &2635066794357317927
 GameObject:
   m_ObjectHideFlags: 0
