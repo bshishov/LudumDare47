@@ -16,14 +16,16 @@ public class UISceneSelector : MonoBehaviour
     {
         if(Levels == null)
             return;
+
+        var activeLevelNumber = 1;
         for (var i = 0; i < Levels.Levels.Length; i++)
         {
             var levelInfo = Levels.Levels[i];
             if (levelInfo.Enabled)
             {
-                var panel = Instantiate(LevelPrefab);
-                panel.transform.SetParent(ParentObject.transform, false);
-                panel.GetComponent<UIChooseLevel>().SetSceneSettings(i + 1, levelInfo.SceneName, Fader);
+                var panel = Instantiate(LevelPrefab, ParentObject.transform);
+                panel.GetComponent<UIChooseLevel>().SetSceneSettings(activeLevelNumber, levelInfo.SceneName, Fader);
+                activeLevelNumber += 1;
             }
         }
     }
