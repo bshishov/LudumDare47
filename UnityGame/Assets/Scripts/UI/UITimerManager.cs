@@ -10,7 +10,7 @@ public class UITimerManager : MonoBehaviour
     public RectTransform TimersOverlay;
     public GameObject TimerPrefab;
     
-    private readonly Dictionary<int, TextMeshProUGUI> _objectToCanvas = new Dictionary<int, TextMeshProUGUI>();
+    private readonly Dictionary<int, GameObject> _timerObjects = new Dictionary<int, GameObject>();
 
     public void SetTimer(GameObject parent, int timer)
     {
@@ -28,26 +28,26 @@ public class UITimerManager : MonoBehaviour
     {
         var key = parent.GetInstanceID();
 
-        if (_objectToCanvas.ContainsKey(key))
-            return _objectToCanvas[key];
+        if (_timerObjects.ContainsKey(key))
+            return _timerObjects[key].GetComponentInChildren<TextMeshProUGUI>();
         
         var uiFollowObj = Instantiate(TimerPrefab, TimersOverlay);
         var uiFollow = uiFollowObj.GetComponent<UIFollowSceneObject>();
         if(uiFollow != null)
             uiFollow.SetTarget(parent.transform);
-        var textComponent = uiFollow.GetComponent<TextMeshProUGUI>();
+        var textComponent = uiFollow.GetComponentInChildren<TextMeshProUGUI>();
         if(textComponent != null)
-            _objectToCanvas.Add(key, textComponent);
+            _timerObjects.Add(key, uiFollowObj);
         return textComponent;
     }
     
     public void DeleteTimer(GameObject parent)
     {
         var key = parent.GetInstanceID();
-        if (_objectToCanvas.ContainsKey(key))
+        if (_timerObjects.ContainsKey(key))
         {
-            GameObject.Destroy(_objectToCanvas[key]);
-            _objectToCanvas.Remove(key);
+            GameObject.Destroy(_timerObjects[key]);
+            _timerObjects.Remove(key);
         }
     }
 }
