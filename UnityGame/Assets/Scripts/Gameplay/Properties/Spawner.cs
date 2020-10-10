@@ -23,23 +23,16 @@ namespace Gameplay.Properties
             _entity = GetComponent<Entity>();
             _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
             _spawnAtTurn = level.CurrentTurnNumber + Delay;
-            
-            if (_uiTimerManager != null)
-                _uiTimerManager.SetTimer(gameObject, Delay);
+            SetUiTimer(Delay);
         }
 
         public void OnAfterPlayerMove(Level level)
         {
-            if (_spawnAtTurn == level.CurrentTurnNumber)
-            {
+            var remainingTurns = _spawnAtTurn - level.CurrentTurnNumber;
+            SetUiTimer(remainingTurns - 1);
+            
+            if (remainingTurns == 0)
                 level.Dispatch(new SpawnCommand(_entity.Id));
-                if (_uiTimerManager != null)
-                    _uiTimerManager.DeleteTimer(gameObject);
-            }
-            else
-            {
-                UpdateTimer(level);    
-            }
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
@@ -50,6 +43,7 @@ namespace Gameplay.Properties
                     Prefab, 
                     _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
+                SetUiTimer(null);
                 
                 if (entity != null)
                 {
@@ -66,28 +60,27 @@ namespace Gameplay.Properties
         public void Revert(Level level, IChange change)
         {
             if (change is SpawnChange spawnChange)
+            {
                 level.Despawn(spawnChange.SpawnedObjectId);
+                SetUiTimer(null);
+            }
         }
 
         public void OnTurnRolledBack(Level level)
         {
-            UpdateTimer(level);
+            var timeRemaining = _spawnAtTurn - level.CurrentTurnNumber;
+            SetUiTimer(timeRemaining);
         }
 
-        private void UpdateTimer(Level level)
+        private void SetUiTimer(int? number)
         {
-            var turnsRemaining =  _spawnAtTurn - level.CurrentTurnNumber;
+            if(_uiTimerManager == null)
+                return;
             
-            if (turnsRemaining >= 0)
-            {
-                if (_uiTimerManager != null)
-                    _uiTimerManager.SetTimer(gameObject, turnsRemaining);
-            }
+            if(number.HasValue && number.Value >= 0)
+                _uiTimerManager.SetTimer(gameObject, number.Value);
             else
-            {
-                if (_uiTimerManager != null)
-                    _uiTimerManager.DeleteTimer(gameObject);
-            }
+                _uiTimerManager.DeleteTimer(gameObject);
         }
     }
 }
