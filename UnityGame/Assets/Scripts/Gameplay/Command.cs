@@ -174,14 +174,4 @@ namespace Gameplay
             Delay = delay;
         }
     }
-
-    public class UpdateTimer : BaseChange
-    {
-        public readonly int NewValue;
-
-        public UpdateTimer(int targetId, int newValue) : base(targetId)
-        {
-            NewValue = newValue;
-        }
-    }
 }

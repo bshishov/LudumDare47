@@ -61,6 +61,11 @@ namespace Gameplay.Properties
                 SetUiTimer(null);
                 Sparks?.Stop();
             }
+            else if(command is DestroyCommand)
+            {
+                SetUiTimer(null);
+                Sparks?.Stop();
+            }
         }
 
         public void Revert(Level level, IChange change)
