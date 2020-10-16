@@ -1,44 +1,67 @@
-﻿using Assets.Scripts.Utils.UI;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
+using Gameplay;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UILoad : MonoBehaviour
 {
-    public string MainMenu;
-    public UICanvasGroupFader _fader;
+    public LevelSet Levels;
+    public UIScreenTransition ScreenTransition;
+    public float FadeInAfterDelay = 0.5f;
+    
     private string _nextLevel;
+    private GameObject _playerObject;
 
-    void Start()
+    IEnumerator Start()
     {
-        _fader.FadeOut();
-    }
+        Time.timeScale = 1f;
+        yield return new WaitForSeconds(FadeInAfterDelay);
 
-    private void LoadLevel(string LevelString)
-    {
-        _fader.FadeIn();
-        _fader.StateChanged += () =>
+        if (ScreenTransition != null)
         {
-            if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
+            _playerObject = GameObject.FindWithTag("Player");
+            if (_playerObject != null)
             {
-                SceneManager.LoadScene(LevelString); 
+                ScreenTransition.FadeInFromWorldPosition(_playerObject.transform.position);
             }
-        };
-        
+            else
+            {
+                ScreenTransition.FadeInFromScreenCenter();
+            }
+        }
     }
-    public void SetNextLevel(string nextLevel)
+
+    private void LoadLevel(string levelString)
     {
-        _nextLevel = nextLevel;
+        if (ScreenTransition != null)
+        {
+            if(_playerObject != null)
+                ScreenTransition.FadeOutFromWorldPosition(_playerObject.transform.position);
+            else
+                ScreenTransition.FadeInFromScreenCenter();
+            ScreenTransition.StateChanged += (state) =>
+            {
+                if (state == UICanvasGroupFader.FaderState.FadedOut)
+                {
+                    Debug.Log($"[UILoad] Loading scene: {levelString}");
+                    SceneManager.LoadScene(levelString);
+                }
+            };
+        }
+        else
+        {
+            SceneManager.LoadScene(levelString);
+        }
     }
 
     public void LoadMenu()
     {
-        LoadLevel(MainMenu);
+        LoadLevel(Levels.MenuScene);
     }
 
     public void LoadNext()
     {
-        LoadLevel(_nextLevel);
+        LoadLevel(Levels.GetNextLevel());
     }
 }

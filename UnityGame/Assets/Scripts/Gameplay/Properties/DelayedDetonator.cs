@@ -15,7 +15,11 @@ namespace Gameplay.Properties
             _entity = GetComponent<Entity>();
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnInitialized(Level level)
+        {
+        }
+
+        public void OnAfterPlayerMove(Level level)
         {
             if (!_createdTurn.HasValue)
                 _createdTurn = level.CurrentTurnNumber;
@@ -30,6 +34,10 @@ namespace Gameplay.Properties
         }
 
         public void Revert(Level level, IChange change)
+        {
+        }
+
+        public void OnTurnRolledBack(Level level)
         {
         }
     }

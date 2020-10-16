@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UI;
 using UnityEngine;
-using UnityEngine.UI;
 using Utils;
 
 public class UIWinLose : MonoBehaviour
 {
     public GameObject WinWindow;
-    public GameObject LoseWindow;
-    public Text LoseText;
+    public UICanvasGroupFader LoseWindowFader;
+    public TextMeshProUGUI LoseText;
 
     public void ShowWinWindow()
     {
@@ -16,12 +17,12 @@ public class UIWinLose : MonoBehaviour
     }
     public void ShowLoseWindow(FailReason reason)
     {
-        LoseText.text = Phrases.FailReasonDict[reason];
-        LoseWindow.SetActive(true);
+        LoseText.text = Phrases.FailReasonDict[reason].ToUpper();
+        LoseWindowFader.FadeIn();
     }
     public void HideLoseWindow()
-    {        
-        LoseWindow.SetActive(false);
+    {   
+        LoseWindowFader.FadeOut();
     }
     
     public void HideWinWindow()

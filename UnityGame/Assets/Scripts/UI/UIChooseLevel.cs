@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Utils.UI;
+using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,7 +9,7 @@ namespace Assets.Scripts.UI
 {
     public class UIChooseLevel : MonoBehaviour
     {
-        public Text TextNumber;
+        public TextMeshProUGUI TextNumber;
         private bool _unlocked = false;
         private string _levelName;
         private UICanvasGroupFader _fader;
@@ -32,20 +34,16 @@ namespace Assets.Scripts.UI
 
         public void LoadLevel()
         {
-
-            if (_unlocked)
+            Debug.Log("Here");
+            _fader.FadeIn();
+            _fader.StateChanged += () =>
             {
-                Debug.Log("Here");
-                _fader.FadeIn();
-                _fader.StateChanged += () =>
+                if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
                 {
-                    if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
-                    {
-                        SceneManager.LoadScene(_levelName);
-                    }
-                };
-               
-            }             
+                    SceneManager.LoadScene(_levelName);
+                }
+            };
+           
         }
 
         [ContextMenu("UnlockLevel")]

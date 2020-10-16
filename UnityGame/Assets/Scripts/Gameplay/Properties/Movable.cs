@@ -13,7 +13,11 @@ namespace Gameplay.Properties
             _entity = GetComponent<Entity>();
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnInitialized(Level level)
+        {
+        }
+
+        public void OnAfterPlayerMove(Level level)
         {
         }
 
@@ -40,29 +44,31 @@ namespace Gameplay.Properties
                     2f);
         }
 
+        public void OnTurnRolledBack(Level level)
+        {
+        }
+
         public bool CanMove(Level level, Direction dir)
         {
             // Recursive movement ability checking
             var targetPos = _entity.Position + Utils.MoveDelta(dir);
             foreach (var entityInTargetPos in level.GetActiveEntitiesAt(targetPos))
             {
-                // If there is an active entity in target position
-                if (entityInTargetPos != null)
+                // If we collide with object in a target position and an object can be pushed
+                // Then recursively check whether it has some space to move
+                if(CollisionConfig.ObjectsCollide(_entity.ObjectType, entityInTargetPos.ObjectType))
                 {
-                    var movable = entityInTargetPos.GetComponent<Movable>();
-                    if (movable != null)
+                    if (CollisionConfig.CanPush(
+                        _entity.ObjectType,
+                        entityInTargetPos.ObjectType))
                     {
-                        // If we collide with object in a target position and an object can be pushed
-                        // Then recursively check whether it has some space to move
-                        if(CollisionConfig.ObjectsCollide(_entity.ObjectType, entityInTargetPos.ObjectType))
+                        var movable = entityInTargetPos.GetComponent<Movable>();
+                        if (movable != null)
                         {
-                            if(CollisionConfig.CanPush(
-                                _entity.ObjectType, 
-                                entityInTargetPos.ObjectType))
-                                return movable.CanMove(level, dir);
-                            return false;
+                            return movable.CanMove(level, dir);
                         }
                     }
+                    return false;
                 }
             }
 
@@ -80,48 +86,44 @@ namespace Gameplay.Properties
             // Move neighbor movable (push)
             foreach (var entityInTargetPos in level.GetActiveEntitiesAt(targetPos))
             {
-                if (entityInTargetPos != null)
+                // If current object collides with target object
+                if(CollisionConfig.ObjectsCollide(_entity.ObjectType, entityInTargetPos.ObjectType))
                 {
-                    // If current object collides with target object
-                    if(CollisionConfig.ObjectsCollide(_entity.ObjectType, entityInTargetPos.ObjectType))
+                    level.DispatchEarly(new CollisionEvent(
+                        target: entityInTargetPos.Id, 
+                        sourceId: _entity.Id, 
+                        direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(moveDirection), entityInTargetPos.Orientation)));
+                    level.DispatchEarly(new CollisionEvent(
+                        target:_entity.Id, 
+                        sourceId: entityInTargetPos.Id, 
+                        direction: Utils.AbsoluteDirectionToRelative(moveDirection, _entity.Orientation)));
+                
+                    // Push (collidable only)
+                    if (canMove && CollisionConfig.CanPush(
+                        _entity.ObjectType,
+                        entityInTargetPos.ObjectType))
                     {
-                        level.DispatchEarly(new CollisionEvent(
-                            target: entityInTargetPos.Id, 
-                            sourceId: _entity.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(moveDirection), entityInTargetPos.Orientation)));
-                        level.DispatchEarly(new CollisionEvent(
-                            target:_entity.Id, 
-                            sourceId: entityInTargetPos.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(moveDirection, _entity.Orientation)));
-                    
-                        // Push (collidable only)
-                        if (canMove && CollisionConfig.CanPush(
-                            _entity.ObjectType,
-                            entityInTargetPos.ObjectType))
+                        var movable = entityInTargetPos.GetComponent<Movable>();
+                        if (movable != null)
                         {
-                            var movable = entityInTargetPos.GetComponent<Movable>();
-                            if (movable != null)
+                            foreach (var change in movable.DoMove(level, moveDirection, false, MovementType.Pushed))
                             {
-                                foreach (var change in movable.DoMove(level, moveDirection, false, MovementType.Pushed))
-                                {
-                                    yield return change;
-                                }
+                                yield return change;
                             }
                         }
                     }
+                }
 
-                    if (canMove && CollisionConfig.ObjectsHit(_entity.ObjectType, entityInTargetPos.ObjectType))
-                    {
-                        Debug.Log($"{entityInTargetPos} got hit by {_entity} from {moveDirection}");
-                        level.DispatchEarly(new HitCommand(
-                            target: entityInTargetPos.Id, 
-                            sourceId: _entity.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(moveDirection), entityInTargetPos.Orientation)));
-                        level.DispatchEarly(new HitCommand(
-                            target:_entity.Id, 
-                            sourceId: entityInTargetPos.Id, 
-                            direction: Utils.AbsoluteDirectionToRelative(moveDirection, _entity.Orientation)));
-                    }
+                if (CollisionConfig.ObjectsHit(_entity.ObjectType, entityInTargetPos.ObjectType))
+                {
+                    level.DispatchEarly(new HitCommand(
+                        target: entityInTargetPos.Id, 
+                        sourceId: _entity.Id, 
+                        direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(moveDirection), entityInTargetPos.Orientation)));
+                    level.DispatchEarly(new HitCommand(
+                        target:_entity.Id, 
+                        sourceId: entityInTargetPos.Id, 
+                        direction: Utils.AbsoluteDirectionToRelative(moveDirection, _entity.Orientation)));
                 }
             }
 

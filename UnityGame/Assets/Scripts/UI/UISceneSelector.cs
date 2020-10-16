@@ -2,6 +2,7 @@
 using Assets.Scripts.Utils.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay;
 using UnityEngine;
 
 public class UISceneSelector : MonoBehaviour
@@ -9,17 +10,23 @@ public class UISceneSelector : MonoBehaviour
     public GameObject ParentObject;
     public GameObject LevelPrefab;
     public GameObject Fader;
-    public Object[] scenes;
+    public LevelSet Levels;
     
-
-    // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < scenes.Length; i++)
+        if(Levels == null)
+            return;
+
+        var activeLevelNumber = 1;
+        for (var i = 0; i < Levels.Levels.Length; i++)
         {
-            var panel = Instantiate(LevelPrefab);
-            panel.transform.SetParent(ParentObject.transform, false);
-            panel.GetComponent<UIChooseLevel>().SetSceneSettings(i+1, scenes[i].name, Fader);
+            var levelInfo = Levels.Levels[i];
+            if (levelInfo.Enabled)
+            {
+                var panel = Instantiate(LevelPrefab, ParentObject.transform);
+                panel.GetComponent<UIChooseLevel>().SetSceneSettings(activeLevelNumber, levelInfo.SceneName, Fader);
+                activeLevelNumber += 1;
+            }
         }
     }
 

@@ -13,8 +13,8 @@
     {
         public static Dictionary<FailReason, string> FailReasonDict = new Dictionary<FailReason, string>()
         {
-            { FailReason.PlayerDied, "You are dead!" },
-            { FailReason.CatDied, "Kitten is dead!" },
+            { FailReason.PlayerDied, "You are dead" },
+            { FailReason.CatDied, "Kitten is dead" },
         };
     }
 }

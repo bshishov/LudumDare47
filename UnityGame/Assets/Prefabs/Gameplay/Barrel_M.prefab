@@ -121,7 +121,9 @@ MonoBehaviour:
     Scale: 1
   Animator: {fileID: 0}
   AnimDiedBool: 
-  DisableRenderersWhenInactive: 1
+  DisableAllRenderersWhenInactive: 0
+  DisableRenderersWhenInactive:
+  - {fileID: 5214064410743763730}
 --- !u!1001 &6889810705059540886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,6 +201,12 @@ PrefabInstance:
 --- !u!4 &6347611642485573757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 943ae49f0c7fb704a97d1af63c503cc6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6889810705059540886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5214064410743763730 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 943ae49f0c7fb704a97d1af63c503cc6,
     type: 3}
   m_PrefabInstance: {fileID: 6889810705059540886}
   m_PrefabAsset: {fileID: 0}

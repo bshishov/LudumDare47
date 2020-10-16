@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 namespace Gameplay.Properties
@@ -11,10 +12,8 @@ namespace Gameplay.Properties
 
         [Header("Visuals")] 
         public FxObject Sparks;
-        
-        public bool Ignited { get; private set; }
-        
-        private int _igniteTurn;
+
+        private int _detonateAtTurn = -1;
         private Entity _entity;
         private UITimerManager _uiTimerManager;
 
@@ -24,41 +23,49 @@ namespace Gameplay.Properties
             _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnInitialized(Level level)
         {
-            if (!Ignited)
+            // Start visuals prematurely
+            if (AutoIgnite)
             {
-                if (AutoIgnite)
-                    level.DispatchEarly(new IgniteCommand(_entity.Id));
+                _detonateAtTurn = level.CurrentTurnNumber + Delay;
+                Sparks?.Trigger(transform);
+                SetUiTimer(Delay);
             }
-            else
+        }
+
+        public void OnAfterPlayerMove(Level level)
+        {
+            // It's finally FUSE's turn
+            var timeRemaining = _detonateAtTurn - level.CurrentTurnNumber;
+            SetUiTimer(timeRemaining - 1);
+            
+            if (timeRemaining == 0)
             {
-                var remaining =  (_igniteTurn + Delay) - level.CurrentTurnNumber;
-                
-                if (remaining == 0)
-                {
-                    level.DispatchEarly(new DetonateCommand(_entity.Id));
-                    Sparks?.Stop();
-                    
-                    if (_uiTimerManager != null)
-                        _uiTimerManager.DeleteTimer(gameObject);
-                }
-                else if(remaining > 0)
-                {
-                    if (_uiTimerManager != null)
-                        _uiTimerManager.SetTimer(gameObject, remaining);
-                }
+                // Ignite phase is completed, send detonate command
+                // and stop ignite phase
+                level.DispatchEarly(new DetonateCommand(_entity.Id));
             }
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-            if (command is IgniteCommand && !Ignited)
+            if (command is IgniteCommand && _detonateAtTurn < 0)
             {
-                Ignited = true;
-                _igniteTurn = level.CurrentTurnNumber;
+                _detonateAtTurn = level.CurrentTurnNumber + Delay;
                 Sparks?.Trigger(transform);
+                SetUiTimer(Delay - 1);
                 yield return new FuseIgnited(_entity.Id, Delay);
+            }
+            else if(command is DetonateCommand)
+            {
+                SetUiTimer(null);
+                Sparks?.Stop();
+            }
+            else if(command is DestroyCommand)
+            {
+                SetUiTimer(null);
+                Sparks?.Stop();
             }
         }
 
@@ -66,12 +73,31 @@ namespace Gameplay.Properties
         {
             if (change is FuseIgnited)
             {
-                if (_uiTimerManager != null)
-                    _uiTimerManager.DeleteTimer(gameObject);
-                
-                Ignited = false;
-                Sparks?.Stop();
+                _detonateAtTurn = -1;
+                Sparks?.Trigger(transform);
+                SetUiTimer(null);
             }
+        }
+
+        public void OnTurnRolledBack(Level level)
+        {
+            var timeRemaining = _detonateAtTurn - level.CurrentTurnNumber;
+            SetUiTimer(timeRemaining);
+            if (timeRemaining > 0)
+                Sparks?.Trigger(transform);
+            else
+                Sparks?.Stop();
+        }
+
+        private void SetUiTimer(int? number)
+        {
+            if(_uiTimerManager == null)
+                return;
+            
+            if(number.HasValue && number.Value >= 0)
+                _uiTimerManager.SetTimer(gameObject, number.Value);
+            else
+                _uiTimerManager.DeleteTimer(gameObject);
         }
     }
 }

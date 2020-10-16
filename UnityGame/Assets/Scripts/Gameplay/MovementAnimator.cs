@@ -30,7 +30,7 @@ namespace Gameplay
             if (_isMoving)
             {
                 _tPos += _speed * Time.deltaTime / _moveTime;
-                if (_tPos > 1f)
+                if (_tPos >= 1f)
                 {
                     _tPos = 1f;
                     _isMoving = false;
@@ -44,7 +44,7 @@ namespace Gameplay
             if (_isRotating)
             {
                 _tRot += _speed * Time.deltaTime / _rotTime;
-                if (_tRot > 1f)
+                if (_tRot >= 1f)
                 {
                     _tRot = 1f;
                     _isRotating = false;
@@ -88,6 +88,18 @@ namespace Gameplay
                     Animator.SetTrigger(AnimPushedTrigger);
                 PushedFx?.Trigger(transform);
             }
+        }
+
+        public void FastForwardTransformMovement()
+        {
+            if (_isMoving)
+                _tPos = 1f;
+
+            if (_isRotating)
+                _tPos = 1f;
+
+            if (_isMoving || _isRotating)
+                Update();
         }
     }
 }

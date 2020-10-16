@@ -23,7 +23,11 @@ namespace Gameplay.Properties
             _entity = GetComponent<Entity>();
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnInitialized(Level level)
+        {
+        }
+
+        public void OnAfterPlayerMove(Level level)
         {
         }
 
@@ -31,7 +35,6 @@ namespace Gameplay.Properties
         {
             if (command is HitCommand hitCommand && IsDeadlySide(hitCommand.Direction))
             {
-                Debug.Log($"{_entity} got hit from {hitCommand.Direction}");
                 level.DispatchEarly(new DestroyCommand(hitCommand.SourceId));
                 if (SelfDestroyOnHit)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
@@ -56,6 +59,10 @@ namespace Gameplay.Properties
         }
 
         public void Revert(Level level, IChange change)
+        {
+        }
+
+        public void OnTurnRolledBack(Level level)
         {
         }
     }

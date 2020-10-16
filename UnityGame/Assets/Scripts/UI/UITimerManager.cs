@@ -1,30 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using Utils;
 
-public class UITimerManager : MonoBehaviour
+namespace UI
 {
-    public GameObject WorldCanvas;
-    private Dictionary<int, GameObject> _objectToCanvas = new Dictionary<int, GameObject>();
-
-    // Start is called before the first frame update
-    void Start()
+    public class UITimerManager : MonoBehaviour
     {
-       
-    }
+        public RectTransform TimersOverlay;
+        public GameObject TimerPrefab;
+    
+        private readonly Dictionary<int, UITimer> _timerObjects = new Dictionary<int, UITimer>();
 
-    public void SetTimer(GameObject parent, int timer)
-    {
-        if (_objectToCanvas.ContainsKey(parent.GetInstanceID()))
-            GameObject.Destroy(_objectToCanvas[parent.GetInstanceID()]);
-        var panel = (GameObject)Instantiate(WorldCanvas);
-        panel.transform.SetParent(parent.transform, false);
-        panel.GetComponentInChildren<Text>().text = timer.ToString();
-        _objectToCanvas[parent.GetInstanceID()] = panel;
-    }
-    public void DeleteTimer(GameObject parent)
-    {        
-        GameObject.Destroy(_objectToCanvas[parent.GetInstanceID()]);
+        public void SetTimer(GameObject parent, int timerValue)
+        {
+            if(TimerPrefab == null || TimersOverlay == null || parent == null)
+                return;
+
+            var timer = GetOrCreateUiTimer(parent);
+            if (timer != null)
+                timer.SetTurns(timerValue);
+        }
+
+        private UITimer GetOrCreateUiTimer(GameObject parent)
+        {
+            var key = parent.GetInstanceID();
+
+            if (_timerObjects.ContainsKey(key))
+                return _timerObjects[key];
+        
+            var uiFollowObj = Instantiate(TimerPrefab, TimersOverlay);
+            var uiFollow = uiFollowObj.GetComponent<UIFollowSceneObject>();
+            if(uiFollow != null)
+                uiFollow.SetTarget(parent.transform);
+            var timer = uiFollow.GetComponent<UITimer>();
+            if(timer != null)
+                _timerObjects.Add(key, timer);
+            return timer;
+        }
+    
+        public void DeleteTimer(GameObject parent)
+        {
+            var key = parent.GetInstanceID();
+            if (_timerObjects.ContainsKey(key))
+            {
+                GameObject.Destroy(_timerObjects[key].gameObject);
+                _timerObjects.Remove(key);
+            }
+        }
     }
 }

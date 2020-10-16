@@ -16,7 +16,11 @@ namespace Gameplay.Properties
             _entity = GetComponent<Entity>();
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnInitialized(Level level)
+        {
+        }
+
+        public void OnAfterPlayerMove(Level level)
         {
             if(_isMoving)
                 level.Dispatch(new MoveCommand(_entity.Id, _entity.Orientation, false));
@@ -40,6 +44,10 @@ namespace Gameplay.Properties
             {
                 _isMoving = true;
             }
+        }
+
+        public void OnTurnRolledBack(Level level)
+        {
         }
     }
 }

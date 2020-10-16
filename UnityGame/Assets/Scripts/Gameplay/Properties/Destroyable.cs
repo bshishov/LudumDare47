@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Properties
 {
@@ -10,16 +12,24 @@ namespace Gameplay.Properties
         public FxObject DestroyedFx;
         public Animator Animator;
         public string AnimDiedBool;
-        public bool DisableRenderersWhenInactive = false;
+        [FormerlySerializedAs("DisableRenderersWhenInactive")] 
+        public bool DisableAllRenderersWhenInactive = false;
+        public Renderer[] DisableRenderersWhenInactive;
         
         private Entity _entity;
+        private UITimerManager _uiTimerManager;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
+            _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
         }
 
-        public void OnTurnStarted(Level level)
+        public void OnInitialized(Level level)
+        {
+        }
+
+        public void OnAfterPlayerMove(Level level)
         {
         }
 
@@ -32,13 +42,21 @@ namespace Gameplay.Properties
             {
                 DestroyedFx?.Trigger(transform);
                 _entity.Deactivate();
+                
+                if(_uiTimerManager != null)
+                    _uiTimerManager.DeleteTimer(gameObject);
+                
                 if(Animator != null)
                     Animator.SetBool(AnimDiedBool, true);
                 
-                if(DisableRenderersWhenInactive)
+                if(DisableAllRenderersWhenInactive)
                     foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
                         rnd.enabled = false;
-                
+
+                if (DisableRenderersWhenInactive != null)
+                    foreach (var rnd in DisableRenderersWhenInactive)
+                        rnd.enabled = false;
+
                 yield return new DestroyedChange(_entity.Id);
             }
         }
@@ -53,12 +71,20 @@ namespace Gameplay.Properties
                     Animator.SetBool(AnimDiedBool, false);
                 
                 
-                if(DisableRenderersWhenInactive)
+                if(DisableAllRenderersWhenInactive)
                     foreach (var rnd in gameObject.GetComponentsInChildren<Renderer>())
+                        rnd.enabled = true;
+                
+                if (DisableRenderersWhenInactive != null)
+                    foreach (var rnd in DisableRenderersWhenInactive)
                         rnd.enabled = true;
                 
                 _entity.Activate();
             }
+        }
+
+        public void OnTurnRolledBack(Level level)
+        {
         }
     }
 }

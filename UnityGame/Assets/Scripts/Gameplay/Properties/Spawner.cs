@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 namespace Gameplay.Properties
@@ -15,35 +16,24 @@ namespace Gameplay.Properties
         public FxObject ShootFx;
 
         private Entity _entity;
-        private int? _createdTurn;
+        private int _spawnAtTurn;
         private UITimerManager _uiTimerManager;
 
-        private void Start()
+        public void OnInitialized(Level level)
         {
             _entity = GetComponent<Entity>();
             _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
+            _spawnAtTurn = level.CurrentTurnNumber + Delay;
+            SetUiTimer(Delay);
         }
-        
-        public void OnTurnStarted(Level level)
+
+        public void OnAfterPlayerMove(Level level)
         {
-            if (!_createdTurn.HasValue)
-                _createdTurn = level.CurrentTurnNumber;
-
-            var remaining =  (_createdTurn.Value + Delay) - level.CurrentTurnNumber;
-
-            if (remaining > 0)
-            {
-                Debug.Log($"Timer {gameObject}: {remaining}");
-                if (_uiTimerManager != null)
-                    _uiTimerManager.SetTimer(gameObject, remaining);
-            }
-            else if(remaining == 0)
-            {
-                Debug.Log($"Clearing timer for {gameObject}");
-                if (_uiTimerManager != null && Delay > 0)
-                    _uiTimerManager.DeleteTimer(gameObject);
+            var remainingTurns = _spawnAtTurn - level.CurrentTurnNumber;
+            SetUiTimer(remainingTurns - 1);
+            
+            if (remainingTurns == 0)
                 level.Dispatch(new SpawnCommand(_entity.Id));
-            }
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
@@ -54,11 +44,10 @@ namespace Gameplay.Properties
                     Prefab, 
                     _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
+                SetUiTimer(null);
                 
                 if (entity != null)
                 {
-                    Debug.Log($"Spawned {entity.Id}");
-                    
                     if (Animator != null)
                         Animator.SetTrigger(AnimOnSpawnTrigger);
                     
@@ -73,10 +62,26 @@ namespace Gameplay.Properties
         {
             if (change is SpawnChange spawnChange)
             {
-                Debug.Log($"Despawning {spawnChange.SpawnedObjectId}");
                 level.Despawn(spawnChange.SpawnedObjectId);
-                _createdTurn = null;
+                SetUiTimer(null);
             }
+        }
+
+        public void OnTurnRolledBack(Level level)
+        {
+            var timeRemaining = _spawnAtTurn - level.CurrentTurnNumber;
+            SetUiTimer(timeRemaining);
+        }
+
+        private void SetUiTimer(int? number)
+        {
+            if(_uiTimerManager == null)
+                return;
+            
+            if(number.HasValue && number.Value >= 0)
+                _uiTimerManager.SetTimer(gameObject, number.Value);
+            else
+                _uiTimerManager.DeleteTimer(gameObject);
         }
     }
 }

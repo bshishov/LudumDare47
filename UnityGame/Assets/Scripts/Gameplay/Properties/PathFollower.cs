@@ -8,14 +8,19 @@ namespace Gameplay.Properties
     public class PathFollower : MonoBehaviour, ICommandHandler
     {
         public string PathName = "Rails";
+        public bool DestroyIfNowhereToMove = false;
         private Entity _entity;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
         }
-        
-        public void OnTurnStarted(Level level)
+
+        public void OnInitialized(Level level)
+        {
+        }
+
+        public void OnAfterPlayerMove(Level level)
         {
             var currentPathNode = GetPathNodeAt(level, _entity.Position);
             if (currentPathNode != null)
@@ -25,6 +30,8 @@ namespace Gameplay.Properties
                 {
                     level.Dispatch(new MoveCommand(_entity.Id, directionToNextNode.Value, true));
                 }
+                else if (DestroyIfNowhereToMove)
+                    level.Dispatch(new DestroyCommand(_entity.Id));
             }
         }
 
@@ -41,6 +48,10 @@ namespace Gameplay.Properties
         }
 
         public void Revert(Level level, IChange change)
+        {
+        }
+
+        public void OnTurnRolledBack(Level level)
         {
         }
     }

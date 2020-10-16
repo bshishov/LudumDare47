@@ -8,10 +8,15 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
+          <e p="Attributes" t="Include">
+            <e p="Reordarable.cs" t="Include" />
+          </e>
           <e p="Editor" t="Include">
             <e p="BuildCommand.cs" t="Include" />
             <e p="EnumMaskPropertyDrawer.cs" t="Include" />
             <e p="PostBuildProcessor.cs" t="Include" />
+            <e p="ReordarableArrayInspector.cs" t="Include" />
+            <e p="SerilalizedPrpExtension.cs" t="Include" />
           </e>
           <e p="Gameplay" t="Include">
             <e p="Command.cs" t="Include" />
@@ -20,6 +25,7 @@
             <e p="Entity.cs" t="Include" />
             <e p="FxObject.cs" t="Include" />
             <e p="Level.cs" t="Include" />
+            <e p="LevelSet.cs" t="Include" />
             <e p="MovementAnimator.cs" t="Include" />
             <e p="MovementType.cs" t="Include" />
             <e p="Properties" t="Include">
@@ -44,14 +50,15 @@
           <e p="UI" t="Include">
             <e p="LookAtCamera.cs" t="Include" />
             <e p="ShowTurns.cs" t="Include" />
-            <e p="UICanvasGroupFader.cs" t="Include" />
             <e p="UIChooseLevel.cs" t="Include" />
             <e p="UIExit.cs" t="Include" />
             <e p="UILoad.cs" t="Include" />
             <e p="UIMover.cs" t="Include" />
             <e p="UIPauseScreen.cs" t="Include" />
             <e p="UISceneSelector.cs" t="Include" />
+            <e p="UIScreenTransition.cs" t="Include" />
             <e p="UISettingsMenu.cs" t="Include" />
+            <e p="UITimer.cs" t="Include" />
             <e p="UITimerManager.cs" t="Include" />
             <e p="UIWinLose.cs" t="Include" />
           </e>
@@ -120,12 +127,47 @@
             </e>
             <e p="TinyMessenger.cs" t="Include" />
             <e p="UICanvasGroupFader.cs" t="Include" />
+            <e p="UIFollowSceneObject.cs" t="Include" />
           </e>
           <e p="VFX" t="Include">
             <e p="DestroyIfNotPlaying.cs" t="Include" />
             <e p="Emit.cs" t="Include" />
             <e p="ReverceParticleTime.cs" t="Include" />
             <e p="VertexColorUpdate.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Shaders" t="Include">
+          <e p="ScreenTransition.shader" t="Include" />
+        </e>
+        <e p="TextMesh Pro" t="Include">
+          <e p="Fonts" t="Include">
+            <e p="LiberationSans - OFL.txt" t="Include" />
+          </e>
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+            <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+            <e p="TMP_Bitmap.shader" t="Include" />
+            <e p="TMP_SDF Overlay.shader" t="Include" />
+            <e p="TMP_SDF SSD.shader" t="Include" />
+            <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+            <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+            <e p="TMP_SDF-Mobile SSD.shader" t="Include" />
+            <e p="TMP_SDF-Mobile.shader" t="Include" />
+            <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+            <e p="TMP_SDF-Surface.shader" t="Include" />
+            <e p="TMP_SDF.shader" t="Include" />
+            <e p="TMP_Sprite.shader" t="Include" />
+            <e p="TMPro.cginc" t="Include" />
+            <e p="TMPro_Mobile.cginc" t="Include" />
+            <e p="TMPro_Properties.cginc" t="Include" />
+            <e p="TMPro_Surface.cginc" t="Include" />
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
       </e>
