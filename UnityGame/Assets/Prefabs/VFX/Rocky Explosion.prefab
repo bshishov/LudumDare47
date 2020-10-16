@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1930189815052112235
 Transform:
   m_ObjectHideFlags: 0
@@ -3723,7 +3723,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 3
     type: 0
     collisionMode: 0
@@ -5210,7 +5210,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.05
-      minScalar: 0.01
+      minScalar: 0.02
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5790,7 +5790,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 80
+      scalar: 40
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -8258,7 +8258,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    range: {x: 0, y: 1}
+    range: {x: 5, y: 1}
     separateAxes: 0
   RotationBySpeedModule:
     enabled: 0
@@ -8371,7 +8371,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7853982
+      scalar: 0
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
@@ -10669,7 +10669,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
+        scalar: 10
         minScalar: 30
         maxCurve:
           serializedVersion: 2
