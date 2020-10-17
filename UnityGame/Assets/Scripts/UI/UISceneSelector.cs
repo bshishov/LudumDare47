@@ -18,9 +18,8 @@ public class UISceneSelector : MonoBehaviour
             return;
 
         var activeLevelNumber = 1;
-        for (var i = 0; i < Levels.Levels.Length; i++)
+        foreach (var levelInfo in Levels.Levels)
         {
-            var levelInfo = Levels.Levels[i];
             if (levelInfo.Enabled)
             {
                 var panel = Instantiate(LevelPrefab, ParentObject.transform);
