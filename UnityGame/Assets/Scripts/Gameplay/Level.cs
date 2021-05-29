@@ -162,7 +162,9 @@ namespace Gameplay
                 PlayerMove(Direction.Back);
         }
 
-        private void PlayerMove(Direction dir)
+
+        //made public for send direction from SwipeDetector (best way?...no)
+        public void PlayerMove(Direction dir)
         {
             if (!_playerMovable.CanMove(this, dir))
             {
