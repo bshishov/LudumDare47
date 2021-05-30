@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
 using Utils.Debugger;
+using TouchControll;
 
 namespace Gameplay
 {
@@ -123,8 +124,13 @@ namespace Gameplay
                 
                 HandleTurnEnd();
             }
-            else if (_state == GameState.WaitingForPlayerCommand)
+            else if (_state == GameState.WaitingForPlayerCommand) {
                 HandleInput();
+                //add detect swipe method
+                SwipeDetector.Instance.DetectSwipe();
+            }
+               
+                
             
             if (CanRollbackFromCurrentState)
             {
@@ -163,7 +169,7 @@ namespace Gameplay
         }
 
 
-        //made public for send direction from SwipeDetector (best way?...no)
+       //made public for send direction from SwipeDetector (best way?)
         public void PlayerMove(Direction dir)
         {
             if (!_playerMovable.CanMove(this, dir))

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Gameplay;
+using Utils;
 
 namespace TouchControll
 {
-    public class SwipeDetector : MonoBehaviour
+    public class SwipeDetector : Singleton<SwipeDetector>
     {
 
         [SerializeField]
@@ -15,15 +16,7 @@ namespace TouchControll
         private Vector2 _fingerDownPosition;
         private Vector2 _fingerUpPosition;
 
-
-
-        private void Update()
-        {
-            DetectSwipe();
-            
-        }
-
-        private void DetectSwipe()
+        public void DetectSwipe()
         {
             foreach (Touch touch in Input.touches)
             {
