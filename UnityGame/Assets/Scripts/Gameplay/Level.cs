@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
 using Utils.Debugger;
-using TouchControll;
 
 namespace Gameplay
 {
@@ -26,8 +25,8 @@ namespace Gameplay
         public int CurrentTurnNumber => GetCurrentTurn()?.Number ?? -1;
         public bool IsPaused => Time.timeScale < 0.5f;
 
-        private bool CanRollbackFromCurrentState => 
-            _state == GameState.WaitingForPlayerCommand || 
+        private bool CanRollbackFromCurrentState =>
+            _state == GameState.WaitingForPlayerCommand ||
             _state == GameState.PlayerDied ||
             _state == GameState.CatGirlDied;
 
@@ -60,8 +59,8 @@ namespace Gameplay
                 if (scene.name.Equals(uiSceneName))
                     isUiSceneLoaded = true;
             }
-            
-            if(!isUiSceneLoaded)
+
+            if (!isUiSceneLoaded)
                 SceneManager.LoadScene(uiSceneName, LoadSceneMode.Additive);
         }
 
@@ -70,13 +69,13 @@ namespace Gameplay
             // Start with turn 0
             _history.Clear();
             _history.Push(new Turn(0));
-            
+
             // All entities MUST BE INITIALIZED AT SOME TURN
             // Turn0 by default
             var foundEntities = GameObject.FindObjectsOfType<Entity>();
             _playerEntity = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
             _playerMovable = _playerEntity.GetComponent<Movable>();
-            
+
             foreach (var entity in foundEntities)
             {
                 var newId = GetNewEntityId();
@@ -87,10 +86,10 @@ namespace Gameplay
             _uiTurns = GameObject.FindObjectOfType<ShowTurns>(true);
             if (_uiTurns != null)
                 _uiTurns.Initialize(MaxTurns);
-            
+
             _uiWinLose = GameObject.FindObjectOfType<UIWinLose>(true);
             _uiLoad = GameObject.FindObjectOfType<UILoad>(true);
-            
+
             SwitchState(GameState.WaitingForPlayerCommand);
         }
 
@@ -102,11 +101,11 @@ namespace Gameplay
 
         void Update()
         {
-            if(IsPaused)
+            if (IsPaused)
                 return;
 
             Debugger.Default.Display("Level/Turn", GetCurrentTurn().Number);
-            
+
             if (_state == GameState.ExecutingTurnCommands)
             {
                 while (true)
@@ -115,23 +114,15 @@ namespace Gameplay
                     if (command != null)
                     {
                         Exec(command);
-                    }
-                    else
+                    } else
                     {
                         break;
                     }
                 }
-                
+
                 HandleTurnEnd();
-            }
-            else if (_state == GameState.WaitingForPlayerCommand) {
-                HandleInput();
-                //add detect swipe method
-                SwipeDetector.Instance.DetectSwipe();
-            }
-               
-                
-            
+            } 
+
             if (CanRollbackFromCurrentState)
             {
                 if (_timeSinceRollbackPressed >= RollbackCd && Input.GetKey(KeyCode.R))
@@ -153,44 +144,32 @@ namespace Gameplay
             return _history.Peek();
         }
 
-        private void HandleInput()
-        {
-            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-                PlayerMove(Direction.Right);
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-                PlayerMove(Direction.Left);
-
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-                PlayerMove(Direction.Front);
-
-            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                PlayerMove(Direction.Back);
-        }
-
-
-       //made public for send direction from SwipeDetector (best way?)
+       
+        //made public for send direction from SwipeDetector (best way?)
         public void PlayerMove(Direction dir)
         {
-            if (!_playerMovable.CanMove(this, dir))
+            if (_state == GameState.WaitingForPlayerCommand)
             {
-                // If player cant move, discard the turn attempt
-                return;
-            }
+                if (!_playerMovable.CanMove(this, dir))
+                {
+                    // If player cant move, discard the turn attempt
+                    return;
+                }
 
-            // Player moves first
-            var playerId = _playerEntity.Id;
-            Dispatch(new MoveCommand(playerId, dir, true));
+                // Player moves first
+                var playerId = _playerEntity.Id;
+                Dispatch(new MoveCommand(playerId, dir, true));
 
-            // Rest of the objects move afterwards
-            foreach (var entity in _entities.Values)
-            {
-                if(entity.IsActive)
-                    entity.OnAfterPlayerMove(this);
+                // Rest of the objects move afterwards
+                foreach (var entity in _entities.Values)
+                {
+                    if (entity.IsActive)
+                        entity.OnAfterPlayerMove(this);
+                }
+
+                // Proceed to executing turns
+                SwitchState(GameState.ExecutingTurnCommands);
             }
-            
-            // Proceed to executing turns
-            SwitchState(GameState.ExecutingTurnCommands);
         }
 
         private void HandleTurnEnd()
@@ -199,40 +178,37 @@ namespace Gameplay
             var turn = GetCurrentTurn();
             turn.Complete();
 
-            if(_uiTurns != null)
+            if (_uiTurns != null)
                 _uiTurns.TurnCompleted();
 
             if (!_playerEntity.IsActive)
             {
                 SwitchState(GameState.PlayerDied);
-                if(_uiWinLose != null)
+                if (_uiWinLose != null)
                     _uiWinLose.ShowLoseWindow(FailReason.PlayerDied);
-                
-            }
-            else if (CatGirl != null && !CatGirl.IsActive)
+
+            } else if (CatGirl != null && !CatGirl.IsActive)
             {
                 SwitchState(GameState.CatGirlDied);
                 if (_uiWinLose != null)
                     _uiWinLose.ShowLoseWindow(FailReason.CatDied);
-            }
-            else if(turn.Number >= MaxTurns - 1)
+            } else if (turn.Number >= MaxTurns - 1)
             {
                 // If it was the last turn and everyobe is alive
                 SwitchState(GameState.Win);
-                if(_uiLoad != null)
+                if (_uiLoad != null)
                     _uiLoad.LoadNext();
-            }
-            else
+            } else
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
             }
-            
+
             // Starting new turn
             var newTurnNumber = turn.Number + 1;
             _history.Push(new Turn(newTurnNumber));
 
         }
-        
+
         private void RollbackLastCompletedTurn()
         {
             if (_history.Count == 0)
@@ -240,7 +216,7 @@ namespace Gameplay
                 Debug.LogWarning("Trying to rollback an empty history");
                 return;
             }
-            
+
             // Current turn might be the incompleted one (waiting for player input)
             // Incopleted turns might be on top of the stack
             if (!_history.Peek().IsCompleted)
@@ -249,7 +225,7 @@ namespace Gameplay
                 RevertTurnChanges(incompleteTurn);
                 _history.Pop(); // Late pop for changes to revert durn correct turn number
             }
-    
+
             // Now, revert a completed turn (that was the players intent)
             if (_history.Count > 0)
             {
@@ -257,10 +233,10 @@ namespace Gameplay
                 RevertTurnChanges(rollbackTurn);
                 _history.Pop(); // Late pop for changes to revert durn correct turn number
 
-                if(_uiTurns != null)
+                if (_uiTurns != null)
                     _uiTurns.BackTurn();
             }
-            
+
             // Start new "Incomplete turn"
             if (_history.Count == 0)
                 _history.Push(new Turn(0));
@@ -271,7 +247,7 @@ namespace Gameplay
             // NOTE: "current turn" will be the new, incoplmete one  
             foreach (var entity in _entities.Values.Where(e => e.IsActive))
                 entity.AfterTurnRollback(this);
-            
+
             // Proceed to reading inputs
             SwitchState(GameState.WaitingForPlayerCommand);
         }
@@ -289,7 +265,7 @@ namespace Gameplay
             else
                 Debug.LogWarning($"Trying to revert change {change} but entityId is missing: {change.TargetId}");
         }
-        
+
         private void Exec(ICommand command)
         {
             if (_entities.TryGetValue(command.TargetId, out var target))
@@ -306,7 +282,7 @@ namespace Gameplay
 
         public void Dispatch(ICommand command)
         {
-            GetCurrentTurn().PushCommand(command);   
+            GetCurrentTurn().PushCommand(command);
         }
 
         public void DispatchEarly(ICommand command)
@@ -348,9 +324,9 @@ namespace Gameplay
                     return null;
                 }
             }
-            
-            var spawnedObject = Instantiate(prefab, 
-                Utils.LevelToWorld(entityPosition), 
+
+            var spawnedObject = Instantiate(prefab,
+                Utils.LevelToWorld(entityPosition),
                 Utils.DirectionToRotation(entityOrientation));
             var entity = spawnedObject.GetComponent<Entity>();
             if (entity != null)
@@ -360,7 +336,7 @@ namespace Gameplay
                 _entities.Add(newEntityId, entity);
                 return entity;
             }
-            
+
             Debug.LogWarning($"Failed to spawn prefab {prefab}");
             return null;
         }
@@ -380,7 +356,7 @@ namespace Gameplay
         public IEnumerable<Entity> GetActiveEntitiesInRadius(Vector2Int position, int radius)
         {
             return _entities.Values
-                .Where(entity => entity.IsActive && 
+                .Where(entity => entity.IsActive &&
                                  Utils.IsInsideRadius(position, entity.Position, radius));
         }
     }

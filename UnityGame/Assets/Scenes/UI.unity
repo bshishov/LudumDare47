@@ -617,8 +617,9 @@ GameObject:
   m_Component:
   - component: {fileID: 468991431}
   - component: {fileID: 468991432}
+  - component: {fileID: 468991433}
   m_Layer: 5
-  m_Name: Swipe Detector
+  m_Name: Control Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,7 +656,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17db1f98a625ab42a524da8e9092de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistanceForSwipe: 10
+  _minDistanceForSwipe: 30
+--- !u!114 &468991433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468991430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fbe39164b0b4224fb81cd204dd49057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &481549203
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,24 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using Gameplay;
-using Utils;
+﻿using UnityEngine;
 
-namespace TouchControll
+namespace Gameplay
 {
-    public class SwipeDetector : Singleton<SwipeDetector>
+    public class SwipeDetector : MonoBehaviour
     {
-
+        
         [SerializeField]
         private float _minDistanceForSwipe = 30f;
 
         private Vector2 _fingerDownPosition;
         private Vector2 _fingerUpPosition;
 
+        private Vector2 _swipeDistanceDelta;
+
+        private void Update()
+        {
+            DetectSwipe();
+        }
+
         public void DetectSwipe()
         {
-            foreach (Touch touch in Input.touches)
+            foreach (var touch in Input.touches)
             {
                 if (touch.phase == TouchPhase.Began)
                 {
@@ -36,13 +38,13 @@ namespace TouchControll
 
         private void CalculateSwipeDirection()
         {
+            CalculateSwipeDelta();
 
             if (CheckSwipeDistance())
             {
-
-                if (VecticalSwipeDistance() > HorizontalSwipeDistance())
+                
+                if (_swipeDistanceDelta.x > _swipeDistanceDelta.y)
                 {
-
                     if (_fingerDownPosition.x > _fingerUpPosition.x)
                     {
                         Level.Instance.PlayerMove(Direction.Left);
@@ -54,7 +56,7 @@ namespace TouchControll
                     }
                 }
 
-                if (HorizontalSwipeDistance() > VecticalSwipeDistance())
+                if (_swipeDistanceDelta.y > _swipeDistanceDelta.x)
                 {
                     if (_fingerDownPosition.y > _fingerUpPosition.y)
                     {
@@ -65,7 +67,6 @@ namespace TouchControll
                     {
                         Level.Instance.PlayerMove(Direction.Front);
                     }
-
                 }
 
             }
@@ -74,24 +75,13 @@ namespace TouchControll
 
         private bool CheckSwipeDistance()
         {
-
-            if ((VecticalSwipeDistance() > _minDistanceForSwipe) || (HorizontalSwipeDistance() > _minDistanceForSwipe))
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
-
+            return (_swipeDistanceDelta.x > _minDistanceForSwipe) || (_swipeDistanceDelta.y > _minDistanceForSwipe);
         }
 
-        private float VecticalSwipeDistance()
+        private Vector2 CalculateSwipeDelta()
         {
-            return Mathf.Abs(_fingerDownPosition.x - _fingerUpPosition.x);
-        }
-        private float HorizontalSwipeDistance()
-        {
-            return Mathf.Abs(_fingerDownPosition.y - _fingerUpPosition.y);
+            return _swipeDistanceDelta = new Vector2(Mathf.Abs(_fingerDownPosition.x - _fingerUpPosition.x),
+                                                     Mathf.Abs(_fingerDownPosition.y - _fingerUpPosition.y));
         }
     }
 }
