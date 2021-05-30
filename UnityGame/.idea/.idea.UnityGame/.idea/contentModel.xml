@@ -44,6 +44,7 @@
               <e p="PathNode.cs" t="Include" />
               <e p="Spawner.cs" t="Include" />
             </e>
+            <e p="SwipeDetector.cs" t="Include" />
             <e p="Turn.cs" t="Include" />
             <e p="Utils.cs" t="Include" />
           </e>
@@ -100,6 +101,7 @@
             <e p="EnumMaskProperty.cs" t="Include" />
             <e p="EventBus.cs" t="Include" />
             <e p="FailReason.cs" t="Include" />
+            <e p="FPSCounter.cs" t="Include" />
             <e p="FSM" t="Include">
               <e p="BaseStateBehaviour.cs" t="Include" />
               <e p="IStateBehaviour.cs" t="Include" />
@@ -137,7 +139,11 @@
           </e>
         </e>
         <e p="Shaders" t="Include">
-          <e p="ScreenTransition.shader" t="Include" />
+          <e p="Legacy" t="Include">
+            <e p="ScreenTransition.shader" t="Include" />
+          </e>
+          <e p="ToonOutline.shader" t="Include" />
+          <e p="ToonSimple.shader" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
