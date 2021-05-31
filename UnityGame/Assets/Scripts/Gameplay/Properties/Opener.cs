@@ -6,9 +6,9 @@ namespace Gameplay.Properties
 {
 
     [RequireComponent(typeof(Entity))]
-    public class Opener : MonoBehaviour, ICommandHandler
+    public class Opener : MonoBehaviour//, ICommandHandler
     {
-
+        /*
         [SerializeField]
         private List<GameObject> _openableObjects;
 
@@ -38,7 +38,7 @@ namespace Gameplay.Properties
         {
             throw new System.NotImplementedException();
         }
-
+        */
       
     }
 }

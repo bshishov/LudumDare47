@@ -6,11 +6,11 @@ using UnityEngine;
 namespace Gameplay.Properties
 {
     [RequireComponent(typeof(Entity))]
-    public class Openable : MonoBehaviour, ICommandHandler
+    public class Openable : MonoBehaviour//, ICommandHandler
     {
 
     
-
+        /*
 
         public void OnInitialized(Level level)
         {
@@ -39,6 +39,6 @@ namespace Gameplay.Properties
             throw new System.NotImplementedException();
         }
 
-   
+   */
     }
 }
