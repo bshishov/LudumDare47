@@ -121,18 +121,6 @@ namespace Gameplay
                 }
 
                 HandleTurnEnd();
-            } 
-
-            if (CanRollbackFromCurrentState)
-            {
-                if (_timeSinceRollbackPressed >= RollbackCd && Input.GetKey(KeyCode.R))
-                {
-                    if (_uiWinLose != null)
-                        _uiWinLose.HideLoseWindow();
-
-                    RollbackLastCompletedTurn();
-                    _timeSinceRollbackPressed = 0.0f;
-                }
             }
 
             _timeSinceRollbackPressed += Time.deltaTime;
@@ -144,8 +132,21 @@ namespace Gameplay
             return _history.Peek();
         }
 
-       
-        //made public for send direction from SwipeDetector (best way?)
+        public void PlayerRollback()
+        {
+            if (CanRollbackFromCurrentState)
+            {
+                if (_timeSinceRollbackPressed >= RollbackCd)
+                {
+                    if (_uiWinLose != null)
+                        _uiWinLose.HideLoseWindow();
+
+                    RollbackLastCompletedTurn();
+                    _timeSinceRollbackPressed = 0.0f;
+                }
+            }
+        }
+
         public void PlayerMove(Direction dir)
         {
             if (_state == GameState.WaitingForPlayerCommand)
