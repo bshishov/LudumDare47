@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 namespace Gameplay
 {
     public class KeyInputDetector : MonoBehaviour
@@ -24,6 +23,9 @@ namespace Gameplay
 
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
                 Level.Instance.PlayerMove(Direction.Back);
+
+            if (Input.GetKey(KeyCode.R))
+                Level.Instance.PlayerRollback();
         }
     }
 }

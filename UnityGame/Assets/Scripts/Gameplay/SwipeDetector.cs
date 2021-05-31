@@ -4,7 +4,7 @@ namespace Gameplay
 {
     public class SwipeDetector : MonoBehaviour
     {
-        
+
         [SerializeField]
         private float _minDistanceForSwipe = 30f;
 
@@ -18,7 +18,7 @@ namespace Gameplay
             DetectSwipe();
         }
 
-        public void DetectSwipe()
+        private void DetectSwipe()
         {
             foreach (var touch in Input.touches)
             {
@@ -78,10 +78,10 @@ namespace Gameplay
             return (_swipeDistanceDelta.x > _minDistanceForSwipe) || (_swipeDistanceDelta.y > _minDistanceForSwipe);
         }
 
-        private Vector2 CalculateSwipeDelta()
+        private void CalculateSwipeDelta()
         {
-            return _swipeDistanceDelta = new Vector2(Mathf.Abs(_fingerDownPosition.x - _fingerUpPosition.x),
-                                                     Mathf.Abs(_fingerDownPosition.y - _fingerUpPosition.y));
+            _swipeDistanceDelta = new Vector2(Mathf.Abs(_fingerDownPosition.x - _fingerUpPosition.x),
+                                              Mathf.Abs(_fingerDownPosition.y - _fingerUpPosition.y));
         }
     }
 }
