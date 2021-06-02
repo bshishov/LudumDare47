@@ -44,6 +44,9 @@ namespace Gameplay
         private UIWinLose _uiWinLose;
         private UILoad _uiLoad;
 
+        [SerializeField]
+        private ScriptbleObjectsInt Rollback;
+
         private void Awake()
         {
             LoadUIScene();
@@ -228,7 +231,7 @@ namespace Gameplay
             }
 
             // Now, revert a completed turn (that was the players intent)
-            if (_history.Count > 0)
+            if ((_history.Count > 0)&&(Rollback.Number > 0))
             {
                 var rollbackTurn = _history.Peek();
                 RevertTurnChanges(rollbackTurn);
@@ -236,6 +239,8 @@ namespace Gameplay
 
                 if (_uiTurns != null)
                     _uiTurns.BackTurn();
+
+                Rollback.Number--;
             }
 
             // Start new "Incomplete turn"

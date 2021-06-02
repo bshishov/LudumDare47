@@ -1,24 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class FPSCounter : MonoBehaviour
+namespace Utils
 {
-
-    private Text _fpsText;
-    private int _fps;
-
-
-    private void Start()
+    public class FPSCounter : MonoBehaviour
     {
-        _fpsText = GetComponent<Text>();
-    }
 
-    
-    private void Update()
-    {
-        _fps = (int)(1f / Time.unscaledDeltaTime);
-        _fpsText.text = _fps.ToString();
+        private Text _fpsText;
+        private int _fps;
+
+        private void Start()
+        {
+            _fpsText = GetComponent<Text>();
+        }
+
+
+        private void Update()
+        {
+            _fps = (int)(1f / Time.unscaledDeltaTime);
+            _fpsText.text = "FPS: " + _fps.ToString();
+        }
     }
 }
