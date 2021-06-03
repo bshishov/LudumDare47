@@ -1,16 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Utils;
+using Gameplay;
 
 namespace UI
 {
     public class UIRollbackCount : MonoBehaviour
     {
-        [SerializeField]
-        private ScriptbleObjectsInt Rollback;
-
         private Text _numberOfRollbackText;
-
 
         private void Start()
         {
@@ -20,7 +16,7 @@ namespace UI
 
         private void Update()
         {
-            _numberOfRollbackText.text = "Rollback - "+ Rollback.Number.ToString();
+            _numberOfRollbackText.text = "Rollback - "+ GameSettings.NumberOfRollback.ToString();
         }
     }
 }
