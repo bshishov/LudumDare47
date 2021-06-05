@@ -139,6 +139,13 @@ namespace Gameplay
         }
     }
 
+    public class Collection : BaseChange
+    {
+        public Collection(int targetId) : base(targetId)
+        {
+        }
+    }
+
     public class SpawnCommand : BaseCommand
     {
         public SpawnCommand(int target) : base(target){}

@@ -1,46 +1,80 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Properties
 {
+    [RequireComponent(typeof(Entity))]
     public class Collectable : MonoBehaviour, ICommandHandler
     {
+        [Header("Visuals")]
+        private Entity _entity;
 
-        private void Start()
+        [SerializeField]
+        private FxObject _collectFx;
+        [SerializeField]
+        private FxObject _revertCollectFx;
+
+
+        [FormerlySerializedAs("DisableRenderersWhenInactive")]
+        public Renderer[] DisableRenderersWhenInactive;
+
+        public void OnInitialized(Level level)
         {
-
-        }
-
-        private void Update()
-        {
-
+            _entity = GetComponent<Entity>();
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-            throw new System.NotImplementedException();
-        }
 
-        public void OnAfterPlayerMove(Level level)
-        {
-            throw new System.NotImplementedException();
-        }
+            foreach (var entityInTargetPos in level.GetActiveEntitiesAt(_entity.Position))
+            {
 
-        public void OnInitialized(Level level)
-        {
-            throw new System.NotImplementedException();
-        }
+                if (entityInTargetPos.ObjectType.ToString() == "Player")
+                {
+                    if (command is HitCommand)
+                    {
+                        _collectFx.Trigger(transform);
+                        _entity.Deactivate();
 
-        public void OnTurnRolledBack(Level level)
-        {
-            throw new System.NotImplementedException();
+                        if (DisableRenderersWhenInactive != null)
+                            foreach (var rnd in DisableRenderersWhenInactive)
+                                rnd.enabled = false;
+
+                        yield return new Collection(_entity.Id);
+
+                    }
+                }
+            }
+
         }
 
         public void Revert(Level level, IChange change)
         {
-            throw new System.NotImplementedException();
+            if (change is Collection)
+            {
+                _collectFx.Stop();
+
+                _revertCollectFx.Trigger(transform);
+
+                if (DisableRenderersWhenInactive != null)
+                    foreach (var rnd in DisableRenderersWhenInactive)
+                        rnd.enabled = true;
+
+                _entity.Activate();
+            }
         }
 
-       
+        public void OnAfterPlayerMove(Level level)
+        {
+
+        }
+
+
+
+        public void OnTurnRolledBack(Level level)
+        {
+
+        }
     }
 }

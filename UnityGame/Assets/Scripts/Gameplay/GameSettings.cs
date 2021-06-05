@@ -3,7 +3,7 @@ namespace Gameplay
 {
     public static class GameSettings
     {
-        public static int NumberOfRollback = 25;
+        public static int NumberOfRollback = 2500;
 
         public static int NumberOfStarsOnLevel = 0;
 
