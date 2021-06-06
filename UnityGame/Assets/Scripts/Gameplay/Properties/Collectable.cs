@@ -58,7 +58,6 @@ namespace Gameplay.Properties
             if (change is Collection)
             {
                 _collectFx.Stop();
-
                 _revertCollectFx.Trigger(transform);
 
                 if (_disableRenderersWhenInactive != null)
@@ -73,14 +72,10 @@ namespace Gameplay.Properties
 
         public void OnAfterPlayerMove(Level level)
         {
-
         }
-
-
 
         public void OnTurnRolledBack(Level level)
         {
-
         }
     }
 }

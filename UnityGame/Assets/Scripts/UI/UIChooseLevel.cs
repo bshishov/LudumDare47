@@ -34,7 +34,6 @@ namespace Assets.Scripts.UI
 
         public void LoadLevel()
         {
-            Debug.Log("Here");
             _fader.FadeIn();
             _fader.StateChanged += () =>
             {
