@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ./GameClient
+cd ./UnityGame/
 set -x
 
 export FIREBASE_BUILD="$(find -E . -regex '.*\.(ipa|apk)' -print -quit)"
