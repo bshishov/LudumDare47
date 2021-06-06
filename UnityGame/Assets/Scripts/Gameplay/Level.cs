@@ -228,7 +228,7 @@ namespace Gameplay
             }
 
             // Now, revert a completed turn (that was the players intent)
-            if (_history.Count > 0)
+            if ((_history.Count > 0)&&(GameSettings.NumberOfRollback > 0))
             {
                 var rollbackTurn = _history.Peek();
                 RevertTurnChanges(rollbackTurn);
@@ -236,6 +236,8 @@ namespace Gameplay
 
                 if (_uiTurns != null)
                     _uiTurns.BackTurn();
+
+                GameSettings.NumberOfRollback--;
             }
 
             // Start new "Incomplete turn"

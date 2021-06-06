@@ -13,6 +13,7 @@ namespace Gameplay
         Box,
         Spark,
         // Any type you want goes here
+        Collectable,
         // The more generic the type is - the better
     }
 
@@ -70,6 +71,11 @@ namespace Gameplay
             // Spark
             new CPair(ObjectType.Spark, ObjectType.Character),
             new CPair(ObjectType.Spark, ObjectType.Player),
+
+            new CPair(ObjectType.Collectable, ObjectType.Player),
+            new CPair(ObjectType.Collectable, ObjectType.Projectile),
+            new CPair(ObjectType.Collectable, ObjectType.Wall),
+
         };
         
         // Who can push whom?

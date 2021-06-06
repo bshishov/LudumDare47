@@ -97,7 +97,7 @@ namespace Gameplay.Properties
                         target:_entity.Id, 
                         sourceId: entityInTargetPos.Id, 
                         direction: Utils.AbsoluteDirectionToRelative(moveDirection, _entity.Orientation)));
-                
+                    
                     // Push (collidable only)
                     if (canMove && CollisionConfig.CanPush(
                         _entity.ObjectType,
