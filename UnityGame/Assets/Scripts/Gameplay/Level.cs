@@ -362,5 +362,18 @@ namespace Gameplay
                 .Where(entity => entity.IsActive &&
                                  Utils.IsInsideRadius(position, entity.Position, radius));
         }
+
+        public void CollectStar() {
+
+            GameSettings.NumberOfStarsOnLevel++;
+            GameSettings.TotalNumberOfStars++;
+        }
+        public void LoseStar()
+        {
+            GameSettings.NumberOfStarsOnLevel--;
+            GameSettings.TotalNumberOfStars--;
+
+        }
+
     }
 }

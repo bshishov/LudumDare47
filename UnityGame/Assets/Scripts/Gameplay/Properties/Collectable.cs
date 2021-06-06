@@ -7,17 +7,17 @@ namespace Gameplay.Properties
     [RequireComponent(typeof(Entity))]
     public class Collectable : MonoBehaviour, ICommandHandler
     {
-        [Header("Visuals")]
         private Entity _entity;
 
+        [Header("Visuals")]
         [SerializeField]
         private FxObject _collectFx;
         [SerializeField]
         private FxObject _revertCollectFx;
 
-
         [FormerlySerializedAs("DisableRenderersWhenInactive")]
-        public Renderer[] DisableRenderersWhenInactive;
+        [SerializeField]
+        private Renderer[] _disableRenderersWhenInactive;
 
         public void OnInitialized(Level level)
         {
@@ -34,12 +34,16 @@ namespace Gameplay.Properties
                 {
                     if (command is HitCommand)
                     {
+                        _revertCollectFx.Stop();
                         _collectFx.Trigger(transform);
+
                         _entity.Deactivate();
 
-                        if (DisableRenderersWhenInactive != null)
-                            foreach (var rnd in DisableRenderersWhenInactive)
+                        if (_disableRenderersWhenInactive != null)
+                            foreach (var rnd in _disableRenderersWhenInactive)
                                 rnd.enabled = false;
+
+                        level.CollectStar();
 
                         yield return new Collection(_entity.Id);
 
@@ -57,11 +61,13 @@ namespace Gameplay.Properties
 
                 _revertCollectFx.Trigger(transform);
 
-                if (DisableRenderersWhenInactive != null)
-                    foreach (var rnd in DisableRenderersWhenInactive)
+                if (_disableRenderersWhenInactive != null)
+                    foreach (var rnd in _disableRenderersWhenInactive)
                         rnd.enabled = true;
 
                 _entity.Activate();
+
+                level.LoseStar();
             }
         }
 
