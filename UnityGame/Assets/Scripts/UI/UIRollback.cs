@@ -1,16 +1,26 @@
-﻿using UnityEngine;
+﻿using Gameplay;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UIRollback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-   
+    private bool _buttonPressed = false;
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Start click");
+        _buttonPressed = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("Finish");
+        _buttonPressed = false;
+    }
+
+    private void Update() {
+
+        if (_buttonPressed) {
+            Level.Instance.PlayerRollback();
+        }
+    
     }
 }

@@ -122,7 +122,7 @@ MonoBehaviour:
     SingleInstance: 1
     Scale: 1
   _disableRenderersWhenInactive:
-  - {fileID: 0}
+  - {fileID: 5715216549291400937}
 --- !u!1001 &54994482378069062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +130,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1593638425686381196}
     m_Modifications:
+    - target: {fileID: 4152149411310619494, guid: a434922fb8269204c86fb4da4213485b,
+        type: 3}
+      propertyPath: _disableRenderersWhenInactive.Array.data[0]
+      value: 
+      objectReference: {fileID: 5715216549291400937}
     - target: {fileID: 4529327826147019610, guid: a434922fb8269204c86fb4da4213485b,
         type: 3}
       propertyPath: m_Name
@@ -190,7 +195,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4152149411310619494, guid: a434922fb8269204c86fb4da4213485b, type: 3}
+    - {fileID: 2088892284407357428, guid: a434922fb8269204c86fb4da4213485b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a434922fb8269204c86fb4da4213485b, type: 3}
 --- !u!4 &6849417487504377152 stripped
 Transform:

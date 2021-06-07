@@ -110,11 +110,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DestroyedFx:
-    FX: {fileID: 7896922328911535012}
+    FX: {fileID: 105310, guid: 81f03b9971e9d9645a20d9a1e63abade, type: 3}
     IsPrefab: 1
     IsParticleSystem: 1
     Offset: {x: 0, y: 0, z: 0}
-    RotationOffset: {x: -90, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
     AttachToParent: 1
     Delay: 0
     SingleInstance: 1
@@ -123,25 +123,7 @@ MonoBehaviour:
   AnimDiedBool: 
   DisableAllRenderersWhenInactive: 0
   DisableRenderersWhenInactive:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8545436757530835569}
 --- !u!1001 &518168553788334207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -217,9 +199,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 518168553788334207}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7896922328911535012 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7685224029334780891, guid: f77a6a63be30fc642bed7500151cd8c6,
+--- !u!23 &8545436757530835569 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8189684843402238478, guid: f77a6a63be30fc642bed7500151cd8c6,
     type: 3}
   m_PrefabInstance: {fileID: 518168553788334207}
   m_PrefabAsset: {fileID: 0}
