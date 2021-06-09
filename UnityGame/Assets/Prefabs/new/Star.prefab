@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6903285795097694470}
-  - component: {fileID: 8202431220541283330}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -32,21 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8202431220541283330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4529327826147019610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb5aea67b4014959b1718417a2b0a96d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectType: 0
-  Offset: {x: 0, y: 0, z: 0}
-  AlignOnStart: 1
 --- !u!1 &4636705673697377654
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +128,7 @@ MonoBehaviour:
     Delay: 0
     SingleInstance: 1
     Scale: 1
-  DisableRenderersWhenInactive:
+  _disableRenderersWhenInactive:
   - {fileID: 1593638425686381194, guid: 332552e97152eeb4482946c2b75eedd9, type: 3}
 --- !u!1001 &6364276468856411691
 PrefabInstance:

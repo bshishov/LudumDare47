@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1593638425686381196}
   - component: {fileID: 1593638425686381193}
   - component: {fileID: 1593638425686381197}
-  - component: {fileID: 1593638425686381198}
   - component: {fileID: 1593638425686381199}
   m_Layer: 0
   m_Name: Collectable Item
@@ -62,33 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1593638425686381198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1593638425686381192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DestroyedFx:
-    FX: {fileID: 105310, guid: 81f03b9971e9d9645a20d9a1e63abade, type: 3}
-    IsPrefab: 1
-    IsParticleSystem: 1
-    Offset: {x: 0, y: 0, z: 0}
-    RotationOffset: {x: 0, y: 0, z: 0}
-    AttachToParent: 1
-    Delay: 0
-    SingleInstance: 1
-    Scale: 1
-  Animator: {fileID: 0}
-  AnimDiedBool: 
-  DisableAllRenderersWhenInactive: 0
-  DisableRenderersWhenInactive:
-  - {fileID: 5715216549291400937}
 --- !u!114 &1593638425686381199
 MonoBehaviour:
   m_ObjectHideFlags: 0
