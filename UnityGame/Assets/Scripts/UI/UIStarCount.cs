@@ -1,6 +1,6 @@
-﻿using Gameplay;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using Gameplay;
 
 namespace UI
 {
@@ -13,10 +13,9 @@ namespace UI
             _numberOfStarText = GetComponent<Text>();
         }
 
-
         private void Update()
         {
-            _numberOfStarText.text = "Stars on level - " + GameSettings.NumberOfStarsOnLevel + "\n" + "Total starts - " + GameSettings.TotalNumberOfStars;
+            _numberOfStarText.text = "Total starts - " + PlayerStats.Instance.TotalNumberOfStars + "\n" + "On level stars - " + Level.Instance.CollectedStars;
         }
     }
 }

@@ -25,6 +25,8 @@ namespace Gameplay
         public int CurrentTurnNumber => GetCurrentTurn()?.Number ?? -1;
         public bool IsPaused => Time.timeScale < 0.5f;
 
+        public int CollectedStars = 0;
+
         private bool CanRollbackFromCurrentState =>
             _state == GameState.WaitingForPlayerCommand ||
             _state == GameState.PlayerDied ||
@@ -197,6 +199,8 @@ namespace Gameplay
             {
                 // If it was the last turn and everyobe is alive
                 SwitchState(GameState.Win);
+
+                AddCollectedStars();
                 if (_uiLoad != null)
                     _uiLoad.LoadNext();
             } else
@@ -228,7 +232,7 @@ namespace Gameplay
             }
 
             // Now, revert a completed turn (that was the players intent)
-            if ((_history.Count > 0)&&(GameSettings.NumberOfRollback > 0))
+            if ((_history.Count > 0) && (PlayerStats.Instance.NumberOfRollback > 0))
             {
                 var rollbackTurn = _history.Peek();
                 RevertTurnChanges(rollbackTurn);
@@ -237,7 +241,7 @@ namespace Gameplay
                 if (_uiTurns != null)
                     _uiTurns.BackTurn();
 
-                GameSettings.NumberOfRollback--;
+                PlayerStats.Instance.NumberOfRollback--;
             }
 
             // Start new "Incomplete turn"
@@ -363,16 +367,17 @@ namespace Gameplay
                                  Utils.IsInsideRadius(position, entity.Position, radius));
         }
 
-        public void CollectStar() {
-
-            GameSettings.NumberOfStarsOnLevel++;
-            GameSettings.TotalNumberOfStars++;
+        public void CollectStar()
+        {
+            CollectedStars++;
         }
         public void LoseStar()
         {
-            GameSettings.NumberOfStarsOnLevel--;
-            GameSettings.TotalNumberOfStars--;
-
+            CollectedStars--;
+        }
+        public void AddCollectedStars()
+        {
+            PlayerStats.Instance.TotalNumberOfStars += CollectedStars;
         }
 
     }

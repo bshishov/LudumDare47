@@ -13,10 +13,9 @@ namespace UI
             _numberOfRollbackText = GetComponent<Text>();
         }
 
-
         private void Update()
         {
-            _numberOfRollbackText.text = "Rollback - "+ GameSettings.NumberOfRollback.ToString();
+            _numberOfRollbackText.text = "Rollback - " + PlayerStats.Instance.NumberOfRollback.ToString() ;
         }
     }
 }
