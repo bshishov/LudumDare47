@@ -50,7 +50,6 @@ namespace Gameplay.Properties
                     }
                 }
             }
-
         }
 
         public void Revert(Level level, IChange change)

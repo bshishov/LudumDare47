@@ -375,7 +375,7 @@ namespace Gameplay
         {
             CollectedStars--;
         }
-        public void AddCollectedStars()
+        private void AddCollectedStars()
         {
             PlayerStats.Instance.TotalNumberOfStars += CollectedStars;
         }

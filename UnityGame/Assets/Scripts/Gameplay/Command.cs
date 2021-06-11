@@ -146,6 +146,13 @@ namespace Gameplay
         }
     }
 
+    public class Rise : BaseChange
+    {
+        public Rise(int targetId) : base(targetId) 
+        { 
+        }
+    }
+
     public class SpawnCommand : BaseCommand
     {
         public SpawnCommand(int target) : base(target){}
