@@ -13,11 +13,17 @@ namespace Utils
             {
                 if (_instance == null)
                 {
-                    _instance = (T) FindObjectOfType(typeof(T));
+                    _instance = (T)FindObjectOfType(typeof(T));
 
                     if (_instance == null)
+                    {
                         Debug.LogWarning("An instance of " + typeof(T) +
-                                         " is needed in the scene, but there is none.");
+                                            " is needed in the scene, but there is none.");
+
+                        var singleton = new GameObject();
+                        _instance = singleton.AddComponent<T>();
+                        singleton.name = typeof(T).ToString();
+                    }
                 }
 
                 return _instance;
