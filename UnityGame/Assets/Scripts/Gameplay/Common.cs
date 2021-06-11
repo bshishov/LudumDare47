@@ -73,8 +73,8 @@ namespace Gameplay
             new CPair(ObjectType.Spark, ObjectType.Player),
 
             new CPair(ObjectType.Collectable, ObjectType.Player),
-            new CPair(ObjectType.Collectable, ObjectType.Projectile),
-            new CPair(ObjectType.Collectable, ObjectType.Wall),
+            //new CPair(ObjectType.Collectable, ObjectType.Projectile),
+            //new CPair(ObjectType.Collectable, ObjectType.Wall),
 
         };
         
