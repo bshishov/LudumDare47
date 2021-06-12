@@ -12,7 +12,7 @@
 
 	SubShader
 	{
-		Tags { "RenderType" = "Transparent" "Queue" = "Geometry" "IgnoreProjector" = "True" }	    
+		Tags { "RenderType" = "Transparent" "Queue" = "Geometry" }	    
         
 	    /*
 		Pass {
