@@ -924,7 +924,7 @@ PrefabInstance:
     - target: {fileID: 420200722939749755, guid: 67a01fbd54d284f42833ff0d86981b57,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 420200722939749755, guid: 67a01fbd54d284f42833ff0d86981b57,
         type: 3}
@@ -1166,6 +1166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxTurns: 5
   CatGirl: {fileID: 1133805582}
+  CollectedStars: 0
 --- !u!4 &399736108
 Transform:
   m_ObjectHideFlags: 0
