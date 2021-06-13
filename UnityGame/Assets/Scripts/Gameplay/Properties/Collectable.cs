@@ -29,14 +29,14 @@ namespace Gameplay.Properties
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-
-            foreach (var entityInTargetPos in level.GetActiveEntitiesAt(_entity.Position))
+            if (command is HitCommand)
             {
-
-                if (entityInTargetPos.ObjectType.ToString() == "Player")
+                foreach (var entityInTargetPos in level.GetActiveEntitiesAt(_entity.Position))
                 {
-                    if (command is HitCommand)
+
+                    if (entityInTargetPos.ObjectType.ToString() == "Player")
                     {
+
                         _haloFx.Stop();
                         _revertCollectFx.Stop();
                         _collectFx.Trigger(transform);

@@ -9,10 +9,11 @@ namespace Gameplay
         public Vector2Int Position { get; private set; }
         public Direction Orientation { get; private set; }
         public bool IsActive { get; private set; }
-
+        public Color CellColor = new Color(1f, 0f, 1f, 1f);
         [Header("Visuals")]
         public Vector3 Offset = Vector3.zero;
         public bool AlignOnStart = true;
+       
 
         private ICommandHandler[] _handlers;
 
@@ -127,7 +128,7 @@ namespace Gameplay
         {
             var levelPos = Utils.WorldToLevel(transform.position - Offset);
             var orientation = Utils.DirectionFromForwardVector(transform.forward);
-            DrawLogicalTransformGizmos(levelPos, orientation, Color.magenta);
+            DrawLogicalTransformGizmos(levelPos, orientation, CellColor);
             //DrawLogicalTransformGizmos(Position, Orientation, Color.black);
         }
 

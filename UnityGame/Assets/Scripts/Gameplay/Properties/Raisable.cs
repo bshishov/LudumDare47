@@ -10,6 +10,8 @@ namespace Gameplay.Properties
         private Entity _entity;
         private Transform _transform;
 
+        private bool _isRaised = false;
+        private int countEntityInPosition;
         public void OnInitialized(Level level)
         {
             _entity = GetComponent<Entity>();
@@ -18,31 +20,22 @@ namespace Gameplay.Properties
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-            foreach (var entityInTargetPos in level.GetActiveEntitiesAt(_entity.Position))
+            if (command is HitCommand && !_isRaised)
             {
+                _transform.position = new Vector3(_transform.position.x, _transform.position.y + 1.5f, _transform.position.z);
 
-                if ((entityInTargetPos.ObjectType.ToString() != "Player") && (entityInTargetPos.ObjectType.ToString() != "Collectable"))
-                {
-                    if (command is HitCommand)
-                    {
-                        var sourceId = ((HitCommand)command).SourceId;
-                        var targetId = ((HitCommand)command).TargetId;
-                        _transform.position = new Vector3(_transform.position.x, _transform.position.y + 1.5f, _transform.position.z);
-                        yield return new Rise(_entity.Id);
-
-                    }
-                }
-            }
+                _isRaised = true;
+                yield return new Rise(_entity.Id);
+            } 
         }
 
         public void Revert(Level level, IChange change)
         {
             if (change is Rise)
             {
-                _entity.GetComponent<Transform>().position = new Vector3(_entity.GetComponent<Transform>().position.x, _entity.GetComponent<Transform>().position.y - 1.5f, _entity.GetComponent<Transform>().position.z);
-               
+                _transform.position = new Vector3(_transform.position.x, _transform.position.y - 1.5f, _transform.position.z);
+                _isRaised = false;
             }
-
         }
 
         public void OnTurnRolledBack(Level level)
@@ -50,6 +43,12 @@ namespace Gameplay.Properties
         }
         public void OnAfterPlayerMove(Level level)
         {
+            countEntityInPosition = 0;
+            foreach (var item in level.GetActiveEntitiesAt(_entity.Position))
+            {
+                countEntityInPosition += 1;
+            }
+
         }
     }
 }
