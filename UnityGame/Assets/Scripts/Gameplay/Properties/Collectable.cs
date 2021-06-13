@@ -14,6 +14,8 @@ namespace Gameplay.Properties
         private FxObject _collectFx;
         [SerializeField]
         private FxObject _revertCollectFx;
+        [SerializeField]
+        private FxObject _haloFx;
 
         [FormerlySerializedAs("DisableRenderersWhenInactive")]
         [SerializeField]
@@ -22,6 +24,7 @@ namespace Gameplay.Properties
         public void OnInitialized(Level level)
         {
             _entity = GetComponent<Entity>();
+            _haloFx.Trigger(transform);
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
@@ -34,6 +37,7 @@ namespace Gameplay.Properties
                 {
                     if (command is HitCommand)
                     {
+                        _haloFx.Stop();
                         _revertCollectFx.Stop();
                         _collectFx.Trigger(transform);
 
@@ -58,7 +62,7 @@ namespace Gameplay.Properties
             {
                 _collectFx.Stop();
                 _revertCollectFx.Trigger(transform);
-
+                _haloFx.Trigger(transform);
                 if (_disableRenderersWhenInactive != null)
                     foreach (var rnd in _disableRenderersWhenInactive)
                         rnd.enabled = true;

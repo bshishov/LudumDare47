@@ -27,10 +27,7 @@ namespace Gameplay.Properties
                     {
                         var sourceId = ((HitCommand)command).SourceId;
                         var targetId = ((HitCommand)command).TargetId;
-                        Debug.Log(sourceId + "SourceId");
-                        Debug.Log(targetId + "TargetId");
                         _transform.position = new Vector3(_transform.position.x, _transform.position.y + 1.5f, _transform.position.z);
-                        Debug.Log("Rise");
                         yield return new Rise(_entity.Id);
 
                     }
@@ -43,7 +40,7 @@ namespace Gameplay.Properties
             if (change is Rise)
             {
                 _entity.GetComponent<Transform>().position = new Vector3(_entity.GetComponent<Transform>().position.x, _entity.GetComponent<Transform>().position.y - 1.5f, _entity.GetComponent<Transform>().position.z);
-                Debug.Log("Derise");
+               
             }
 
         }
