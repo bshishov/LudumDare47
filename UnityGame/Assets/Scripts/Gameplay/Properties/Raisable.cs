@@ -10,6 +10,8 @@ namespace Gameplay.Properties
         private Entity _entity;
         private Transform _transform;
 
+        private bool _isRaised = false;
+        private int _countEntityInPosition;
         public void OnInitialized(Level level)
         {
             _entity = GetComponent<Entity>();
@@ -18,20 +20,12 @@ namespace Gameplay.Properties
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-            foreach (var entityInTargetPos in level.GetActiveEntitiesAt(_entity.Position))
+            if (command is HitCommand && !_isRaised)
             {
+                _transform.position = new Vector3(_transform.position.x, _transform.position.y + 1.5f, _transform.position.z);
+                _isRaised = true;
 
-                if ((entityInTargetPos.ObjectType.ToString() != "Player") && (entityInTargetPos.ObjectType.ToString() != "Collectable"))
-                {
-                    if (command is HitCommand)
-                    {
-                        var sourceId = ((HitCommand)command).SourceId;
-                        var targetId = ((HitCommand)command).TargetId;
-                        _transform.position = new Vector3(_transform.position.x, _transform.position.y + 1.5f, _transform.position.z);
-                        yield return new Rise(_entity.Id);
-
-                    }
-                }
+                yield return new Rise(_entity.Id);
             }
         }
 
@@ -39,17 +33,39 @@ namespace Gameplay.Properties
         {
             if (change is Rise)
             {
-                _entity.GetComponent<Transform>().position = new Vector3(_entity.GetComponent<Transform>().position.x, _entity.GetComponent<Transform>().position.y - 1.5f, _entity.GetComponent<Transform>().position.z);
-               
+                MoveDown();
             }
-
         }
 
+        public void OnAfterPlayerMove(Level level)
+        {
+            _countEntityInPosition = 0;
+            foreach (var item in level.GetActiveEntitiesAt(_entity.Position))
+            {
+                if (item.ObjectType.ToString() == "Rails") {
+                    _countEntityInPosition -= 1;
+                }
+                _countEntityInPosition += 1;
+            }
+
+            if (_countEntityInPosition <= 1 && _isRaised)
+            {
+                MoveDown();
+            }
+        }
         public void OnTurnRolledBack(Level level)
         {
         }
-        public void OnAfterPlayerMove(Level level)
+
+        private void MoveDown()
         {
+            if (_isRaised)
+            {
+                _transform.position = new Vector3(_transform.position.x, _transform.position.y - 1.5f, _transform.position.z);
+                _isRaised = false;
+            }
         }
+
     }
+
 }

@@ -14,6 +14,7 @@ namespace Gameplay
         Spark,
         // Any type you want goes here
         Collectable,
+        Rails,
         // The more generic the type is - the better
     }
 
@@ -74,7 +75,7 @@ namespace Gameplay
 
             new CPair(ObjectType.Collectable, ObjectType.Player),
             new CPair(ObjectType.Collectable, ObjectType.Box),
-            new CPair(ObjectType.Collectable, ObjectType.Projectile),
+            //new CPair(ObjectType.Collectable, ObjectType.Projectile),
             new CPair(ObjectType.Collectable, ObjectType.Wall),
             new CPair(ObjectType.Collectable, ObjectType.Character),
 
