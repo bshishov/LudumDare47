@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Properties;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Gameplay
         {
             WaitingForPlayerCommand,
             ExecutingTurnCommands,
+            SkipTurnCommans,
             CatGirlDied,
             PlayerDied,
             Win
@@ -365,6 +367,28 @@ namespace Gameplay
             return _entities.Values
                 .Where(entity => entity.IsActive &&
                                  Utils.IsInsideRadius(position, entity.Position, radius));
+        }
+
+        public void SkipLevel()
+        {
+            StartCoroutine("SkipTurn");
+        }
+
+        private IEnumerator SkipTurn()
+        {
+            while (GetCurrentTurn().Number <= MaxTurns - 1)
+            {
+                if (_state == GameState.WaitingForPlayerCommand)
+                {
+                    foreach (var entity in _entities.Values)
+                    {
+                        if (entity.IsActive)
+                            entity.OnAfterPlayerMove(this);
+                    }
+                    SwitchState(GameState.ExecutingTurnCommands);
+                }
+                yield return new WaitForSeconds(.2f);
+            }
         }
 
         public void CollectStar()

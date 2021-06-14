@@ -71,7 +71,17 @@ namespace Gameplay
             return $"DestroyCommand(id: {TargetId})";
         }
     }
+    public class SkipTurn : BaseCommand
+    {
+        public SkipTurn(int targetId) : base(targetId)
+        {
+        }
 
+        public override string ToString()
+        {
+            return $"DestroyCommand(id: {TargetId})";
+        }
+    }
     public class DestroyedChange : BaseChange
     {
         public DestroyedChange(int targetId) : base(targetId)
