@@ -152,7 +152,7 @@ namespace Gameplay
         { 
         }
     }
-
+  
     public class SpawnCommand : BaseCommand
     {
         public SpawnCommand(int target) : base(target){}

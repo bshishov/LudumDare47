@@ -14,6 +14,7 @@ namespace Gameplay
         Spark,
         // Any type you want goes here
         Collectable,
+        Rails,
         // The more generic the type is - the better
     }
 
