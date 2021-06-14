@@ -9,5 +9,7 @@ if [ -z "$FIREBASE_BUILD" ]; then
   exit 1
 fi
 
+export RELEASE_NOTES="$(git log -1 --pretty=%B)"
+
 npm install
 npm run distribute

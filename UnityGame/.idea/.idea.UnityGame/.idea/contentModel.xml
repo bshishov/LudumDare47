@@ -24,11 +24,14 @@
             <e p="Direction.cs" t="Include" />
             <e p="Entity.cs" t="Include" />
             <e p="FxObject.cs" t="Include" />
+            <e p="KeyInputDetector.cs" t="Include" />
             <e p="Level.cs" t="Include" />
             <e p="LevelSet.cs" t="Include" />
             <e p="MovementAnimator.cs" t="Include" />
             <e p="MovementType.cs" t="Include" />
+            <e p="PlayerStats.cs" t="Include" />
             <e p="Properties" t="Include">
+              <e p="Collectable.cs" t="Include" />
               <e p="DelayedAutoDestroy.cs" t="Include" />
               <e p="DelayedDetonator.cs" t="Include" />
               <e p="Destroyable.cs" t="Include" />
@@ -42,6 +45,7 @@
               <e p="Moving.cs" t="Include" />
               <e p="PathFollower.cs" t="Include" />
               <e p="PathNode.cs" t="Include" />
+              <e p="Raisable.cs" t="Include" />
               <e p="Spawner.cs" t="Include" />
             </e>
             <e p="SwipeDetector.cs" t="Include" />
@@ -56,9 +60,13 @@
             <e p="UILoad.cs" t="Include" />
             <e p="UIMover.cs" t="Include" />
             <e p="UIPauseScreen.cs" t="Include" />
+            <e p="UIReloadLevel.cs" t="Include" />
+            <e p="UIRollback.cs" t="Include" />
+            <e p="UIRollbackCount.cs" t="Include" />
             <e p="UISceneSelector.cs" t="Include" />
             <e p="UIScreenTransition.cs" t="Include" />
             <e p="UISettingsMenu.cs" t="Include" />
+            <e p="UIStarCount.cs" t="Include" />
             <e p="UITimer.cs" t="Include" />
             <e p="UITimerManager.cs" t="Include" />
             <e p="UIWinLose.cs" t="Include" />
@@ -139,9 +147,7 @@
           </e>
         </e>
         <e p="Shaders" t="Include">
-          <e p="Legacy" t="Include">
-            <e p="ScreenTransition.shader" t="Include" />
-          </e>
+          <e p="Toon2.shader" t="Include" />
           <e p="ToonOutline.shader" t="Include" />
           <e p="ToonSimple.shader" t="Include" />
         </e>
@@ -174,6 +180,26 @@
           </e>
           <e p="Sprites" t="Include">
             <e p="EmojiOne Attribution.txt" t="Include" />
+          </e>
+        </e>
+        <e p="Third Party" t="Include">
+          <e p="Epic Toon FX" t="Include">
+            <e p="Prefabs" t="Include">
+              <e p="Combat" t="Include">
+                <e p="Combat FX.txt" t="Include" />
+              </e>
+              <e p="Environment" t="Include">
+                <e p="Environment FX.txt" t="Include" />
+              </e>
+              <e p="Interactive" t="Include">
+                <e p="Interactive FX.txt" t="Include" />
+              </e>
+            </e>
+            <e p="Scripts" t="Include">
+              <e p="ETFXLightFade.cs" t="Include" />
+              <e p="ETFXPitchRandomizer.cs" t="Include" />
+              <e p="ETFXRotation.cs" t="Include" />
+            </e>
           </e>
         </e>
       </e>

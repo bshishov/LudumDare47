@@ -2,7 +2,7 @@
   "name": "regrow",
   "scripts": {
     "authenticate": "$(npm bin)/firebase login:ci",
-    "distribute": "$(npm bin)/firebase appdistribution:distribute \"$FIREBASE_BUILD\" --token \"$FIREBASE_TOKEN\" --app \"$FIREBASE_APP\" --groups \"$FIREBASE_GROUPS\""
+    "distribute": "$(npm bin)/firebase appdistribution:distribute \"$FIREBASE_BUILD\" --token \"$FIREBASE_TOKEN\" --app \"$FIREBASE_APP\" --groups \"$FIREBASE_GROUPS\" --release-notes \"$RELEASE_NOTES\""
   },
   "dependencies": {
     "firebase-tools": "^7.6.2"

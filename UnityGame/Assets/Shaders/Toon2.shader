@@ -62,4 +62,6 @@
             ENDCG
         }
     }
+    
+    Fallback "Unlit/Texture"
 }
