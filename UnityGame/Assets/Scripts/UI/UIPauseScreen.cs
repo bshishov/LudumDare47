@@ -18,7 +18,7 @@ namespace Assets.Scripts.Utils.UI
         {
             if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
             {
-                Time.timeScale = 0.4f;
+                Time.timeScale = 0f;
             }
 
             if (_fader.State == UICanvasGroupFader.FaderState.FadedOut)
