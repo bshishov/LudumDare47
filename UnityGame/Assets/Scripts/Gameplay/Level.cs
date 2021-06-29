@@ -215,8 +215,9 @@ namespace Gameplay
                 SwitchState(GameState.Win);
 
                 AddCollectedStars();
-                if (_uiLoad != null)
-                    _uiLoad.LoadNext();
+                _uiWinLose.ShowWinWindow();
+                if (_uiWinLose != null)
+                    _uiWinLose.ShowWinWindow();
             } else if(_state != GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);

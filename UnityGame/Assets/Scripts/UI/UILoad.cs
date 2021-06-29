@@ -64,4 +64,9 @@ public class UILoad : MonoBehaviour
     {
         LoadLevel(Levels.GetNextLevel());
     }
+
+    public void LoadWinWindow()
+    {
+        LoadLevel(Levels.GetNextLevel());
+    }
 }
