@@ -213,11 +213,11 @@ namespace Gameplay
             {
                 // If it was the last turn and everyobe is alive
                 SwitchState(GameState.Win);
-
+                //One star given for complete level
+                CollectStar();
                 AddCollectedStars();
-                _uiWinLose.ShowWinWindow();
                 if (_uiWinLose != null)
-                    _uiWinLose.ShowWinWindow();
+                    _uiWinLose.ShowWinWindow(CollectedStars);
             } else if(_state != GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);

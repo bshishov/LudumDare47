@@ -8,12 +8,14 @@ using Utils;
 public class UIWinLose : MonoBehaviour
 {
     public GameObject WinWindow;
+    public GameObject StarsContainer;
     public UICanvasGroupFader LoseWindowFader;
     public TextMeshProUGUI LoseText;
 
-    public void ShowWinWindow()
+    public void ShowWinWindow(int stars)
     {
         WinWindow.SetActive(true);
+        StarsContainer.GetComponent<UIStarsContainer>().ShowCollectedStars(stars);
     }
     public void ShowLoseWindow(FailReason reason)
     {
