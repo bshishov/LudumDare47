@@ -1625,6 +1625,11 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 4.88
       objectReference: {fileID: 0}
+    - target: {fileID: 7195943679708082488, guid: c7c6fdec9f3b1454499f89257154cc0a,
+        type: 3}
+      propertyPath: field of view
+      value: 73
+      objectReference: {fileID: 0}
     - target: {fileID: 7195943679708082489, guid: c7c6fdec9f3b1454499f89257154cc0a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3932,6 +3937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NumberOfRollback: 2500
   TotalNumberOfStars: 0
+  SoundStatus: 1
 --- !u!1001 &1486850568
 PrefabInstance:
   m_ObjectHideFlags: 0

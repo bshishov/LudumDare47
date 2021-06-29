@@ -15,7 +15,7 @@ namespace Gameplay
         {
             WaitingForPlayerCommand,
             ExecutingTurnCommands,
-            SkipTurnCommans,
+            SkipTurn,
             CatGirlDied,
             PlayerDied,
             Win
@@ -112,22 +112,28 @@ namespace Gameplay
 
             if (_state == GameState.ExecutingTurnCommands)
             {
-                while (true)
-                {
-                    var command = GetCurrentTurn().PopCommand();
-                    if (command != null)
-                    {
-                        Exec(command);
-                    } else
-                    {
-                        break;
-                    }
-                }
-
-                HandleTurnEnd();
+                ExecuteCommands();
             }
 
             _timeSinceRollbackPressed += Time.deltaTime;
+        }
+
+        private void ExecuteCommands()
+        {
+            while (true)
+            {
+                var command = GetCurrentTurn().PopCommand();
+                if (command != null)
+                {
+                    Exec(command);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            HandleTurnEnd();
         }
 
         public Turn GetCurrentTurn()
@@ -148,6 +154,12 @@ namespace Gameplay
                     RollbackLastCompletedTurn();
                     _timeSinceRollbackPressed = 0.0f;
                 }
+            }
+            //Turns skipping stop after player pressed RollBack button
+            else if(_state == GameState.SkipTurn)
+            {
+                SwitchState(GameState.WaitingForPlayerCommand);
+                StopCoroutine("SkipTurn");
             }
         }
 
@@ -201,13 +213,18 @@ namespace Gameplay
             {
                 // If it was the last turn and everyobe is alive
                 SwitchState(GameState.Win);
-
+                //One star given for complete level
+                CollectStar();
                 AddCollectedStars();
-                if (_uiLoad != null)
-                    _uiLoad.LoadNext();
-            } else
+                if (_uiWinLose != null)
+                    _uiWinLose.ShowWinWindow(CollectedStars);
+            } else if(_state != GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
+            }
+            else
+            {
+                SwitchState(GameState.SkipTurn);
             }
 
             // Starting new turn
@@ -371,21 +388,25 @@ namespace Gameplay
 
         public void SkipLevel()
         {
-            StartCoroutine("SkipTurn");
+            if (_state != GameState.SkipTurn)
+            {
+                StartCoroutine("SkipTurn");
+                _state = GameState.SkipTurn;
+            }
         }
 
         private IEnumerator SkipTurn()
         {
             while (GetCurrentTurn().Number <= MaxTurns - 1)
             {
-                if (_state == GameState.WaitingForPlayerCommand)
+                if (_state == GameState.SkipTurn)
                 {
                     foreach (var entity in _entities.Values)
                     {
                         if (entity.IsActive)
                             entity.OnAfterPlayerMove(this);
                     }
-                    SwitchState(GameState.ExecutingTurnCommands);
+                    ExecuteCommands();
                 }
                 yield return new WaitForSeconds(.2f);
             }
