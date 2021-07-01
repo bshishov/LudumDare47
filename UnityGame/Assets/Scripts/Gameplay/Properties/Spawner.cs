@@ -31,26 +31,63 @@ namespace Gameplay.Properties
         {
             var remainingTurns = _spawnAtTurn - level.CurrentTurnNumber;
             SetUiTimer(remainingTurns - 1);
-            
+
             if (remainingTurns == 0)
-                level.Dispatch(new SpawnCommand(_entity.Id));
+                level.Dispatch(new SpawnCommand(_entity.Id, _entity.Orientation));
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-            if (command is SpawnCommand)
+            if (command is SpawnCommand spawnCommand)
             {
                 var entity = level.Spawn(
-                    Prefab, 
+                    Prefab,
                     _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
                 SetUiTimer(null);
-                
+
+                foreach (var entityInTargetPos in level.GetActiveEntitiesAt(entity.Position))
+                {
+                    if (entityInTargetPos != entity)
+                    {
+                        if (CollisionConfig.ObjectsHit(entity.ObjectType, entityInTargetPos.ObjectType))
+                        {
+                            Debug.Log(entity.name + " ObjectsHit");
+                            Debug.Log(entityInTargetPos.name + " ObjectsHit");
+                            Debug.Log(entity.Orientation.ToString());
+
+                            level.DispatchEarly(new HitCommand(
+                                target: entityInTargetPos.Id,
+                                sourceId: entity.Id,
+                                direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(spawnCommand.Direction), entityInTargetPos.Orientation)));
+                            level.DispatchEarly(new HitCommand(
+                                target: entity.Id,
+                                sourceId: entityInTargetPos.Id,
+                                direction: Utils.AbsoluteDirectionToRelative(spawnCommand.Direction, entity.Orientation)));
+                        }
+                        // If current object collides with target object
+                        if (CollisionConfig.ObjectsCollide(entity.ObjectType, entityInTargetPos.ObjectType))
+                        {
+                            Debug.Log(entity.name + " ObjectsCollide");
+                            Debug.Log(entityInTargetPos.name + " ObjectsCollide");
+                            level.DispatchEarly(new CollisionEvent(
+                                target: entityInTargetPos.Id,
+                                sourceId: entity.Id,
+                                direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(spawnCommand.Direction), entityInTargetPos.Orientation)));
+                            level.DispatchEarly(new CollisionEvent(
+                                target: entity.Id,
+                                sourceId: entityInTargetPos.Id,
+                                direction: Utils.AbsoluteDirectionToRelative(spawnCommand.Direction, entity.Orientation)));
+                        }
+                        
+                    }
+                }
+
                 if (entity != null)
                 {
                     if (Animator != null)
                         Animator.SetTrigger(AnimOnSpawnTrigger);
-                    
+
                     ShootFx?.Trigger(transform);
 
                     yield return new SpawnChange(_entity.Id, entity.Id);
@@ -75,10 +112,10 @@ namespace Gameplay.Properties
 
         private void SetUiTimer(int? number)
         {
-            if(_uiTimerManager == null)
+            if (_uiTimerManager == null)
                 return;
-            
-            if(number.HasValue && number.Value >= 0)
+
+            if (number.HasValue && number.Value >= 0)
                 _uiTimerManager.SetTimer(gameObject, number.Value);
             else
                 _uiTimerManager.DeleteTimer(gameObject);

@@ -30,7 +30,7 @@ namespace Gameplay.Properties
         public void OnAfterPlayerMove(Level level)
         {
         }
-
+        //TODO null ref after bullet spawn on box
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
             if (command is HitCommand hitCommand && IsDeadlySide(hitCommand.Direction))

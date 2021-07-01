@@ -65,7 +65,5 @@ namespace Gameplay.Properties
                 _isRaised = false;
             }
         }
-
     }
-
 }

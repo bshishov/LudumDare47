@@ -34,8 +34,8 @@ namespace Gameplay
 
     public abstract class BaseChange : IChange
     {
-        public int TargetId {get; }
-        
+        public int TargetId { get; }
+
         protected BaseChange(int targetId)
         {
             TargetId = targetId;
@@ -53,7 +53,7 @@ namespace Gameplay
             Direction = direction;
             UpdateOrientation = updateOrientation;
         }
-        
+
         public override string ToString()
         {
             return $"MoveCommand(id: {TargetId}, {Direction})";
@@ -65,7 +65,7 @@ namespace Gameplay
         public DestroyCommand(int targetId) : base(targetId)
         {
         }
-        
+
         public override string ToString()
         {
             return $"DestroyCommand(id: {TargetId})";
@@ -88,18 +88,18 @@ namespace Gameplay
         {
         }
     }
-    
+
     public class HitCommand : BaseCommand
     {
         public readonly int SourceId;
         public readonly Direction Direction;
-        
+
         public HitCommand(int target, int sourceId, Direction direction) : base(target)
         {
             SourceId = sourceId;
             Direction = direction;
         }
-        
+
         public override string ToString()
         {
             return $"HitCommand(id: {TargetId})";
@@ -110,19 +110,19 @@ namespace Gameplay
     {
         public int SourceId;
         public Direction Direction;
-        
+
         public CollisionEvent(int target, int sourceId, Direction direction) : base(target)
         {
             SourceId = sourceId;
             Direction = direction;
         }
-        
+
         public override string ToString()
         {
             return $"CollisionEvent(id: {TargetId})";
         }
     }
-        
+
 
     public class MoveChange : BaseChange
     {
@@ -158,20 +158,24 @@ namespace Gameplay
 
     public class Rise : BaseChange
     {
-        public Rise(int targetId) : base(targetId) 
-        { 
+        public Rise(int targetId) : base(targetId)
+        {
         }
     }
-  
+
     public class SpawnCommand : BaseCommand
     {
-        public SpawnCommand(int target) : base(target){}
+        public Direction Direction;
+        public SpawnCommand(int target, Direction direction) : base(target)
+        {
+            Direction = direction;
+        }
     }
 
     public class SpawnChange : BaseChange
     {
         public readonly int SpawnedObjectId;
-        
+
         public SpawnChange(int targetId, int spawnedObjectId) : base(targetId)
         {
             SpawnedObjectId = spawnedObjectId;
@@ -181,12 +185,12 @@ namespace Gameplay
 
     public class DetonateCommand : BaseCommand
     {
-        public DetonateCommand(int targetId) : base(targetId) {}
+        public DetonateCommand(int targetId) : base(targetId) { }
     }
 
     public class IgniteCommand : BaseCommand
     {
-        public IgniteCommand(int targetId) : base(targetId) {}
+        public IgniteCommand(int targetId) : base(targetId) { }
     }
 
     public class FuseIgnited : BaseChange

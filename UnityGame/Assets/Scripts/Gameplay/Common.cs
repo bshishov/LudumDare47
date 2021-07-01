@@ -90,7 +90,6 @@ namespace Gameplay
             new CPair(ObjectType.Player, ObjectType.Player),
             new CPair(ObjectType.Player, ObjectType.Projectile),
             new CPair(ObjectType.Player, ObjectType.Box),
-            new CPair(ObjectType.Box, ObjectType.Projectile),
         };
         
         public static bool ObjectsCollide(ObjectType a, ObjectType b)

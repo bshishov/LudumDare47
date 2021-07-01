@@ -36,7 +36,6 @@ namespace Gameplay.Properties
 
                     if (entityInTargetPos.ObjectType.ToString() == "Player")
                     {
-
                         _haloFx.Stop();
                         _revertCollectFx.Stop();
                         _collectFx.Trigger(transform);

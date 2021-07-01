@@ -346,8 +346,9 @@ namespace Gameplay
             {
                 if (CollisionConfig.ObjectsCollide(objectType, obstacle.ObjectType))
                 {
-                    Debug.Log($"Trying to spawn object {prefab} that collides with {obstacle}");
-                    return null;
+                   //Dispatch(new HitCommand(objectType, prefab., entityOrientation));
+                    Debug.Log($"Trying to spawn object {prefab.name} that collides with {obstacle.name}");
+                    //return null;
                 }
             }
 
@@ -360,6 +361,7 @@ namespace Gameplay
                 var newEntityId = GetNewEntityId();
                 entity.Initialize(this, newEntityId);
                 _entities.Add(newEntityId, entity);
+
                 return entity;
             }
 
