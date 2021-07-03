@@ -48,28 +48,11 @@ namespace Gameplay.Properties
 
                 foreach (var entityInTargetPos in level.GetActiveEntitiesAt(entity.Position))
                 {
-                    if (entityInTargetPos != entity)
-                    {
-                        if (CollisionConfig.ObjectsHit(entity.ObjectType, entityInTargetPos.ObjectType))
-                        {
-                            Debug.Log(entity.name + " ObjectsHit");
-                            Debug.Log(entityInTargetPos.name + " ObjectsHit");
-                            Debug.Log(entity.Orientation.ToString());
-
-                            level.DispatchEarly(new HitCommand(
-                                target: entityInTargetPos.Id,
-                                sourceId: entity.Id,
-                                direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(spawnCommand.Direction), entityInTargetPos.Orientation)));
-                            level.DispatchEarly(new HitCommand(
-                                target: entity.Id,
-                                sourceId: entityInTargetPos.Id,
-                                direction: Utils.AbsoluteDirectionToRelative(spawnCommand.Direction, entity.Orientation)));
-                        }
+                    if (entityInTargetPos.Id != entity.Id)
+                    { 
                         // If current object collides with target object
                         if (CollisionConfig.ObjectsCollide(entity.ObjectType, entityInTargetPos.ObjectType))
                         {
-                            Debug.Log(entity.name + " ObjectsCollide");
-                            Debug.Log(entityInTargetPos.name + " ObjectsCollide");
                             level.DispatchEarly(new CollisionEvent(
                                 target: entityInTargetPos.Id,
                                 sourceId: entity.Id,
@@ -79,7 +62,17 @@ namespace Gameplay.Properties
                                 sourceId: entityInTargetPos.Id,
                                 direction: Utils.AbsoluteDirectionToRelative(spawnCommand.Direction, entity.Orientation)));
                         }
-                        
+                        if (CollisionConfig.ObjectsHit(entity.ObjectType, entityInTargetPos.ObjectType))
+                        {
+                            level.DispatchEarly(new HitCommand(
+                                target: entityInTargetPos.Id,
+                                sourceId: entity.Id,
+                                direction: Utils.AbsoluteDirectionToRelative(Utils.RevertDirection(spawnCommand.Direction), entityInTargetPos.Orientation)));
+                            level.DispatchEarly(new HitCommand(
+                                target: entity.Id,
+                                sourceId: entityInTargetPos.Id,
+                                direction: Utils.AbsoluteDirectionToRelative(spawnCommand.Direction, entity.Orientation)));
+                        }
                     }
                 }
 
