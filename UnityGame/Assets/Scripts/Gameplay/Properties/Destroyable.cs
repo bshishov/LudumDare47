@@ -21,12 +21,12 @@ namespace Gameplay.Properties
 
         private void Start()
         {
-            _entity = GetComponent<Entity>();
-            _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
         }
 
         public void OnInitialized(Level level)
         {
+            _entity = GetComponent<Entity>();
+            _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
         }
 
         public void OnAfterPlayerMove(Level level)

@@ -342,15 +342,6 @@ namespace Gameplay
             }
 
             var objectType = prefabEntity.ObjectType;
-            foreach (var obstacle in GetActiveEntitiesAt(entityPosition))
-            {
-                if (CollisionConfig.ObjectsCollide(objectType, obstacle.ObjectType))
-                {
-                   //Dispatch(new HitCommand(objectType, prefab., entityOrientation));
-                    Debug.Log($"Trying to spawn object {prefab.name} that collides with {obstacle.name}");
-                    //return null;
-                }
-            }
 
             var spawnedObject = Instantiate(prefab,
                 Utils.LevelToWorld(entityPosition),
