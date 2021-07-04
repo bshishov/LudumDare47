@@ -33,7 +33,7 @@ namespace UI
 
         private void ChangeSound()
         {
-            PlayerStats.Instance.SoundStatus = !PlayerStats.Instance.SoundStatus;
+            PlayerStats.Instance.ChangeSoundStatus();
             SoundIconChange();
         }
     }

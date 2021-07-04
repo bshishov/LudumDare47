@@ -20,7 +20,6 @@ namespace Gameplay.Properties
 
         private void Awake()
         {
-
         }
 
         public void OnInitialized(Level level)
@@ -34,26 +33,19 @@ namespace Gameplay.Properties
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-
             if (command is HitCommand hitCommand && IsDeadlySide(hitCommand.Direction))
             {
-                Debug.Log(hitCommand.TargetId + " ObjectsHit");
                 level.DispatchEarly(new DestroyCommand(hitCommand.SourceId));
                 if (SelfDestroyOnHit)
-                {
-                    Debug.Log(_entity.name);
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
-                }
+
             }
 
             if (KillsOnCollide && command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
             {
                 level.DispatchEarly(new DestroyCommand(collisionEvent.SourceId));
                 if (SelfDestroyOnCollide)
-                {
-                    Debug.Log(_entity.name);
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
-                }
             }
 
             yield break;
