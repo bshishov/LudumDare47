@@ -1,51 +1,82 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Utils
 {
+
+    [Serializable]
     public class GamePersist : MonoBehaviour
     {
-        private Dictionary<string, int> _levelData = new Dictionary<string, int>();
-        private Dictionary<string, int> _playerData = new Dictionary<string, int>();
+        public List<DataForPersist> _dataForPersist = new List<DataForPersist>();
+        public DataForPersist[] _test = new DataForPersist[] { new DataForPersist("t1", 1), new DataForPersist("t2", 2) };
+
         public void Awake()
         {
             DontDestroyOnLoad(this);
         }
 
-        private void OnEnable()
+        private void Start()
         {
+            if (PlayerPrefs.HasKey("Game State"))
+            {
+                var json = PlayerPrefs.GetString("Game State");
+                var er = JsonUtility.FromJson<DataForPersist>(json);
+            }
+
+            for (int i = 0; i < _dataForPersist.Count; i++)
+            {
+                Debug.Log($"{_dataForPersist[i].key} - {_dataForPersist[i].value}");
+            }
         }
-        private void OnDisable()
+        private void OnApplicationQuit()
         {
+            var json = JsonUtility.ToJson(new DataForPersist("t2", 2));
+            Debug.Log(json);
+            PlayerPrefs.SetString("Game State", json);
+            for (int i = 0; i < _dataForPersist.Count; i++)
+            {
+                Debug.Log($"{_dataForPersist[i].key} - {_dataForPersist[i].value}");
+            }
         }
         public void SaveLevelData(string levelName, int starsNumber)
         {
-            if (!_levelData.ContainsKey(levelName))
+            if (_dataForPersist.Count > 0)
             {
-                _levelData.Add(levelName, starsNumber);
+                for (int i = 0; i < _dataForPersist.Count; i++)
+                {
+                    if (_dataForPersist[i].key == levelName)
+                    {
+                        if (starsNumber > _dataForPersist[i].value)
+                        {
+                            _dataForPersist[i].value = starsNumber;
+                        }
+                    } else
+                    {
+                        var newData = new DataForPersist(levelName, starsNumber);
+                        _dataForPersist.Add(newData);
+                    }
+                }
             } else
             {
+                var newData = new DataForPersist(levelName, starsNumber);
+                _dataForPersist.Add(newData);
 
-                //Player collected more starts than the first time 
-                if (starsNumber > _levelData[levelName])
-                {
-                    _levelData[levelName] = starsNumber;
-                }
             }
         }
         public void SavePlayerData(string playerStat, int starsCollected)
         {
-            if (!_playerData.ContainsKey(playerStat))
-            {
-                _playerData.Add(playerStat, starsCollected);
-            } else
-            {
-                _playerData[playerStat] = starsCollected;
-            }
+        }
 
-            foreach (var item in _playerData)
-            {
-                Debug.Log(item.Value + " " + item.Key);
+        [Serializable]
+        public class DataForPersist
+        {
+            public string key;
+            public int value;
+
+            public DataForPersist(string b, int k) {
+                key = b;
+                value = k;
             }
         }
     }

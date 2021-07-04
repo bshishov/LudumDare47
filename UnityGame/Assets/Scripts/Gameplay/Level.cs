@@ -131,8 +131,7 @@ namespace Gameplay
                 if (command != null)
                 {
                     Exec(command);
-                }
-                else
+                } else
                 {
                     break;
                 }
@@ -161,7 +160,7 @@ namespace Gameplay
                 }
             }
             //Turns skipping stop after player pressed RollBack button
-            else if(_state == GameState.SkipTurn)
+            else if (_state == GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
                 StopCoroutine("SkipTurn");
@@ -225,11 +224,10 @@ namespace Gameplay
                 SaveLevelState();
                 if (_uiWinLose != null)
                     _uiWinLose.ShowWinWindow(CollectedStars);
-            } else if(_state != GameState.SkipTurn)
+            } else if (_state != GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
-            }
-            else
+            } else
             {
                 SwitchState(GameState.SkipTurn);
             }
@@ -242,7 +240,10 @@ namespace Gameplay
 
         private void SaveLevelState()
         {
-            _gamePersist.SaveLevelData(_sceneName, CollectedStars);
+            if (_gamePersist != null)
+            {
+                _gamePersist.SaveLevelData(_sceneName, CollectedStars);
+            }
         }
 
         private void RollbackLastCompletedTurn()

@@ -25,24 +25,32 @@ namespace Gameplay
         public void AddStars(int stars)
         {
             TotalNumberOfStars += stars;
-            _gamePersist.SavePlayerData(StarsColectedKey, TotalNumberOfStars);
+            Save(StarsColectedKey, TotalNumberOfStars);
         }
 
-        public void AddRollbackNumber(int rollback) {
+        public void AddRollbackNumber(int rollback)
+        {
             NumberOfRollback += rollback;
-            _gamePersist.SavePlayerData(RollbackKey, NumberOfRollback);
+            Save(RollbackKey, NumberOfRollback);
         }
 
         public void RemoveRollbackNumber()
         {
             NumberOfRollback--;
-            _gamePersist.SavePlayerData(RollbackKey, NumberOfRollback);
+            Save(RollbackKey, NumberOfRollback);
         }
 
-        public void ChangeSoundStatus() {
-
+        public void ChangeSoundStatus()
+        {
             SoundStatus = !SoundStatus;
-            _gamePersist.SavePlayerData(SoundStatusKey, SoundStatus? 1:0);
+            Save(SoundStatusKey, SoundStatus ? 1 : 0);
+        }
+
+        private void Save(string key, int value) {
+            if (_gamePersist != null)
+            {
+                _gamePersist.SavePlayerData(key, value);
+            }
         }
     }
 }
