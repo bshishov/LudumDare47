@@ -34,10 +34,10 @@ TextureImporter:
     second: tex_ui_Manemenu
   - first:
       213: -3351061050687741666
-    second: tex_ui_Star_ON
+    second: tex_ui_Star_Big_OFF
   - first:
       213: -3493252103150909351
-    second: tex_ui_Star_Off
+    second: tex_ui_Star_Big_ON
   - first:
       213: -2492377879902333038
     second: tex_ui_Atlas_12
@@ -109,10 +109,10 @@ TextureImporter:
     second: tex_ui_Undo
   - first:
       213: -4988478392265582616
-    second: tex_ui_Star_ON
+    second: tex_ui_Star_Big_OFF
   - first:
       213: -7649522096949060993
-    second: tex_ui_Star_Off
+    second: tex_ui_Star_Big_ON
   - first:
       213: 5019743298612406636
     second: tex_ui_Sound_OFF
@@ -128,6 +128,18 @@ TextureImporter:
   - first:
       213: -5710178891321046836
     second: tex_ui_Adventure
+  - first:
+      213: -7021189167627883045
+    second: tex_ui_Sound_ON
+  - first:
+      213: -89592201526729176
+    second: tex_ui_Atlas_1
+  - first:
+      213: 6816522211723651271
+    second: tex_ui_Sound_ON
+  - first:
+      213: -5710178891321046836
+    second: tex_ui_Star_Small_OFF
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -231,7 +243,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 768
-        y: 768
+        y: 1792
         width: 256
         height: 256
       alignment: 0
@@ -252,7 +264,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 512
+        y: 1536
         width: 256
         height: 256
       alignment: 0
@@ -273,7 +285,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 512
-        y: 512
+        y: 1536
         width: 256
         height: 256
       alignment: 0
@@ -294,7 +306,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 1280
         width: 256
         height: 256
       alignment: 0
@@ -311,13 +323,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Star_ON
+      name: tex_ui_Star_Big_OFF
       rect:
         serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -336,7 +348,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 512
+        y: 1536
         width: 256
         height: 256
       alignment: 0
@@ -357,7 +369,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 1280
         width: 256
         height: 256
       alignment: 0
@@ -374,11 +386,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Audio_ON
+      name: tex_ui_Sound_ON
       rect:
         serializedVersion: 2
         x: 0
-        y: 768
+        y: 1792
         width: 256
         height: 256
       alignment: 0
@@ -395,34 +407,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Rewind
+      name: tex_ui_Star_Small_OFF
       rect:
         serializedVersion: 2
-        x: 256
-        y: 768
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 826aa5d0e54b1cef0800000000000000
-      internalID: -89592201526729176
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_ui_Adventure
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 768
-        width: 256
-        height: 256
+        x: 1536
+        y: 1334
+        width: 357
+        height: 357
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -440,10 +431,10 @@ TextureImporter:
       name: tex_ui_Packs
       rect:
         serializedVersion: 2
-        x: 804
-        y: 548
-        width: 180
-        height: 180
+        x: 768
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -458,13 +449,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Star_Off
+      name: tex_ui_Star_Big_ON
       rect:
         serializedVersion: 2
-        x: 768
-        y: 256
-        width: 256
-        height: 256
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -474,6 +465,27 @@ TextureImporter:
       bones: []
       spriteID: 958cdc068b9758fc0800000000000000
       internalID: -3493252103150909351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Star_Small_ON
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1691
+        width: 357
+        height: 357
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c8295906d6299e50800000000000000
+      internalID: 6816522211723651271
       vertices: []
       indices: 
       edges: []
