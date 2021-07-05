@@ -4,14 +4,29 @@ namespace Gameplay
 {
     public class SwipeDetector : MonoBehaviour
     {
-
-        [SerializeField]
-        private float _minDistanceForSwipe = 30f;
-
         private Vector2 _fingerDownPosition;
         private Vector2 _fingerUpPosition;
 
         private Vector2 _swipeDistanceDelta;
+
+        private float _dpi;
+        private float _minDistanceForSwipe;
+
+        private const float _dpiPartInSwipe = 0.05f;
+
+        private void Awake()
+        {
+            _dpi = Screen.dpi;
+
+            //Screen.dpi can return 0 if dpi not available
+            if (_dpi > 0)
+            {
+                _minDistanceForSwipe = _dpi * _dpiPartInSwipe;
+            } else
+            {
+                _minDistanceForSwipe = 10;
+            }
+        }
 
         private void Update()
         {
@@ -42,7 +57,6 @@ namespace Gameplay
 
             if (CheckSwipeDistance())
             {
-                
                 if (_swipeDistanceDelta.x > _swipeDistanceDelta.y)
                 {
                     if (_fingerDownPosition.x > _fingerUpPosition.x)
@@ -68,9 +82,7 @@ namespace Gameplay
                         Level.Instance.PlayerMove(Direction.Front);
                     }
                 }
-
             }
-
         }
 
         private bool CheckSwipeDistance()

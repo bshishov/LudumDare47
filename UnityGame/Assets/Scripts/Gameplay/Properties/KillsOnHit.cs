@@ -9,28 +9,28 @@ namespace Gameplay.Properties
         public bool KillsOnCollide = true;
         public bool SelfDestroyOnHit = true;
         public bool SelfDestroyOnCollide = true;
-        
+
         [Header("Deadly sides")]
         public bool Front = true;
         public bool Back = true;
         public bool Left = true;
         public bool Right = true;
-        
+
         private Entity _entity;
 
-        private void Start()
+        private void Awake()
         {
-            _entity = GetComponent<Entity>();
         }
 
         public void OnInitialized(Level level)
         {
+            _entity = GetComponent<Entity>();
         }
 
         public void OnAfterPlayerMove(Level level)
         {
         }
-        //TODO null ref after bullet spawn on box
+
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
             if (command is HitCommand hitCommand && IsDeadlySide(hitCommand.Direction))
@@ -38,15 +38,16 @@ namespace Gameplay.Properties
                 level.DispatchEarly(new DestroyCommand(hitCommand.SourceId));
                 if (SelfDestroyOnHit)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
+
             }
-            
-            if(KillsOnCollide && command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
+
+            if (KillsOnCollide && command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
             {
                 level.DispatchEarly(new DestroyCommand(collisionEvent.SourceId));
                 if (SelfDestroyOnCollide)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
             }
-            
+
             yield break;
         }
 

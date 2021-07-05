@@ -23,7 +23,6 @@ namespace Gameplay
 
         public int MaxTurns = 10;
         public Entity CatGirl;
-
         public int CurrentTurnNumber => GetCurrentTurn()?.Number ?? -1;
         public bool IsPaused => Time.timeScale < 0.5f;
 
@@ -48,6 +47,9 @@ namespace Gameplay
         private UIWinLose _uiWinLose;
         private UILoad _uiLoad;
 
+        //Save Data
+        private string _sceneName;
+        private GamePersist _gamePersist;
         private void Awake()
         {
             LoadUIScene();
@@ -95,6 +97,9 @@ namespace Gameplay
             _uiLoad = GameObject.FindObjectOfType<UILoad>(true);
 
             SwitchState(GameState.WaitingForPlayerCommand);
+
+            _sceneName = SceneManager.GetActiveScene().name;
+            _gamePersist = GamePersist.FindObjectOfType<GamePersist>();
         }
 
         int GetNewEntityId()
@@ -126,8 +131,7 @@ namespace Gameplay
                 if (command != null)
                 {
                     Exec(command);
-                }
-                else
+                } else
                 {
                     break;
                 }
@@ -156,7 +160,7 @@ namespace Gameplay
                 }
             }
             //Turns skipping stop after player pressed RollBack button
-            else if(_state == GameState.SkipTurn)
+            else if (_state == GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
                 StopCoroutine("SkipTurn");
@@ -216,13 +220,14 @@ namespace Gameplay
                 //One star given for complete level
                 CollectStar();
                 AddCollectedStars();
+
+                SaveLevelState();
                 if (_uiWinLose != null)
                     _uiWinLose.ShowWinWindow(CollectedStars);
-            } else if(_state != GameState.SkipTurn)
+            } else if (_state != GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
-            }
-            else
+            } else
             {
                 SwitchState(GameState.SkipTurn);
             }
@@ -231,6 +236,14 @@ namespace Gameplay
             var newTurnNumber = turn.Number + 1;
             _history.Push(new Turn(newTurnNumber));
 
+        }
+
+        private void SaveLevelState()
+        {
+            if (_gamePersist != null)
+            {
+                _gamePersist.SaveLevelData(_sceneName, CollectedStars);
+            }
         }
 
         private void RollbackLastCompletedTurn()
@@ -260,7 +273,7 @@ namespace Gameplay
                 if (_uiTurns != null)
                     _uiTurns.BackTurn();
 
-                PlayerStats.Instance.NumberOfRollback--;
+                PlayerStats.Instance.RemoveRollbackNumber();
             }
 
             // Start new "Incomplete turn"
@@ -342,15 +355,6 @@ namespace Gameplay
             }
 
             var objectType = prefabEntity.ObjectType;
-            foreach (var obstacle in GetActiveEntitiesAt(entityPosition))
-            {
-                if (CollisionConfig.ObjectsCollide(objectType, obstacle.ObjectType))
-                {
-                   //Dispatch(new HitCommand(objectType, prefab., entityOrientation));
-                    Debug.Log($"Trying to spawn object {prefab.name} that collides with {obstacle.name}");
-                    //return null;
-                }
-            }
 
             var spawnedObject = Instantiate(prefab,
                 Utils.LevelToWorld(entityPosition),
@@ -424,7 +428,7 @@ namespace Gameplay
         }
         private void AddCollectedStars()
         {
-            PlayerStats.Instance.TotalNumberOfStars += CollectedStars;
+            PlayerStats.Instance.AddStars(CollectedStars);
         }
 
     }
