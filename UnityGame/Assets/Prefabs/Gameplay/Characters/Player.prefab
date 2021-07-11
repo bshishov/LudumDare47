@@ -163,7 +163,7 @@ MonoBehaviour:
   AnimDiedBool: Death
   DisableAllRenderersWhenInactive: 0
   DisableRenderersWhenInactive:
-  - {fileID: 6251351917595311751}
+  - {fileID: 1574729943868182130}
 --- !u!95 &6107076085696332025
 Animator:
   serializedVersion: 3
@@ -420,12 +420,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2082123632498900090}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &6251351917595311751 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5342521618502730493, guid: f7397d3160fd2cf4c81830c1b3ae4801,
-    type: 3}
-  m_PrefabInstance: {fileID: 2082123632498900090}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3470035490152674880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -519,6 +513,12 @@ GameObject:
 --- !u!4 &4008964091550962091 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 293c94e6f93dd9c48abd5f8060a8f136,
+    type: 3}
+  m_PrefabInstance: {fileID: 3470035490152674880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1574729943868182130 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6488954312530364366, guid: 293c94e6f93dd9c48abd5f8060a8f136,
     type: 3}
   m_PrefabInstance: {fileID: 3470035490152674880}
   m_PrefabAsset: {fileID: 0}
