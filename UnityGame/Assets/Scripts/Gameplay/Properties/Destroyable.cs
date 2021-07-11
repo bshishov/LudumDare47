@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Audio;
 using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,6 +9,10 @@ namespace Gameplay.Properties
     [RequireComponent(typeof(Entity))]
     public class Destroyable : MonoBehaviour, ICommandHandler
     {
+        [Header("Sounds")] 
+        [SerializeField] private SoundAsset DestroySound; 
+        [SerializeField] private SoundAsset RevertDestroySound; 
+        
         [Header("Visuals")] 
         public FxObject DestroyedFx;
         public Animator Animator;
@@ -57,6 +62,8 @@ namespace Gameplay.Properties
                     foreach (var rnd in DisableRenderersWhenInactive)
                         rnd.enabled = false;
 
+                SoundManager.Instance.Play(DestroySound);
+
                 yield return new DestroyedChange(_entity.Id);
             }
         }
@@ -78,6 +85,8 @@ namespace Gameplay.Properties
                 if (DisableRenderersWhenInactive != null)
                     foreach (var rnd in DisableRenderersWhenInactive)
                         rnd.enabled = true;
+                
+                SoundManager.Instance.Play(RevertDestroySound);
                 
                 _entity.Activate();
             }

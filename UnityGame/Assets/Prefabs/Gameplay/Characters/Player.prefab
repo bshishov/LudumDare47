@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSound: {fileID: 11400000, guid: 7951fb93f88ebef46b7989be049df12a, type: 2}
 --- !u!114 &1928229676038552581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroySound: {fileID: 11400000, guid: b0c7917a69f18c041aa91ff80584c3a7, type: 2}
+  RevertDestroySound: {fileID: 0}
   DestroyedFx:
     FX: {fileID: 119968, guid: 442a091fc401fb945a64a68adc8ad5e4, type: 3}
     IsPrefab: 1

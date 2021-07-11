@@ -82,8 +82,14 @@ namespace Audio
             _inactiveHandlers.Clear();
         }
 
-        public SoundHandler Play(AudioClip clip, float volume = 1f, bool loop = false, float pitch = 1f,
-            bool ignoreListenerPause = false, float delay = 0f, AudioMixerGroup mixerGroup = null)
+        public SoundHandler Play(
+            AudioClip clip, 
+            float volume = 1f, 
+            bool loop = false, 
+            float pitch = 1f,
+            bool ignoreListenerPause = false, 
+            float delay = 0f, 
+            AudioMixerGroup mixerGroup = null)
         {
             if (clip == null)
                 return null;
@@ -126,60 +132,61 @@ namespace Audio
             return Play(clip.Clip, clip.VolumeModifier, loop, clip.Pitch * pitch, ignoreListenerPause, delay);
         }
 
-        public SoundHandler Play(Sound sound)
+        public SoundHandler Play(ISound sound)
         {
             if (sound == null)
                 return null;
 
-            var isLimiting = sound.MixerGroup != null && LimitSettings != null;
+            var mixerGroup = sound.GetMixedGroup();
+            var isLimiting = mixerGroup != null && LimitSettings != null;
             var isInGroup = false;
             var soundsInGroup = 0;
 
             if (isLimiting)
             {
-                isInGroup = _groupCounter.ContainsKey(sound.MixerGroup);
+                isInGroup = _groupCounter.ContainsKey(mixerGroup);
                 if (isInGroup)
                 {
-                    soundsInGroup = _groupCounter[sound.MixerGroup];
-                    if (soundsInGroup >= LimitSettings.GetLimit(sound.MixerGroup))
+                    soundsInGroup = _groupCounter[mixerGroup];
+                    if (soundsInGroup >= LimitSettings.GetLimit(mixerGroup))
                         //Debug.Log(string.Format("[SoundManager] Too many sounds for group {0}", sound.MixerGroup));
                         return null;
                 }
             }
 
-            var pitch = sound.Pitch;
-            if (sound.RandomizePitch)
-                pitch = Random.Range(pitch - sound.MaxPitchShift, pitch + sound.MaxPitchShift);
+            var pitch = sound.GetPitch();
+            var delay = sound.GetDelay();
+            var clip = sound.GetAudioClip();
 
-            var delay = sound.Delay;
-            if (sound.RandomizeDelay)
-                delay += Random.value * sound.MaxAdditionalDelay;
-
-            var handler = Play(sound.Clip, sound.VolumeModifier, sound.Loop, pitch, sound.IgnoreListenerPause, delay,
-                sound.MixerGroup);
+            var handler = Play(
+                clip, 
+                sound.GetVolumeModifier(), 
+                sound.IsOnLoop(), 
+                pitch, 
+                sound.ShouldIgnoreListenerPause(), 
+                delay,
+                mixerGroup
+            );
 
             if (isLimiting && handler != null)
             {
                 if (isInGroup)
                     // There are sounds in group so increment by one
-                    _groupCounter[sound.MixerGroup] = soundsInGroup + 1;
+                    _groupCounter[mixerGroup] = soundsInGroup + 1;
                 else
                     // First sound in group
-                    _groupCounter.Add(sound.MixerGroup, 1);
+                    _groupCounter.Add(mixerGroup, 1);
             }
 
             return handler;
         }
 
-        public SoundHandler Play(Sound sound, Transform attachTo)
+        public SoundHandler Play(ISound sound, Transform attachTo)
         {
             var s = Play(sound);
-            if (s != null)
-                s.AttachToObject(attachTo);
-
+            s?.AttachToObject(attachTo);
             return s;
         }
-
 
         public SoundHandler PlayMusic(Sound sound)
         {

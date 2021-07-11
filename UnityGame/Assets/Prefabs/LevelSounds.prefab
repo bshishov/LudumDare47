@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4043800287900660780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4043800287900660786}
+  - component: {fileID: 4043800287900660787}
+  m_Layer: 0
+  m_Name: LevelSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &4043800287900660786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4043800287900660780}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4043800287900660787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4043800287900660780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c85839ec1d4461a3909ce935c32ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TurnRollbackSound: {fileID: 11400000, guid: 43a96c154b18dbd4ba985481be046429, type: 2}
+  TurnRollbackDeniedSound: {fileID: 11400000, guid: 82a8f147dcd8d894ba2c74dba9c59d63,
+    type: 2}
+  LevelCompleteSound: {fileID: 11400000, guid: 401624f9538d0db46824441385203bcc, type: 2}
+  LevelFailedSound: {fileID: 11400000, guid: 30e2800b41626f7439a41942f7c2b205, type: 2}

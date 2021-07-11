@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Audio;
 using Gameplay.Properties;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +13,7 @@ namespace Gameplay
 {
     public class Level : Singleton<Level>
     {
-        enum GameState
+        public enum GameState
         {
             WaitingForPlayerCommand,
             ExecutingTurnCommands,
@@ -27,6 +29,9 @@ namespace Gameplay
         public bool IsPaused => Time.timeScale < 0.5f;
 
         public int CollectedStars = 0;
+        public event Action TurnRollbackSucceeds; 
+        public event Action TurnRollbackDenied;
+        public event Action<GameState> StateChanged;
 
         private bool CanRollbackFromCurrentState =>
             _state == GameState.WaitingForPlayerCommand ||
@@ -251,6 +256,7 @@ namespace Gameplay
             if (_history.Count == 0)
             {
                 Debug.LogWarning("Trying to rollback an empty history");
+                TurnRollbackDenied?.Invoke();
                 return;
             }
 
@@ -274,6 +280,11 @@ namespace Gameplay
                     _uiTurns.BackTurn();
 
                 PlayerStats.Instance.RemoveRollbackNumber();
+                TurnRollbackSucceeds?.Invoke();
+            }
+            else
+            {
+                TurnRollbackDenied?.Invoke();
             }
 
             // Start new "Incomplete turn"
@@ -317,6 +328,7 @@ namespace Gameplay
         private void SwitchState(GameState state)
         {
             _state = state;
+            StateChanged?.Invoke(state);
         }
 
         public void Dispatch(ICommand command)
@@ -430,6 +442,5 @@ namespace Gameplay
         {
             PlayerStats.Instance.AddStars(CollectedStars);
         }
-
     }
 }

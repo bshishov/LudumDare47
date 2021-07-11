@@ -1,31 +1,29 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using Random = UnityEngine.Random;
 
 namespace Audio
 {
-    [Serializable]
-    public class Sound : ISound
+    [CreateAssetMenu(fileName = "Sound", menuName = "Sound", order = 0)]
+    public class SoundAsset : ScriptableObject, ISound
     {
         public AudioClip Clip;
-
-        [Header("Delay")] [Range(0, 1f)] public float Delay;
-
-        public bool IgnoreListenerPause;
         public bool Loop;
+        public AudioMixerGroup MixerGroup;
+        [Range(0f, 1.5f)] public float VolumeModifier = 1f;
+
+        [Header("Delay")] 
+        [Range(0, 1f)] public float Delay;
+        public bool RandomizeDelay;
         [Range(0, 2f)] public float MaxAdditionalDelay;
 
+        [Header("Other")] 
+        public bool IgnoreListenerPause;
+
+        [Header("Pitch")] 
+        [Range(0.5f, 2f)] public float Pitch = 1f;
+        public bool RandomizePitch;
         [Range(0f, 0.2f)] public float MaxPitchShift = 0.05f;
 
-        public AudioMixerGroup MixerGroup;
-
-        [Header("Pitch")] [Range(0.5f, 2f)] public float Pitch = 1f;
-
-        public bool RandomizeDelay;
-        public bool RandomizePitch;
-        [Range(0f, 1.5f)] public float VolumeModifier = 1f;
-        
         public AudioClip GetAudioClip()
         {
             return Clip;

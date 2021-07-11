@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 namespace Gameplay.Properties
@@ -6,6 +7,7 @@ namespace Gameplay.Properties
     [RequireComponent(typeof(Entity))]
     public class Movable : MonoBehaviour, ICommandHandler
     {
+        public SoundAsset MoveSound;
         private Entity _entity;
 
         private void Start()
@@ -139,6 +141,9 @@ namespace Gameplay.Properties
             if (updateOrientation)
                 targetOrientation = moveDirection;
             
+            // Effects
+            SoundManager.Instance.Play(MoveSound);
+
             var selfMove = new MoveChange(_entity.Id)
             {
                 OriginalOrientation = _entity.Orientation,
@@ -150,7 +155,5 @@ namespace Gameplay.Properties
             _entity.MoveTo(targetPos, targetOrientation, movementType);
             yield return selfMove;
         }
-
-        
     }
 }

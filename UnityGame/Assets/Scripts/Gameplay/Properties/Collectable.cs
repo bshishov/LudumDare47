@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,6 +10,10 @@ namespace Gameplay.Properties
     {
         private Entity _entity;
 
+        [Header("Sounds")] 
+        [SerializeField] private SoundAsset PickupSound;
+        [SerializeField] private SoundAsset RevertPickupSound;
+        
         [Header("Visuals")]
         [SerializeField]
         private FxObject _collectFx;
@@ -46,6 +51,7 @@ namespace Gameplay.Properties
                             foreach (var rnd in _disableRenderersWhenInactive)
                                 rnd.enabled = false;
 
+                        SoundManager.Instance.Play(PickupSound);
                         level.CollectStar();
 
                         yield return new Collection(_entity.Id);
@@ -59,6 +65,7 @@ namespace Gameplay.Properties
         {
             if (change is Collection)
             {
+                SoundManager.Instance.Play(RevertPickupSound);
                 _collectFx.Stop();
                 _revertCollectFx.Trigger(transform);
                 _haloFx.Trigger(transform);

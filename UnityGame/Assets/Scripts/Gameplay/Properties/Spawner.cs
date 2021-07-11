@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Audio;
 using UI;
 using UnityEngine;
 
@@ -14,6 +15,10 @@ namespace Gameplay.Properties
         public Animator Animator;
         public string AnimOnSpawnTrigger;
         public FxObject ShootFx;
+
+        [Header("Sounds")] 
+        [SerializeField] private SoundAsset SpawnSound; 
+        [SerializeField] private SoundAsset RevertSpawnSound; 
 
         private Entity _entity;
         private int _spawnAtTurn;
@@ -81,6 +86,7 @@ namespace Gameplay.Properties
                     if (Animator != null)
                         Animator.SetTrigger(AnimOnSpawnTrigger);
 
+                    SoundManager.Instance.Play(SpawnSound);
                     ShootFx?.Trigger(transform);
 
                     yield return new SpawnChange(_entity.Id, entity.Id);
@@ -92,6 +98,7 @@ namespace Gameplay.Properties
         {
             if (change is SpawnChange spawnChange)
             {
+                SoundManager.Instance.Play(RevertSpawnSound);
                 level.Despawn(spawnChange.SpawnedObjectId);
                 SetUiTimer(null);
             }
