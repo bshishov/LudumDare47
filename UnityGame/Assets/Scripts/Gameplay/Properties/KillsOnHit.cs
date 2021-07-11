@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Properties
 {
@@ -9,6 +11,10 @@ namespace Gameplay.Properties
         public bool KillsOnCollide = true;
         public bool SelfDestroyOnHit = true;
         public bool SelfDestroyOnCollide = true;
+
+        [Header("Sounds")] 
+        public SoundAsset HitKillSound;
+        public SoundAsset CollideKillSound;
 
         [Header("Deadly sides")]
         public bool Front = true;
@@ -38,7 +44,7 @@ namespace Gameplay.Properties
                 level.DispatchEarly(new DestroyCommand(hitCommand.SourceId));
                 if (SelfDestroyOnHit)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
-
+                SoundManager.Instance.Play(HitKillSound);
             }
 
             if (KillsOnCollide && command is CollisionEvent collisionEvent && IsDeadlySide(collisionEvent.Direction))
@@ -46,6 +52,7 @@ namespace Gameplay.Properties
                 level.DispatchEarly(new DestroyCommand(collisionEvent.SourceId));
                 if (SelfDestroyOnCollide)
                     level.DispatchEarly(new DestroyCommand(_entity.Id));
+                SoundManager.Instance.Play(CollideKillSound);
             }
 
             yield break;

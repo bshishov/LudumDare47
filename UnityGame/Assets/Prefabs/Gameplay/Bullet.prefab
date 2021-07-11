@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSound: {fileID: 11400000, guid: 52876439df60cfd44b672863febf2571, type: 2}
 --- !u!114 &1992404149819614342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +129,8 @@ MonoBehaviour:
   KillsOnCollide: 1
   SelfDestroyOnHit: 1
   SelfDestroyOnCollide: 1
+  HitKillSound: {fileID: 11400000, guid: 1457922970d3fc440a327177b0146143, type: 2}
+  CollideKillSound: {fileID: 11400000, guid: 1457922970d3fc440a327177b0146143, type: 2}
   Front: 1
   Back: 0
   Left: 0
@@ -144,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroySound: {fileID: 0}
+  RevertDestroySound: {fileID: 0}
   DestroyedFx:
     FX: {fileID: 0}
     IsPrefab: 1

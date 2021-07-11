@@ -1036,6 +1036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectType: 3
+  CellColor: {r: 1, g: 0, b: 1, a: 1}
   Offset: {x: 0, y: 0, z: 0}
   AlignOnStart: 1
 --- !u!114 &8466693474707481025
@@ -1099,6 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSound: {fileID: 11400000, guid: 0f7a44e0d2b96d54e8a715436787ccb4, type: 2}
 --- !u!114 &4580575395028688307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1114,6 +1116,8 @@ MonoBehaviour:
   KillsOnCollide: 0
   SelfDestroyOnHit: 0
   SelfDestroyOnCollide: 0
+  HitKillSound: {fileID: 11400000, guid: 69b9aa02f5922994d85e891dc9c20c2c, type: 2}
+  CollideKillSound: {fileID: 11400000, guid: 69b9aa02f5922994d85e891dc9c20c2c, type: 2}
   Front: 1
   Back: 0
   Left: 0
