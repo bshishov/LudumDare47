@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Audio;
 using UI;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ namespace Gameplay.Properties
 
         [Header("Visuals")] 
         public FxObject Sparks;
+
+        [Header("Sound")] 
+        public SoundAsset IgniteSound;
 
         private int _detonateAtTurn = -1;
         private Entity _entity;
@@ -28,6 +32,7 @@ namespace Gameplay.Properties
             // Start visuals prematurely
             if (AutoIgnite)
             {
+                SoundManager.Instance.Play(IgniteSound);
                 _detonateAtTurn = level.CurrentTurnNumber + Delay;
                 Sparks?.Trigger(transform);
                 SetUiTimer(Delay);
@@ -52,6 +57,7 @@ namespace Gameplay.Properties
         {
             if (command is IgniteCommand && _detonateAtTurn < 0)
             {
+                SoundManager.Instance.Play(IgniteSound);
                 _detonateAtTurn = level.CurrentTurnNumber + Delay;
                 Sparks?.Trigger(transform);
                 SetUiTimer(Delay - 1);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 namespace Gameplay.Properties
@@ -8,6 +9,9 @@ namespace Gameplay.Properties
     {
         public int Radius = 1;
         public bool ExplodeOnDestroy = true;
+
+        [Header("Sounds")] 
+        public SoundAsset ExplosionSound;
         
         private Entity _entity;
 
@@ -36,6 +40,7 @@ namespace Gameplay.Properties
 
         private void Explode(Level level)
         {
+            SoundManager.Instance.Play(ExplosionSound);
             foreach (var target in level.GetActiveEntitiesInRadius(_entity.Position, Radius))
                 level.DispatchEarly(new DestroyCommand(target.Id));
         }
