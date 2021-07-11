@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSound: {fileID: 11400000, guid: 0f7a44e0d2b96d54e8a715436787ccb4, type: 2}
 --- !u!114 &8352976728498175481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +225,8 @@ MonoBehaviour:
   KillsOnCollide: 0
   SelfDestroyOnHit: 0
   SelfDestroyOnCollide: 0
+  HitKillSound: {fileID: 11400000, guid: 69b9aa02f5922994d85e891dc9c20c2c, type: 2}
+  CollideKillSound: {fileID: 11400000, guid: 69b9aa02f5922994d85e891dc9c20c2c, type: 2}
   Front: 1
   Back: 0
   Left: 0
