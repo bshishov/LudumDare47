@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectType: 6
+  CellColor: {r: 1, g: 0, b: 1, a: 1}
   Offset: {x: 0, y: 0, z: 0}
   AlignOnStart: 1
 --- !u!114 &3063851469198239176
@@ -62,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSound: {fileID: 11400000, guid: a90445f373b24fa438dd4f8f5c36ce14, type: 2}
 --- !u!114 &-5756582709334758421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroySound: {fileID: 11400000, guid: c913cbd1672d4e34eb9da1206881b728, type: 2}
+  RevertDestroySound: {fileID: 0}
   DestroyedFx:
     FX: {fileID: 105310, guid: 81f03b9971e9d9645a20d9a1e63abade, type: 3}
     IsPrefab: 1
