@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Sounds
+namespace Audio
 {
     public class PlaySoundOnStart : MonoBehaviour
     {
