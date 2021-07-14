@@ -35,7 +35,7 @@ namespace Utils
             PlayerPrefs.SetString("Game State", json);
             for (int i = 0; i < _dataForPersist.Count; i++)
             {
-                Debug.Log($"{_dataForPersist[i].key} - {_dataForPersist[i].value}");
+                //Debug.Log($"{_dataForPersist[i].key} - {_dataForPersist[i].value}");
             }
         }
         public void SaveLevelData(string levelName, int starsNumber)
@@ -79,4 +79,7 @@ namespace Utils
             }
         }
     }
+
+
+
 }
