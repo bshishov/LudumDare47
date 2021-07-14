@@ -32,7 +32,6 @@ namespace Utils
         private void OnApplicationQuit()
         {
             var json = JsonUtility.ToJson(new DataForPersist("t2", 2));
-            Debug.Log(json);
             PlayerPrefs.SetString("Game State", json);
             for (int i = 0; i < _dataForPersist.Count; i++)
             {

@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Gameplay;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 
 public class UIWinLose : MonoBehaviour
 {
     public GameObject WinWindow;
     public GameObject StarsContainer;
+    public Text StarsCount;
     public UICanvasGroupFader LoseWindowFader;
     public TextMeshProUGUI LoseText;
 
@@ -16,6 +17,7 @@ public class UIWinLose : MonoBehaviour
     {
         WinWindow.SetActive(true);
         StarsContainer.GetComponent<UIStarsContainer>().ShowCollectedStars(stars);
+        StarsCount.text = PlayerStats.Instance.TotalNumberOfStars.ToString();
     }
     public void ShowLoseWindow(FailReason reason)
     {
