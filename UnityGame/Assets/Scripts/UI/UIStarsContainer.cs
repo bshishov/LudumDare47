@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 
-public class UIStarsContainer : MonoBehaviour
+namespace UI
 {
-    [SerializeField]
-    private GameObject[] _starImages;
-
-    public void ShowCollectedStars(int stars)
+    public class UIStarsContainer : MonoBehaviour
     {
-        for (int i = 0; i < stars; i++)
+        [SerializeField]
+        private GameObject[] _starImages;
+        public void ShowCollectedStars(int stars)
         {
-            _starImages[i].SetActive(true);
+            for (int i = 0; i < stars; i++)
+            {
+                _starImages[i].SetActive(true);
+            }
         }
     }
 }
