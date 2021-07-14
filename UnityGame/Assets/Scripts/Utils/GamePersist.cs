@@ -1,85 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Utils
 {
-
-    [Serializable]
     public class GamePersist : MonoBehaviour
     {
-        public List<DataForPersist> _dataForPersist = new List<DataForPersist>();
-        public DataForPersist[] _test = new DataForPersist[] { new DataForPersist("t1", 1), new DataForPersist("t2", 2) };
+
+        public StringIntDictionary LevelData { get; private set; }
+        public StringIntDictionary PlayerData { get; private set; }
 
         public void Awake()
         {
             DontDestroyOnLoad(this);
-        }
 
-        private void Start()
-        {
-            if (PlayerPrefs.HasKey("Game State"))
+            LevelData = new StringIntDictionary();
+            PlayerData = new StringIntDictionary();
+
+            if (PlayerPrefs.HasKey("Levels Data"))
             {
-                var json = PlayerPrefs.GetString("Game State");
-                var er = JsonUtility.FromJson<DataForPersist>(json);
+                var json = PlayerPrefs.GetString("Levels Data");
+                LevelData = JsonUtility.FromJson<StringIntDictionary>(json);
             }
 
-            for (int i = 0; i < _dataForPersist.Count; i++)
+            if (PlayerPrefs.HasKey("Player Data"))
             {
-                Debug.Log($"{_dataForPersist[i].key} - {_dataForPersist[i].value}");
+                var json = PlayerPrefs.GetString("Player Data");
+                PlayerData = JsonUtility.FromJson<StringIntDictionary>(json);
             }
         }
         private void OnApplicationQuit()
         {
-            var json = JsonUtility.ToJson(new DataForPersist("t2", 2));
-            PlayerPrefs.SetString("Game State", json);
-            for (int i = 0; i < _dataForPersist.Count; i++)
-            {
-                //Debug.Log($"{_dataForPersist[i].key} - {_dataForPersist[i].value}");
-            }
+            var jsonLevelData = JsonUtility.ToJson(LevelData);
+            PlayerPrefs.SetString("Levels Data", jsonLevelData);
+
+            var jsonPlayerData = JsonUtility.ToJson(PlayerData);
+            PlayerPrefs.SetString("Player Data", jsonPlayerData);
         }
         public void SaveLevelData(string levelName, int starsNumber)
         {
-            if (_dataForPersist.Count > 0)
+            if (!LevelData.ContainsKey(levelName))
             {
-                for (int i = 0; i < _dataForPersist.Count; i++)
-                {
-                    if (_dataForPersist[i].key == levelName)
-                    {
-                        if (starsNumber > _dataForPersist[i].value)
-                        {
-                            _dataForPersist[i].value = starsNumber;
-                        }
-                    } else
-                    {
-                        var newData = new DataForPersist(levelName, starsNumber);
-                        _dataForPersist.Add(newData);
-                    }
-                }
+                LevelData.Add(levelName, starsNumber);
             } else
             {
-                var newData = new DataForPersist(levelName, starsNumber);
-                _dataForPersist.Add(newData);
-
+                //Player collected more starts than the first time 
+                if (starsNumber > LevelData[levelName])
+                {
+                    LevelData[levelName] = starsNumber;
+                }
             }
         }
         public void SavePlayerData(string playerStat, int starsCollected)
         {
-        }
-
-        [Serializable]
-        public class DataForPersist
-        {
-            public string key;
-            public int value;
-
-            public DataForPersist(string b, int k) {
-                key = b;
-                value = k;
+            if (!PlayerData.ContainsKey(playerStat))
+            {
+                PlayerData.Add(playerStat, starsCollected);
+            } else
+            {
+                PlayerData[playerStat] = starsCollected;
             }
         }
     }
-
-
-
+    public class StringIntDictionary : SerializableDictionary<string, int> { }
 }

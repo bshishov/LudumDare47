@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using Gameplay;
 using UnityEngine.UI;
+using Utils;
 
 namespace UI
 {
@@ -8,33 +8,52 @@ namespace UI
     {
         public Image SoundOn;
         public Image SoundOff;
+        public bool SoundStatus { get; private set; }
 
         private Button _soundButton;
+        private GamePersist _gamePersist;
+
+        private const string SoundStatusKey = "Player sound";
         private void Start()
         {
             _soundButton = GetComponent<Button>();
-            _soundButton.onClick.AddListener(ChangeSound);
+            _soundButton.onClick.AddListener(ChangeSoundStatus);
+
+            _gamePersist = FindObjectOfType<GamePersist>();
+
+            LoadSoundStatus();
+        }
+
+        public void ChangeSoundStatus()
+        {
+            SoundStatus = !SoundStatus;
+            SoundIconChange();
+            Save(SoundStatusKey, SoundStatus ? 1 : 0);
+        }
+
+        private void LoadSoundStatus()
+        {
+            if (_gamePersist.PlayerData.ContainsKey(SoundStatusKey))
+            {
+                SoundStatus = (_gamePersist.PlayerData[SoundStatusKey] == 1 ? true : false);
+            } else {
+                SoundStatus = true;
+            }
 
             SoundIconChange();
         }
 
         private void SoundIconChange()
         {
-            if (PlayerStats.Instance.SoundStatus)
-            {
-                SoundOn.enabled = true;
-                SoundOff.enabled = false;
-            } else
-            {
-                SoundOn.enabled = false;
-                SoundOff.enabled = true;
-            }
+            SoundOn.enabled = SoundStatus;
+            SoundOff.enabled = !SoundStatus;
         }
-
-        private void ChangeSound()
+        private void Save(string key, int value)
         {
-            PlayerStats.Instance.ChangeSoundStatus();
-            SoundIconChange();
+            if (_gamePersist != null)
+            {
+                _gamePersist.SavePlayerData(key, value);
+            }
         }
     }
 }
