@@ -55,6 +55,7 @@ namespace Gameplay
         //Save Data
         private string _sceneName;
         private GamePersist _gamePersist;
+
         private void Awake()
         {
             LoadUIScene();
@@ -224,11 +225,14 @@ namespace Gameplay
                 SwitchState(GameState.Win);
                 //One star given for complete level
                 CollectStar();
+
                 AddCollectedStars();
 
                 SaveLevelState();
+
                 if (_uiWinLose != null)
                     _uiWinLose.ShowWinWindow(CollectedStars);
+
             } else if (_state != GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
@@ -440,7 +444,15 @@ namespace Gameplay
         }
         private void AddCollectedStars()
         {
-            PlayerStats.Instance.AddStars(CollectedStars);
+            //player can't collected stars that's already were collected
+            if (_gamePersist.LevelData.ContainsKey(_sceneName))
+            {
+                var newCollectedStars = CollectedStars - _gamePersist.LevelData[_sceneName];
+                PlayerStats.Instance.AddStars(newCollectedStars);
+            } else
+            {
+                PlayerStats.Instance.AddStars(CollectedStars);
+            }
         }
     }
 }

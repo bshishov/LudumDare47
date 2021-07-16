@@ -4,7 +4,6 @@ namespace Utils
 {
     public class GamePersist : MonoBehaviour
     {
-
         public StringIntDictionary LevelData { get; private set; }
         public StringIntDictionary PlayerData { get; private set; }
 
@@ -14,7 +13,7 @@ namespace Utils
 
             LevelData = new StringIntDictionary();
             PlayerData = new StringIntDictionary();
-
+           
             if (PlayerPrefs.HasKey("Levels Data"))
             {
                 var json = PlayerPrefs.GetString("Levels Data");
@@ -27,14 +26,18 @@ namespace Utils
                 PlayerData = JsonUtility.FromJson<StringIntDictionary>(json);
             }
         }
-        private void OnApplicationQuit()
+
+        private void Save()
         {
             var jsonLevelData = JsonUtility.ToJson(LevelData);
             PlayerPrefs.SetString("Levels Data", jsonLevelData);
 
             var jsonPlayerData = JsonUtility.ToJson(PlayerData);
             PlayerPrefs.SetString("Player Data", jsonPlayerData);
+
+            PlayerPrefs.Save();
         }
+
         public void SaveLevelData(string levelName, int starsNumber)
         {
             if (!LevelData.ContainsKey(levelName))
@@ -48,7 +51,10 @@ namespace Utils
                     LevelData[levelName] = starsNumber;
                 }
             }
+
+            Save();
         }
+
         public void SavePlayerData(string playerStat, int starsCollected)
         {
             if (!PlayerData.ContainsKey(playerStat))
@@ -58,7 +64,10 @@ namespace Utils
             {
                 PlayerData[playerStat] = starsCollected;
             }
+
+            Save();
         }
     }
+
     public class StringIntDictionary : SerializableDictionary<string, int> { }
 }
