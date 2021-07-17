@@ -150,11 +150,21 @@ MonoBehaviour:
   DestroySound: {fileID: 0}
   RevertDestroySound: {fileID: 0}
   DestroyedFx:
-    FX: {fileID: 0}
+    FX: {fileID: 131008, guid: d6827f88cfae16344b63b8ec45ee9ecc, type: 3}
     IsPrefab: 1
     IsParticleSystem: 1
     Offset: {x: 0, y: 0, z: 0}
     RotationOffset: {x: -90, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  RevertDestroyedFx:
+    FX: {fileID: 131008, guid: 3540c071862bc8d4db9c7f2b8bcc7b4b, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
     AttachToParent: 0
     Delay: 0
     SingleInstance: 1

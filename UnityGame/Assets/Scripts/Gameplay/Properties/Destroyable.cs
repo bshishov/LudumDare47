@@ -15,6 +15,7 @@ namespace Gameplay.Properties
         
         [Header("Visuals")] 
         public FxObject DestroyedFx;
+        public FxObject RevertDestroyedFx;
         public Animator Animator;
         public string AnimDiedBool;
         [FormerlySerializedAs("DisableRenderersWhenInactive")] 
@@ -45,6 +46,8 @@ namespace Gameplay.Properties
             
             if (command is DestroyCommand)
             {
+
+                RevertDestroyedFx?.Stop();
                 DestroyedFx?.Trigger(transform);
                 _entity.Deactivate();
                 
@@ -73,8 +76,8 @@ namespace Gameplay.Properties
             if (change is DestroyedChange)
             {
                 DestroyedFx?.Stop();
-                
-                if(Animator != null)
+                RevertDestroyedFx?.Trigger(transform);
+                if (Animator != null)
                     Animator.SetBool(AnimDiedBool, false);
                 
                 
