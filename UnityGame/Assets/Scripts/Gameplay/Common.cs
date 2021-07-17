@@ -66,6 +66,7 @@ namespace Gameplay
             new CPair(ObjectType.Projectile, ObjectType.Box),
             new CPair(ObjectType.Wall, ObjectType.Character),
             new CPair(ObjectType.Wall, ObjectType.Player),
+            new CPair(ObjectType.Wall, ObjectType.Box),
             new CPair(ObjectType.Box, ObjectType.Projectile),
             new CPair(ObjectType.Character, ObjectType.Wall),
             
