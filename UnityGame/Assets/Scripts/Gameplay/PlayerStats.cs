@@ -9,28 +9,37 @@ namespace Gameplay
         public int NumberOfRollback { get; private set; }
         public int TotalNumberOfStars { get; private set; }
 
-        [SerializeField]
-        private GamePersist _gamePersist;
-
         private const string StarsColectedKey = "Player Stars";
         private const string RollbackKey = "Player Rollbacks";
 
         private void Start()
         {
+            PlayerStats[] objs = FindObjectsOfType<PlayerStats>();
+
+            if (objs.Length > 1)
+            {
+                Destroy(this.gameObject);
+            }
+
             DontDestroyOnLoad(this);
+
+
             Load();
+
         }
 
         private void Load()
         {
-            if (_gamePersist.PlayerData.ContainsKey(StarsColectedKey)) {
-                TotalNumberOfStars = _gamePersist.PlayerData[StarsColectedKey];
+            if (GamePersist.Instance.PlayerData.ContainsKey(StarsColectedKey))
+            {
+                TotalNumberOfStars = GamePersist.Instance.PlayerData[StarsColectedKey];
             }
 
-            if (_gamePersist.PlayerData.ContainsKey(RollbackKey))
+            if (GamePersist.Instance.PlayerData.ContainsKey(RollbackKey))
             {
-                NumberOfRollback = _gamePersist.PlayerData[RollbackKey];
-            } else {
+                NumberOfRollback = GamePersist.Instance.PlayerData[RollbackKey];
+            } else
+            {
                 //start number of rollback
                 NumberOfRollback = 250;
             }
@@ -54,10 +63,11 @@ namespace Gameplay
             NumberOfRollback--;
             Save(RollbackKey, NumberOfRollback);
         }
-        private void Save(string key, int value) {
-            if (_gamePersist != null)
+        private void Save(string key, int value)
+        {
+            if (GamePersist.Instance != null)
             {
-                _gamePersist.SavePlayerData(key, value);
+                GamePersist.Instance.SavePlayerData(key, value);
             }
         }
     }

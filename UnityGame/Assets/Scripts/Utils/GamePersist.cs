@@ -2,18 +2,29 @@
 
 namespace Utils
 {
-    public class GamePersist : MonoBehaviour
+    public class GamePersist : Singleton<GamePersist>
     {
         public StringIntDictionary LevelData { get; private set; }
         public StringIntDictionary PlayerData { get; private set; }
 
         public void Awake()
         {
-            DontDestroyOnLoad(this);
+            GamePersist[] objs = FindObjectsOfType<GamePersist>();
 
+            if (objs.Length > 1)
+            {
+                Destroy(this.gameObject);
+            }
+
+            DontDestroyOnLoad(this);
+            Load();
+        }
+
+        private void Load()
+        {
             LevelData = new StringIntDictionary();
             PlayerData = new StringIntDictionary();
-           
+
             if (PlayerPrefs.HasKey("Levels Data"))
             {
                 var json = PlayerPrefs.GetString("Levels Data");

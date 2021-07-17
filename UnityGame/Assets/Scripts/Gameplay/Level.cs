@@ -54,7 +54,6 @@ namespace Gameplay
 
         //Save Data
         private string _sceneName;
-        private GamePersist _gamePersist;
 
         private void Awake()
         {
@@ -105,7 +104,6 @@ namespace Gameplay
             SwitchState(GameState.WaitingForPlayerCommand);
 
             _sceneName = SceneManager.GetActiveScene().name;
-            _gamePersist = GamePersist.FindObjectOfType<GamePersist>();
         }
 
         int GetNewEntityId()
@@ -249,9 +247,9 @@ namespace Gameplay
 
         private void SaveLevelState()
         {
-            if (_gamePersist != null)
+            if (GamePersist.Instance != null)
             {
-                _gamePersist.SaveLevelData(_sceneName, CollectedStars);
+                GamePersist.Instance.SaveLevelData(_sceneName, CollectedStars);
             }
         }
 
@@ -445,9 +443,9 @@ namespace Gameplay
         private void AddCollectedStars()
         {
             //player can't collected stars that's already were collected
-            if (_gamePersist.LevelData.ContainsKey(_sceneName))
+            if (GamePersist.Instance.LevelData.ContainsKey(_sceneName))
             {
-                var newCollectedStars = CollectedStars - _gamePersist.LevelData[_sceneName];
+                var newCollectedStars = CollectedStars - GamePersist.Instance.LevelData[_sceneName];
                 PlayerStats.Instance.AddStars(newCollectedStars);
             } else
             {

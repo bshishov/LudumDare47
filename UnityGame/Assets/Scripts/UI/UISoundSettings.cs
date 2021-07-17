@@ -11,15 +11,12 @@ namespace UI
         public bool SoundStatus { get; private set; }
 
         private Button _soundButton;
-        private GamePersist _gamePersist;
 
         private const string SoundStatusKey = "Player sound";
         private void Start()
         {
             _soundButton = GetComponent<Button>();
             _soundButton.onClick.AddListener(ChangeSoundStatus);
-
-            _gamePersist = FindObjectOfType<GamePersist>();
 
             LoadSoundStatus();
         }
@@ -33,9 +30,9 @@ namespace UI
 
         private void LoadSoundStatus()
         {
-            if (_gamePersist.PlayerData.ContainsKey(SoundStatusKey))
+            if (GamePersist.Instance.PlayerData.ContainsKey(SoundStatusKey))
             {
-                SoundStatus = (_gamePersist.PlayerData[SoundStatusKey] == 1 ? true : false);
+                SoundStatus = (GamePersist.Instance.PlayerData[SoundStatusKey] == 1 ? true : false);
             } else {
                 SoundStatus = true;
             }
@@ -50,9 +47,9 @@ namespace UI
         }
         private void Save(string key, int value)
         {
-            if (_gamePersist != null)
+            if (GamePersist.Instance != null)
             {
-                _gamePersist.SavePlayerData(key, value);
+                GamePersist.Instance.SavePlayerData(key, value);
             }
         }
     }
