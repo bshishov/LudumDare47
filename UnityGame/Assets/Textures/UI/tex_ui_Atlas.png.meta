@@ -34,7 +34,7 @@ TextureImporter:
     second: tex_ui_Manemenu
   - first:
       213: -3351061050687741666
-    second: tex_ui_Star_Big_OFF
+    second: tex_ui_Start
   - first:
       213: -3493252103150909351
     second: tex_ui_Star_Big_ON
@@ -109,7 +109,7 @@ TextureImporter:
     second: tex_ui_Undo
   - first:
       213: -4988478392265582616
-    second: tex_ui_Star_Big_OFF
+    second: tex_ui_Start
   - first:
       213: -7649522096949060993
     second: tex_ui_Star_Big_ON
@@ -182,6 +182,9 @@ TextureImporter:
   - first:
       213: 1479503461371009054
     second: tex_ui_undo
+  - first:
+      213: -4988478392265582616
+    second: tex_ui_Start
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -302,13 +305,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Star_Big_OFF
+      name: tex_ui_Start
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 1536
-        width: 512
-        height: 512
+        x: 512
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -646,7 +649,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
