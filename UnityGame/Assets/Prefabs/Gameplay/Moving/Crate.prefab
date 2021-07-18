@@ -114,12 +114,22 @@ MonoBehaviour:
   DestroySound: {fileID: 11400000, guid: c913cbd1672d4e34eb9da1206881b728, type: 2}
   RevertDestroySound: {fileID: 0}
   DestroyedFx:
-    FX: {fileID: 105310, guid: 81f03b9971e9d9645a20d9a1e63abade, type: 3}
+    FX: {fileID: 105310, guid: 4b86b862f69e9e94faa65057c010a336, type: 3}
     IsPrefab: 1
     IsParticleSystem: 1
     Offset: {x: 0, y: 0, z: 0}
     RotationOffset: {x: 0, y: 0, z: 0}
     AttachToParent: 1
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  RevertDestroyedFx:
+    FX: {fileID: 105310, guid: 81f03b9971e9d9645a20d9a1e63abade, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
     Delay: 0
     SingleInstance: 1
     Scale: 1
