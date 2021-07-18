@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class UIExit : MonoBehaviour
+namespace UI
 {
-    public void DoExitGame()
+    public class UIExit : MonoBehaviour
     {
-        Application.Quit();
+        public void DoExitGame()
+        {
+            Application.Quit();
+        }
     }
 }

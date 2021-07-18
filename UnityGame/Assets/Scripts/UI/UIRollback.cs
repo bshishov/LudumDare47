@@ -2,25 +2,27 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIRollback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+namespace UI
 {
-    private bool _buttonPressed = false;
-
-    public void OnPointerDown(PointerEventData eventData)
+    public class UIRollback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        _buttonPressed = true;
-    }
+        private bool _buttonPressed;
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        _buttonPressed = false;
-    }
-
-    private void Update() {
-
-        if (_buttonPressed) {
-            Level.Instance.PlayerRollback();
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            _buttonPressed = true;
         }
-    
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            _buttonPressed = false;
+        }
+
+        private void Update() 
+        {
+            if (_buttonPressed && Common.CurrentLevel != null) {
+                Common.CurrentLevel.PlayerRollback();
+            }
+        }
     }
 }

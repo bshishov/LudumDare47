@@ -1,7 +1,6 @@
-﻿using UI;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Utils.UI
+namespace UI
 {
     [RequireComponent(typeof(UICanvasGroupFader))]
     public class UIPauseScreen : MonoBehaviour

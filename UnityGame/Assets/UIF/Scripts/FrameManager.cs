@@ -5,17 +5,18 @@ using UIF.Data;
 using UIF.Scripts.Animations;
 using UIF.Scripts.Transitions;
 using UnityEngine;
-using Utils;
 
 namespace UIF.Scripts
 {
-    public class FrameManager : Singleton<FrameManager>
+    public class FrameManager : MonoBehaviour
     {
         private class FrameElementInstance
         {
             public FrameElementData Data;
             public GameObject SceneObject;
         }
+
+        public FrameData ActiveFrame => _activeFrameData;
         
         [SerializeField] private FrameData InitialFrameData;
         [SerializeField] private Transform Root;

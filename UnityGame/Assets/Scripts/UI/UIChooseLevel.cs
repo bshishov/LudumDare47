@@ -1,11 +1,8 @@
-﻿using Assets.Scripts.Utils.UI;
-using TMPro;
-using UI;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-namespace Assets.Scripts.UI
+namespace UI
 {
     public class UIChooseLevel : MonoBehaviour
     {

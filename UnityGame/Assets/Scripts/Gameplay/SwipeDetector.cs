@@ -12,7 +12,7 @@ namespace Gameplay
         private float _dpi;
         private float _minDistanceForSwipe;
 
-        private const float _dpiPartInSwipe = 0.05f;
+        private const float DPIPartInSwipe = 0.05f;
 
         private void Awake()
         {
@@ -21,7 +21,7 @@ namespace Gameplay
             //Screen.dpi can return 0 if dpi not available
             if (_dpi > 0)
             {
-                _minDistanceForSwipe = _dpi * _dpiPartInSwipe;
+                _minDistanceForSwipe = _dpi * DPIPartInSwipe;
             } else
             {
                 _minDistanceForSwipe = 10;
@@ -54,6 +54,11 @@ namespace Gameplay
         private void CalculateSwipeDirection()
         {
             CalculateSwipeDelta();
+            
+            var level = Common.CurrentLevel;
+            
+            if (level == null)
+                return;
 
             if (CheckSwipeDistance())
             {
@@ -61,12 +66,12 @@ namespace Gameplay
                 {
                     if (_fingerDownPosition.x > _fingerUpPosition.x)
                     {
-                        Level.Instance.PlayerMove(Direction.Left);
+                        level.PlayerMove(Direction.Left);
                     }
 
                     if (_fingerDownPosition.x < _fingerUpPosition.x)
                     {
-                        Level.Instance.PlayerMove(Direction.Right);
+                        level.PlayerMove(Direction.Right);
                     }
                 }
 
@@ -74,12 +79,12 @@ namespace Gameplay
                 {
                     if (_fingerDownPosition.y > _fingerUpPosition.y)
                     {
-                        Level.Instance.PlayerMove(Direction.Back);
+                        level.PlayerMove(Direction.Back);
                     }
 
                     if (_fingerDownPosition.y < _fingerUpPosition.y)
                     {
-                        Level.Instance.PlayerMove(Direction.Front);
+                        level.PlayerMove(Direction.Front);
                     }
                 }
             }

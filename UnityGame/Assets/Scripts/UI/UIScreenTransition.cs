@@ -100,15 +100,15 @@ namespace UI
             var screenPoint = Camera.main.WorldToScreenPoint(position);
             FadeOutFromScreenPosition(screenPoint);
         }
-        
-        public void FadeOutFromScreenPosition(Vector2 screenPoint)
+
+        private void FadeOutFromScreenPosition(Vector2 screenPoint)
         {
             var x = screenPoint.x / Screen.width;
             var y = screenPoint.y / Screen.height;
             FadeOutFromScreenUv(x, y);
         }
 
-        public void FadeOutFromScreenUv(float x, float y)
+        private void FadeOutFromScreenUv(float x, float y)
         {
             _start = new Color(x, y, 1f);
             _end = new Color(x, y, 0f);

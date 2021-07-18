@@ -6,8 +6,8 @@ namespace UI
 {
     public class UIRollForward : MonoBehaviour
     {
-
         private Button _rollForwardButton;
+        
         private void Start()
         {
             _rollForwardButton = GetComponent<Button>();
@@ -16,9 +16,8 @@ namespace UI
 
         private void RollForward()
         {
-            Level.Instance.SkipLevel();
+            if (Common.CurrentLevel != null)
+                Common.CurrentLevel.SkipLevel();
         }
-
     }
-
 }

@@ -4,28 +4,27 @@ namespace Gameplay
 {
     public class KeyInputDetector : MonoBehaviour
     {
-
         private void Update()
         {
-            DetectInput();
-        }
-
-        private void DetectInput()
-        {
+            var level = Common.CurrentLevel;
+            
+            if (level == null)
+                return;
+            
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-                Level.Instance.PlayerMove(Direction.Right);
+                level.PlayerMove(Direction.Right);
 
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-                Level.Instance.PlayerMove(Direction.Left);
+                level.PlayerMove(Direction.Left);
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-                Level.Instance.PlayerMove(Direction.Front);
+                level.PlayerMove(Direction.Front);
 
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                Level.Instance.PlayerMove(Direction.Back);
+                level.PlayerMove(Direction.Back);
 
             if (Input.GetKey(KeyCode.R))
-                Level.Instance.PlayerRollback();
+                level.PlayerRollback();
         }
     }
 }

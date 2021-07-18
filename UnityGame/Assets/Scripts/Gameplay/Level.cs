@@ -2,16 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Audio;
 using Gameplay.Properties;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
-using Utils.Debugger;
 
 namespace Gameplay
 {
-    public class Level : Singleton<Level>
+    public class Level : MonoBehaviour
     {
         public enum GameState
         {
@@ -27,11 +25,12 @@ namespace Gameplay
         public Entity CatGirl;
         public int CurrentTurnNumber => GetCurrentTurn()?.Number ?? -1;
         public bool IsPaused => Time.timeScale < 0.5f;
-
-        public int CollectedStars = 0;
+        public int CollectedStars { get; private set; }
+        public event Action TurnCompleted;
         public event Action TurnRollbackSucceeds; 
         public event Action TurnRollbackDenied;
         public event Action<GameState> StateChanged;
+        public event Action StarCollected;
 
         private bool CanRollbackFromCurrentState =>
             _state == GameState.WaitingForPlayerCommand ||
@@ -47,32 +46,13 @@ namespace Gameplay
         private const float RollbackCd = 0.08f;
         private int _lastEntityId;
 
-        // UI
-        private ShowTurns _uiTurns;
-        private UIWinLose _uiWinLose;
-        private UILoad _uiLoad;
-
         //Save Data
         private string _sceneName;
 
         private void Awake()
         {
-            LoadUIScene();
-        }
-
-        void LoadUIScene()
-        {
-            const string uiSceneName = "UI";
-            var isUiSceneLoaded = false;
-            for (var sceneIndex = 0; sceneIndex < SceneManager.sceneCount; sceneIndex++)
-            {
-                var scene = SceneManager.GetSceneAt(sceneIndex);
-                if (scene.name.Equals(uiSceneName))
-                    isUiSceneLoaded = true;
-            }
-
-            if (!isUiSceneLoaded)
-                SceneManager.LoadScene(uiSceneName, LoadSceneMode.Additive);
+            // Level requires UI
+            SceneLoading.TryLoadSceneAdditive("UI");
         }
 
         void Start()
@@ -94,16 +74,9 @@ namespace Gameplay
                 _entities.Add(newId, entity);
             }
 
-            _uiTurns = GameObject.FindObjectOfType<ShowTurns>(true);
-            if (_uiTurns != null)
-                _uiTurns.Initialize(MaxTurns);
-
-            _uiWinLose = GameObject.FindObjectOfType<UIWinLose>(true);
-            _uiLoad = GameObject.FindObjectOfType<UILoad>(true);
-
             SwitchState(GameState.WaitingForPlayerCommand);
-
             _sceneName = SceneManager.GetActiveScene().name;
+            Common.SetActiveLevel(this);
         }
 
         int GetNewEntityId()
@@ -116,8 +89,6 @@ namespace Gameplay
         {
             if (IsPaused)
                 return;
-
-            Debugger.Default.Display("Level/Turn", GetCurrentTurn().Number);
 
             if (_state == GameState.ExecutingTurnCommands)
             {
@@ -156,9 +127,6 @@ namespace Gameplay
             {
                 if (_timeSinceRollbackPressed >= RollbackCd)
                 {
-                    if (_uiWinLose != null)
-                        _uiWinLose.HideLoseWindow();
-
                     RollbackLastCompletedTurn();
                     _timeSinceRollbackPressed = 0.0f;
                 }
@@ -167,7 +135,7 @@ namespace Gameplay
             else if (_state == GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
-                StopCoroutine("SkipTurn");
+                StopCoroutine(SkipTurn());
             }
         }
 
@@ -203,38 +171,32 @@ namespace Gameplay
             var turn = GetCurrentTurn();
             turn.Complete();
 
-            if (_uiTurns != null)
-                _uiTurns.TurnCompleted();
+            TurnCompleted?.Invoke();
 
             if (!_playerEntity.IsActive)
             {
                 SwitchState(GameState.PlayerDied);
-                if (_uiWinLose != null)
-                    _uiWinLose.ShowLoseWindow(FailReason.PlayerDied);
-
-            } else if (CatGirl != null && !CatGirl.IsActive)
+            } 
+            else if (CatGirl != null && !CatGirl.IsActive)
             {
                 SwitchState(GameState.CatGirlDied);
-                if (_uiWinLose != null)
-                    _uiWinLose.ShowLoseWindow(FailReason.CatDied);
-            } else if (turn.Number >= MaxTurns - 1)
+            } 
+            else if (turn.Number >= MaxTurns - 1)
             {
-                // If it was the last turn and everyobe is alive
+                // If it was the last turn and everyone is alive
                 SwitchState(GameState.Win);
                 //One star given for complete level
                 CollectStar();
-
+                
                 AddCollectedStars();
-
+                
                 SaveLevelState();
-
-                if (_uiWinLose != null)
-                    _uiWinLose.ShowWinWindow(CollectedStars);
-
-            } else if (_state != GameState.SkipTurn)
+            } 
+            else if (_state != GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
-            } else
+            } 
+            else
             {
                 SwitchState(GameState.SkipTurn);
             }
@@ -242,7 +204,6 @@ namespace Gameplay
             // Starting new turn
             var newTurnNumber = turn.Number + 1;
             _history.Push(new Turn(newTurnNumber));
-
         }
 
         private void SaveLevelState()
@@ -277,10 +238,6 @@ namespace Gameplay
                 var rollbackTurn = _history.Peek();
                 RevertTurnChanges(rollbackTurn);
                 _history.Pop(); // Late pop for changes to revert durn correct turn number
-
-                if (_uiTurns != null)
-                    _uiTurns.BackTurn();
-
                 PlayerStats.Instance.RemoveRollbackNumber();
                 TurnRollbackSucceeds?.Invoke();
             }
@@ -368,8 +325,6 @@ namespace Gameplay
                 return null;
             }
 
-            var objectType = prefabEntity.ObjectType;
-
             var spawnedObject = Instantiate(prefab,
                 Utils.LevelToWorld(entityPosition),
                 Utils.DirectionToRotation(entityOrientation));
@@ -385,11 +340,6 @@ namespace Gameplay
 
             Debug.LogWarning($"Failed to spawn prefab {prefab}");
             return null;
-        }
-
-        private Entity GetEntityById(int entityId)
-        {
-            return _entities.ContainsKey(entityId) ? _entities[entityId] : null;
         }
 
         public void Despawn(int entityId)
@@ -410,7 +360,7 @@ namespace Gameplay
         {
             if (_state != GameState.SkipTurn)
             {
-                StartCoroutine("SkipTurn");
+                StartCoroutine(SkipTurn());
                 _state = GameState.SkipTurn;
             }
         }
@@ -435,11 +385,14 @@ namespace Gameplay
         public void CollectStar()
         {
             CollectedStars++;
+            StarCollected?.Invoke();
         }
+        
         public void LoseStar()
         {
             CollectedStars--;
         }
+        
         private void AddCollectedStars()
         {
             //player can't collected stars that's already were collected

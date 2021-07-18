@@ -10,18 +10,20 @@ namespace UI
         public Color IconPressedColor;
 
         private Color _iconUnpressedColor;
+        
         private void Start()
         {
             _iconUnpressedColor = Icon.color;
         }
+        
         public void OnPointerDown(PointerEventData eventData)
         {
             Icon.color = IconPressedColor;
         }
+        
         public void OnPointerUp(PointerEventData eventData)
         {
             Icon.color = _iconUnpressedColor;
         }
-
     }
 }

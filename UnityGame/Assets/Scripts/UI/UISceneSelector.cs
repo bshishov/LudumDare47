@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.UI;
-using Assets.Scripts.Utils.UI;
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay;
+using UI;
 using UnityEngine;
 
 public class UISceneSelector : MonoBehaviour

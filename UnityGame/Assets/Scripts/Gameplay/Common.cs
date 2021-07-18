@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Utils;
 
 namespace Gameplay
 {
@@ -18,6 +20,68 @@ namespace Gameplay
         // The more generic the type is - the better
     }
 
+    public static class Common
+    {
+        public static Level CurrentLevel { get; private set; }
+        public static event Action<Level> LevelChanged;
+        public static event Action<Level> LevelTurnCompleted;
+        public static event Action<Level> LevelTurnRolledBack;
+        public static event Action<Level> LevelStarCollected;
+        public static event Action<Level, Level.GameState> LevelStateChanged;
+        
+        public static bool IsPaused { get; private set; }
+        public static event Action<bool> PauseStateChanged;
+
+        public static void SetActiveLevel(Level level)
+        {
+            if (CurrentLevel != null)
+            {
+                // Unsubscribe
+                CurrentLevel.TurnCompleted -= OnLevelTurnCompleted;
+                CurrentLevel.TurnRollbackSucceeds -= OnLevelTurnRolledBack;
+                CurrentLevel.StateChanged -= OnLevelStateChanged;
+                CurrentLevel.StarCollected -= OnLevelStarCollected;
+            }
+
+            CurrentLevel = level;
+            
+            // Subscribe
+            CurrentLevel.TurnCompleted += OnLevelTurnCompleted;
+            CurrentLevel.TurnRollbackSucceeds += OnLevelTurnRolledBack;
+            CurrentLevel.StateChanged += OnLevelStateChanged;
+            CurrentLevel.StarCollected += OnLevelStarCollected;
+            
+            // Notify about level change
+            LevelChanged?.Invoke(CurrentLevel);
+        }
+
+        private static void OnLevelTurnCompleted()
+        {
+            LevelTurnCompleted?.Invoke(CurrentLevel);
+        }
+        
+        private static void OnLevelTurnRolledBack()
+        {
+            LevelTurnRolledBack?.Invoke(CurrentLevel);
+        }
+        
+        private static void OnLevelStateChanged(Level.GameState gameState)
+        {
+            LevelStateChanged?.Invoke(CurrentLevel, gameState);
+        }
+        
+        private static void OnLevelStarCollected()
+        {
+            LevelStarCollected?.Invoke(CurrentLevel);
+        }
+
+        public static void TogglePause()
+        {
+            IsPaused = !IsPaused;
+            PauseStateChanged?.Invoke(IsPaused);
+        }
+    }
+    
     public static class CollisionConfig
     {
         // Who can collide with whom?
