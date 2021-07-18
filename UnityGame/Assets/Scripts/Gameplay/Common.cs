@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Utils;
 
 namespace Gameplay
@@ -42,7 +43,7 @@ namespace Gameplay
                 CurrentLevel.StateChanged -= OnLevelStateChanged;
                 CurrentLevel.StarCollected -= OnLevelStarCollected;
             }
-
+            
             CurrentLevel = level;
             
             // Subscribe

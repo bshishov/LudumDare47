@@ -1,4 +1,3 @@
-using System;
 using Gameplay;
 using UIF.Data;
 using UIF.Scripts;
@@ -14,7 +13,6 @@ namespace UI
 
         [Header("Frames")] 
         public FrameData GameFrame;
-        public FrameData SettingsFrame;
         public FrameData PauseFrame;
         public FrameData WinFrame;
         public FrameData LoseFrame;
@@ -62,7 +60,7 @@ namespace UI
         
         private void OnPauseStateChanged(bool isPaused)
         {
-            if(!isPaused)
+            if(isPaused)
                 FrameManager.TransitionTo(PauseFrame, Transition);
             else
                 FrameManager.TransitionTo(GameFrame, Transition);
