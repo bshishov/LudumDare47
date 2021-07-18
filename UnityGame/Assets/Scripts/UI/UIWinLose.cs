@@ -22,7 +22,7 @@ public class UIWinLose : MonoBehaviour
     private void ShowWinWindow(int stars)
     {
         WinWindow.SetActive(true);
-        StarsContainer.GetComponent<UIStarsContainer>().ShowCollectedStars(stars);
+        StarsContainer.GetComponent<UIStarsContainer>().AwardStars(stars);
         StarsCount.text = PlayerStats.Instance.TotalNumberOfStars.ToString();
     }
 
