@@ -1,6 +1,5 @@
 using Audio;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Gameplay
 {
