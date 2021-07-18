@@ -143,6 +143,24 @@ TextureImporter:
   - first:
       213: 4837863474108616598
     second: tex_ui_Map
+  - first:
+      213: 8388534446489076939
+    second: tex_ui_Squre_Button_hold
+  - first:
+      213: 5019743298612406636
+    second: tex_ui_Squre_Button_bg
+  - first:
+      213: 6370279840567699950
+    second: tex_ui_Sircle_Button_bg
+  - first:
+      213: 7566763206750426120
+    second: tex_ui_Atlas_6
+  - first:
+      213: -3822119150767620385
+    second: tex_ui_Squre_Button_bg
+  - first:
+      213: -2577455232981809589
+    second: tex_ui_Sircle_Button_bg
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -263,48 +281,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Pause
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 1536
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee9aed883c7c76850800000000000000
-      internalID: 6370279840567699950
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_ui_Refresh
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 1536
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 804daddcb0b820960800000000000000
-      internalID: 7566763206750426120
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: tex_ui_Undo
       rect:
         serializedVersion: 2
@@ -347,13 +323,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Sound_OFF
+      name: tex_ui_Squre_Button_bg
       rect:
         serializedVersion: 2
         x: 0
-        y: 1536
-        width: 256
-        height: 256
+        y: 910
+        width: 287
+        height: 185
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -523,7 +499,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -531,6 +507,69 @@ TextureImporter:
       bones: []
       spriteID: 69fc416923b832340800000000000000
       internalID: 4837863474108616598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Squre_Button_hold
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1095
+        width: 287
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc40c1d72af0a6470800000000000000
+      internalID: 8388534446489076939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Sircle_Button_hold
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 1022
+        width: 258
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fde374102ea15fac0800000000000000
+      internalID: -3822119150767620385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Sircle_Button_bg
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 764
+        width: 258
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b46c5ad1f1a0b3cd0800000000000000
+      internalID: -2577455232981809589
       vertices: []
       indices: 
       edges: []
