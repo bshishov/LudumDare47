@@ -11,10 +11,11 @@ namespace UI
         private static readonly int IsAwarded = Animator.StringToHash("IsAwarded");
 
         [ContextMenu("Award")]
-        public void Award()
+        public void Award(float pitch)
         {
             Animator.SetBool(IsAwarded, true);
-            SoundManager.Instance.Play(AwardSound);
+            var sound = SoundManager.Instance.Play(AwardSound);
+            sound.Pitch = pitch;
         }
 
         [ContextMenu("Reset")]
