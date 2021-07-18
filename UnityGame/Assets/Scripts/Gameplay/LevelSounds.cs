@@ -14,10 +14,13 @@ namespace Gameplay
 
         void Start()
         {
-            var level = FindObjectOfType<Level>();
-            level.TurnRollbackSucceeds += LevelOnTurnRollbackSucceeds;
-            level.TurnRollbackDenied += LevelOnTurnRollbackDenied;
-            level.StateChanged += LevelOnStateChanged;
+            var level = Common.CurrentLevel;
+            if (level != null)
+            {
+                level.TurnRollbackSucceeds += LevelOnTurnRollbackSucceeds;
+                level.TurnRollbackDenied += LevelOnTurnRollbackDenied;
+                level.StateChanged += LevelOnStateChanged;
+            }
         }
 
         private void LevelOnStateChanged(Level.GameState state)
