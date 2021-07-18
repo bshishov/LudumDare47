@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using Utils;
 
@@ -9,6 +10,9 @@ namespace UI
         public Image SoundOn;
         public Image SoundOff;
         public bool SoundStatus { get; private set; }
+        
+        [Header("Volume Controls")]
+        public AudioMixer AudioMixer;
 
         private Button _soundButton;
 
@@ -21,10 +25,10 @@ namespace UI
             LoadSoundStatus();
         }
 
-        public void ChangeSoundStatus()
+        private void ChangeSoundStatus()
         {
             SoundStatus = !SoundStatus;
-            SoundIconChange();
+            UpdateSoundIcon();
             Save(SoundStatusKey, SoundStatus ? 1 : 0);
         }
 
@@ -37,20 +41,42 @@ namespace UI
                 SoundStatus = true;
             }
 
-            SoundIconChange();
+            UpdateSoundIcon();
         }
 
-        private void SoundIconChange()
+        private void UpdateSoundIcon()
         {
             SoundOn.enabled = SoundStatus;
             SoundOff.enabled = !SoundStatus;
+
+            if (SoundStatus)
+            {
+                SetVolumeLinear(1);
+            }
+            else
+            {
+                SetVolumeLinear(0);
+            }
         }
+        
         private void Save(string key, int value)
         {
             if (GamePersist.Instance != null)
             {
                 GamePersist.Instance.SavePlayerData(key, value);
             }
+        }
+        
+        private void SetVolumeLinear(float volume)
+        {
+            if (AudioMixer == null)
+                return;
+
+            var level = -80f;
+            if (volume > 0)
+                level = Mathf.Log(Mathf.Clamp01(volume)) * 20;
+
+            AudioMixer.SetFloat("Volume", level);
         }
     }
 }
