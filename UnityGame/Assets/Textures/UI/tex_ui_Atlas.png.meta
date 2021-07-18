@@ -154,13 +154,34 @@ TextureImporter:
     second: tex_ui_Sircle_Button_bg
   - first:
       213: 7566763206750426120
-    second: tex_ui_Atlas_6
+    second: tex_ui_Sound_OFF
   - first:
       213: -3822119150767620385
     second: tex_ui_Squre_Button_bg
   - first:
       213: -2577455232981809589
     second: tex_ui_Sircle_Button_bg
+  - first:
+      213: -7685770967169228462
+    second: tex_ui_Pause
+  - first:
+      213: 7566763206750426120
+    second: tex_ui_Sound_OFF
+  - first:
+      213: 6810947777612458663
+    second: tex_ui_Pause
+  - first:
+      213: 7566763206750426120
+    second: tex_ui_Sound_OFF
+  - first:
+      213: -8873210191182041683
+    second: tex_ui_restart_level
+  - first:
+      213: 3816121601393665951
+    second: tex_ui_manemenu
+  - first:
+      213: 1479503461371009054
+    second: tex_ui_undo
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -281,27 +302,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Undo
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1280
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2512edcb608a65590800000000000000
-      internalID: -7685770967169228462
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: tex_ui_Star_Big_OFF
       rect:
         serializedVersion: 2
@@ -344,7 +344,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Manemenu
+      name: tex_ui_manemenu
       rect:
         serializedVersion: 2
         x: 256
@@ -541,7 +541,7 @@ TextureImporter:
         width: 258
         height: 258
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -562,7 +562,7 @@ TextureImporter:
         width: 258
         height: 258
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -570,6 +570,90 @@ TextureImporter:
       bones: []
       spriteID: b46c5ad1f1a0b3cd0800000000000000
       internalID: -2577455232981809589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Sound_OFF
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 804daddcb0b820960800000000000000
+      internalID: 7566763206750426120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Pause
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1536
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aaa354fae8558e50800000000000000
+      internalID: 6810947777612458663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_restart_level
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dade739e7560cd480800000000000000
+      internalID: -8873210191182041683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_undo
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e18daf23f80488410800000000000000
+      internalID: 1479503461371009054
       vertices: []
       indices: 
       edges: []
