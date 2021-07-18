@@ -824,6 +824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectType: 0
+  CellColor: {r: 1, g: 0, b: 1, a: 1}
   Offset: {x: 0, y: 0, z: 0}
   AlignOnStart: 1
 --- !u!114 &2674634108164819915
@@ -838,10 +839,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce001eb21a24415b56f4abfe2a350cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroySound: {fileID: 0}
+  RevertDestroySound: {fileID: 0}
   DestroyedFx:
     FX: {fileID: 0}
     IsPrefab: 1
     IsParticleSystem: 0
+    Offset: {x: 0, y: 0, z: 0}
+    RotationOffset: {x: 0, y: 0, z: 0}
+    AttachToParent: 0
+    Delay: 0
+    SingleInstance: 1
+    Scale: 1
+  RevertDestroyedFx:
+    FX: {fileID: 119968, guid: 3f99eebf4c558eb488e0aa52684fcf97, type: 3}
+    IsPrefab: 1
+    IsParticleSystem: 1
     Offset: {x: 0, y: 0, z: 0}
     RotationOffset: {x: 0, y: 0, z: 0}
     AttachToParent: 0
@@ -864,6 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a53b67d3a9449078281f756576275ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSound: {fileID: 0}
 --- !u!114 &7015377848329056136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,6 +939,8 @@ MonoBehaviour:
     Delay: 0
     SingleInstance: 1
     Scale: 1
+  SpawnSound: {fileID: 0}
+  RevertSpawnSound: {fileID: 0}
 --- !u!1 &3824082398569101526
 GameObject:
   m_ObjectHideFlags: 0
