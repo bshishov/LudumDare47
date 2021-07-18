@@ -52,7 +52,8 @@ namespace UIF.Scripts
             
             if (_animations.Any())
             {
-                Debug.LogWarning("Trying to transition while animation in progress");
+                // TODO: Intrerrupt (complete) all active animations. Interrupt the coroutine
+                Debug.LogWarning("Trying to transition while animation is still in progress");
                 return;
             }
 
