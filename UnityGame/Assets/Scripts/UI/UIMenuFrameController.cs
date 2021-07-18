@@ -1,4 +1,4 @@
-using System;
+using Audio;
 using UIF.Data;
 using UIF.Scripts;
 using UIF.Scripts.Transitions;
@@ -10,6 +10,7 @@ namespace UI
     {
         public FrameManager FrameManager;
         public BaseTransition Transition;
+        public SoundAsset TransitionSound;
         
         [Header("Frames")] 
         public FrameData MainMenuFrame;
@@ -20,21 +21,25 @@ namespace UI
         public void OpenShop()
         {
             FrameManager.TransitionTo(ShopFrame, Transition);
+            SoundManager.Instance.Play(TransitionSound);
         }
         
         public void OpenMap()
         {
             FrameManager.TransitionTo(MapFrame, Transition);
+            SoundManager.Instance.Play(TransitionSound);
         }
         
         public void OpenPacks()
         {
             FrameManager.TransitionTo(PacksFrame, Transition);
+            SoundManager.Instance.Play(TransitionSound);
         }
         
         public void OpenMainMenu()
         {
             FrameManager.TransitionTo(MainMenuFrame, Transition);
+            SoundManager.Instance.Play(TransitionSound);
         }
     }
 }

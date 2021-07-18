@@ -1,3 +1,4 @@
+using Audio;
 using Gameplay;
 using UIF.Data;
 using UIF.Scripts;
@@ -10,6 +11,7 @@ namespace UI
     {
         public FrameManager FrameManager;
         public BaseTransition Transition;
+        public SoundAsset PauseSound;
 
         [Header("Frames")] 
         public FrameData GameFrame;
@@ -60,8 +62,11 @@ namespace UI
         
         private void OnPauseStateChanged(bool isPaused)
         {
-            if(isPaused)
+            if (isPaused)
+            {
                 FrameManager.TransitionTo(PauseFrame, Transition);
+                SoundManager.Instance.Play(PauseSound);
+            }
             else
                 FrameManager.TransitionTo(GameFrame, Transition);
         }
