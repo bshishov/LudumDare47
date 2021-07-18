@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 547307466}
   - component: {fileID: 547307470}
   - component: {fileID: 547307471}
-  - component: {fileID: 547307472}
   - component: {fileID: 547307473}
   - component: {fileID: 547307475}
   - component: {fileID: 547307474}
@@ -209,9 +208,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameManager: {fileID: 1318343440}
-  Transition: {fileID: 11400000, guid: 6e574668993d5074488b5b9d2163e4f0, type: 2}
+  Transition: {fileID: 11400000, guid: 377e3e0d8cb8e564da51c9c3f7aff239, type: 2}
   GameFrame: {fileID: 11400000, guid: 37bfc446f6345fa4c8c8ca4ad6da3f70, type: 2}
-  SettingsFrame: {fileID: 11400000, guid: df1dbca490dc2a24ca576eb7fa7f669e, type: 2}
+  SettingsFrame: {fileID: 0}
   PauseFrame: {fileID: 11400000, guid: 4fc8611484e388941babdf452487e39b, type: 2}
   WinFrame: {fileID: 11400000, guid: 3cd7fd6dc781bec49ab13d1d2d7582e8, type: 2}
   LoseFrame: {fileID: 11400000, guid: f683ed0b3a867914981cb74cff75b24b, type: 2}
@@ -241,23 +240,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Levels: {fileID: 11400000, guid: 3e1e96cf0fa7c50409c21d7ade96fd77, type: 2}
---- !u!114 &547307472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 547307465}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf736a3f816348049a3dfb8a08e62f62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WinWindow: {fileID: 0}
-  StarsContainer: {fileID: 0}
-  StarsCount: {fileID: 0}
-  LoseWindowFader: {fileID: 0}
-  LoseText: {fileID: 0}
 --- !u!114 &547307473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +333,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
