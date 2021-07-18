@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.UI;
-using System.Collections;
-using System.Collections.Generic;
-using Gameplay;
+﻿using Gameplay;
 using UI;
 using UnityEngine;
 
@@ -9,7 +6,6 @@ public class UISceneSelector : MonoBehaviour
 {
     public GameObject ParentObject;
     public GameObject LevelPrefab;
-    public GameObject Fader;
     public LevelSet Levels;
     
     void Start()
@@ -23,7 +19,7 @@ public class UISceneSelector : MonoBehaviour
             if (levelInfo.Enabled)
             {
                 var panel = Instantiate(LevelPrefab, ParentObject.transform);
-                panel.GetComponent<UIChooseLevel>().SetSceneSettings(activeLevelNumber, levelInfo.SceneName, Fader);
+                panel.GetComponent<UIChooseLevel>().SetSceneSettings(activeLevelNumber, levelInfo.SceneName);
                 activeLevelNumber += 1;
             }
         }

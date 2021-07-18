@@ -9,12 +9,9 @@ namespace UI
         public TextMeshProUGUI TextNumber;
         private bool _unlocked = false;
         private string _levelName;
-        private UICanvasGroupFader _fader;
 
-
-        public void SetSceneSettings(int number, string levelName, GameObject fader)
+        public void SetSceneSettings(int number, string levelName)
         {
-            _fader = fader.GetComponent<UICanvasGroupFader>();
             _levelName = levelName;
             TextNumber.text = number.ToString();
             if (PlayerPrefs.GetInt(string.Format(levelName), 0) == 1)
@@ -31,15 +28,7 @@ namespace UI
 
         public void LoadLevel()
         {
-            _fader.FadeIn();
-            _fader.StateChanged += () =>
-            {
-                if (_fader.State == UICanvasGroupFader.FaderState.FadedIn)
-                {
-                    SceneManager.LoadScene(_levelName);
-                }
-            };
-           
+            SceneManager.LoadScene(_levelName);
         }
 
         [ContextMenu("UnlockLevel")]

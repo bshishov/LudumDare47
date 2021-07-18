@@ -21,11 +21,6 @@ namespace UIF.Scripts
         [SerializeField] private FrameData InitialFrameData;
         [SerializeField] private Transform Root;
         
-        [Header("Transition")]
-        [SerializeField] private FrameData[] DebugFrames;
-        [SerializeField] private BaseTransition[] DebugTransitions;
-        private ITransition _debugActiveTransition;
-
         private FrameData _activeFrameData;
         private readonly List<FrameElementInstance> _activeElements = new List<FrameElementInstance>();
         private readonly List<IAnimation> _animations = new List<IAnimation>();
@@ -147,38 +142,6 @@ namespace UIF.Scripts
                     Data = element
                 };
                 _activeElements.Add(instance);
-            }
-        }
-
-        void OnGUI()
-        {
-            GUI.Label(new Rect(200 ,0, 200, 20), $"Animations: {_animations.Count}");
-            
-            for (var i = 0; i < DebugFrames.Length; i++)
-            {
-                var frameData = DebugFrames[i];
-                var rect = new Rect(0, i * 20, 100, 20);
-                if (GUI.Button(rect, frameData.name) && _debugActiveTransition != null)
-                {
-                    TransitionTo(frameData, _debugActiveTransition);
-                }
-            }
-            
-            for (var i = 0; i < DebugTransitions.Length; i++)
-            {
-                var transition = (ITransition)DebugTransitions[i];
-                var rect = new Rect(0, 20 * (i + DebugFrames.Length + 1), 100, 20);
-
-                var name = transition.GetName();
-                if (transition == _debugActiveTransition)
-                {
-                    name = "* " + name;
-                }
-
-                if (GUI.Button(rect, name))
-                {
-                    _debugActiveTransition = transition;
-                }
             }
         }
     }
