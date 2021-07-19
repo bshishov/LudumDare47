@@ -475,7 +475,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3351061050687741666, guid: 9da5c33fa89a5684b8a17be18ff65846,
+  m_Sprite: {fileID: -4988478392265582616, guid: 9da5c33fa89a5684b8a17be18ff65846,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 3783411613010877014}
   - component: {fileID: 3442193960920892417}
   m_Layer: 5
-  m_Name: UI_Map_Level
+  m_Name: ui_map_level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -830,10 +830,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8144c66654a394a80c6e19d0a276c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _starImages:
-  - {fileID: 5816429910468060861}
-  - {fileID: 2672976538557682393}
-  - {fileID: 2109152445871192952}
+  Star1: {fileID: 0}
+  Star2: {fileID: 0}
+  Star3: {fileID: 0}
+  AwardDelay: 0.5
+  PitchMod: 0.05
 --- !u!1 &8608867828134913268
 GameObject:
   m_ObjectHideFlags: 0
