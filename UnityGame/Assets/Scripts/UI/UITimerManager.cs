@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Gameplay;
+using Gameplay.Properties;
 using UnityEngine;
 using Utils;
 
@@ -6,46 +9,127 @@ namespace UI
 {
     public class UITimerManager : MonoBehaviour
     {
+        private class TrackedTimer
+        {
+            public Entity Entity;
+            public IHasTimer TimerValueProvider;
+            public UITimer UiTimerObject;
+        }
+        
         public RectTransform TimersOverlay;
         public GameObject TimerPrefab;
     
-        private readonly Dictionary<int, UITimer> _timerObjects = new Dictionary<int, UITimer>();
+        private readonly Dictionary<int, TrackedTimer> _timers = new Dictionary<int, TrackedTimer>();
 
-        public void SetTimer(GameObject parent, int timerValue)
+        private void Start()
         {
-            if(TimerPrefab == null || TimersOverlay == null || parent == null)
-                return;
-
-            var timer = GetOrCreateUiTimer(parent);
-            if (timer != null)
-                timer.SetTurns(timerValue);
+            Common.LevelEntitySpawned += OnLevelEntitySpawned;
+            Common.LevelEntityKilled += OnLevelEntityKilled;
+            Common.LevelChanged += OnLevelChanged;
+            Common.LevelTurnRolledBack += OnLevelTurnRolledBack;
+            Common.LevelTurnCompleted += OnLevelTurnCompleted;
+            
+            if (Common.CurrentLevel != null)
+                CollectAllEntitiesWithTimer(Common.CurrentLevel);
         }
 
-        private UITimer GetOrCreateUiTimer(GameObject parent)
+        private void OnDestroy()
         {
-            var key = parent.GetInstanceID();
+            Common.LevelEntitySpawned -= OnLevelEntitySpawned;
+            Common.LevelEntityKilled -= OnLevelEntityKilled;
+            Common.LevelChanged -= OnLevelChanged;
+            Common.LevelTurnRolledBack -= OnLevelTurnRolledBack;
+            Common.LevelTurnCompleted -= OnLevelTurnCompleted;
+        }
 
-            if (_timerObjects.ContainsKey(key))
-                return _timerObjects[key];
+        private void OnLevelTurnRolledBack(Level level)
+        {
+            UpdateTrackedItems();
+        }
         
+        private void OnLevelTurnCompleted(Level level)
+        {
+            UpdateTrackedItems();
+        }
+
+        private void UpdateTrackedItems()
+        {
+            foreach (var trackedTimer in _timers.Values)
+            {
+                if (trackedTimer.Entity.IsActive)
+                {
+                    var value = trackedTimer.TimerValueProvider.GetCurrentTimerValue();
+                    trackedTimer.UiTimerObject.SetTurns(value);
+                }
+                else
+                {
+                    trackedTimer.UiTimerObject.SetTurns(null);
+                }
+            }
+        }
+
+        private void OnLevelChanged(Level level)
+        {
+            foreach (var trackedTimer in _timers.Values)
+                Destroy(trackedTimer.UiTimerObject);
+            _timers.Clear();
+
+            if (level != null)
+                CollectAllEntitiesWithTimer(level);
+        }
+
+        private void CollectAllEntitiesWithTimer(Level level)
+        {
+            foreach (var entity in level.GetAllActiveEntities())
+            {
+                TrackTimer(entity);
+            }
+        }
+
+        private void OnLevelEntitySpawned(Level level, Entity entity)
+        {
+            TrackTimer(entity);
+        }
+        
+        private void OnLevelEntityKilled(Level level, Entity entity)
+        {
+            if (_timers.ContainsKey(entity.Id))
+            {
+                var trackedTimer = _timers[entity.Id];
+                Destroy(trackedTimer.UiTimerObject);
+                _timers.Remove(entity.Id);
+            }
+        }
+
+        private void TrackTimer(Entity entity)
+        {
+            if (_timers.ContainsKey(entity.Id))
+            {
+                Debug.LogWarning($"Trying to add a UI timer for an already tracked entity {entity}");
+                return;
+            }
+
+            var timerValueProvider = entity.GetComponent<IHasTimer>();
+            if (timerValueProvider != null)
+            {
+                var uiTimerObject = GetOrCreateUiTimer(entity.gameObject);
+                uiTimerObject.SetTurns(timerValueProvider.GetCurrentTimerValue());
+                var trackedTimer = new TrackedTimer
+                {
+                    TimerValueProvider = timerValueProvider,
+                    UiTimerObject = uiTimerObject,
+                    Entity = entity
+                };
+                _timers.Add(entity.Id, trackedTimer);
+            }
+        }
+
+        private UITimer GetOrCreateUiTimer(GameObject followTarget)
+        {
             var uiFollowObj = Instantiate(TimerPrefab, TimersOverlay);
             var uiFollow = uiFollowObj.GetComponent<UIFollowSceneObject>();
-            if(uiFollow != null)
-                uiFollow.SetTarget(parent.transform);
-            var timer = uiFollow.GetComponent<UITimer>();
-            if(timer != null)
-                _timerObjects.Add(key, timer);
-            return timer;
-        }
-    
-        public void DeleteTimer(GameObject parent)
-        {
-            var key = parent.GetInstanceID();
-            if (_timerObjects.ContainsKey(key))
-            {
-                GameObject.Destroy(_timerObjects[key].gameObject);
-                _timerObjects.Remove(key);
-            }
+            uiFollow.SetTarget(followTarget.transform);
+            return uiFollow.GetComponent<UITimer>();
         }
     }
 }

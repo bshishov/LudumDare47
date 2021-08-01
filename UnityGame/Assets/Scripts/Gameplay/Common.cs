@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using Utils;
 
 namespace Gameplay
 {
@@ -28,6 +26,8 @@ namespace Gameplay
         public static event Action<Level> LevelTurnCompleted;
         public static event Action<Level> LevelTurnRolledBack;
         public static event Action<Level> LevelStarCollected;
+        public static event Action<Level, Entity> LevelEntitySpawned;
+        public static event Action<Level, Entity> LevelEntityKilled;
         public static event Action<Level, Level.GameState> LevelStateChanged;
         
         public static bool IsPaused { get; private set; }
@@ -42,6 +42,8 @@ namespace Gameplay
                 CurrentLevel.TurnRollbackSucceeds -= OnLevelTurnRolledBack;
                 CurrentLevel.StateChanged -= OnLevelStateChanged;
                 CurrentLevel.StarCollected -= OnLevelStarCollected;
+                CurrentLevel.EntitySpawned -= OnLevelEntitySpawned;
+                CurrentLevel.EntityKilled -= OnLevelEntityKilled;
             }
             
             CurrentLevel = level;
@@ -51,9 +53,21 @@ namespace Gameplay
             CurrentLevel.TurnRollbackSucceeds += OnLevelTurnRolledBack;
             CurrentLevel.StateChanged += OnLevelStateChanged;
             CurrentLevel.StarCollected += OnLevelStarCollected;
+            CurrentLevel.EntitySpawned += OnLevelEntitySpawned;
+            CurrentLevel.EntityKilled += OnLevelEntityKilled;
             
             // Notify about level change
             LevelChanged?.Invoke(CurrentLevel);
+        }
+
+        private static void OnLevelEntitySpawned(Entity entity)
+        {
+            LevelEntitySpawned?.Invoke(CurrentLevel, entity);
+        }
+        
+        private static void OnLevelEntityKilled(Entity entity)
+        {
+            LevelEntityKilled?.Invoke(CurrentLevel, entity);
         }
 
         private static void OnLevelTurnCompleted()

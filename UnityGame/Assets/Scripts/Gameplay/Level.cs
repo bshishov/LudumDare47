@@ -31,6 +31,8 @@ namespace Gameplay
         public event Action TurnRollbackDenied;
         public event Action<GameState> StateChanged;
         public event Action StarCollected;
+        public event Action<Entity> EntitySpawned;
+        public event Action<Entity> EntityKilled;
 
         private bool CanRollbackFromCurrentState =>
             _state == GameState.WaitingForPlayerCommand ||
@@ -117,7 +119,9 @@ namespace Gameplay
 
         public Turn GetCurrentTurn()
         {
-            // There should ALWAYS be a turn
+            if (_history.Count == 0)
+                return null;
+            
             return _history.Peek();
         }
 
@@ -127,7 +131,7 @@ namespace Gameplay
             {
                 if (_timeSinceRollbackPressed >= RollbackCd)
                 {
-                    RollbackLastCompletedTurn();
+                    TryRollbackLastCompletedTurn();
                     _timeSinceRollbackPressed = 0.0f;
                 }
             }
@@ -214,7 +218,7 @@ namespace Gameplay
             }
         }
 
-        private void RollbackLastCompletedTurn()
+        private void TryRollbackLastCompletedTurn()
         {
             if (_history.Count == 0)
             {
@@ -239,6 +243,12 @@ namespace Gameplay
                 RevertTurnChanges(rollbackTurn);
                 _history.Pop(); // Late pop for changes to revert durn correct turn number
                 PlayerStats.Instance.RemoveRollbackNumber();
+                
+                // Rollback now finished, notify all active atm entities about that
+                // NOTE: "current turn" will be the new, incoplmete one  
+                foreach (var entity in _entities.Values.Where(e => e.IsActive))
+                    entity.AfterTurnRollback(this);
+
                 TurnRollbackSucceeds?.Invoke();
             }
             else
@@ -252,10 +262,6 @@ namespace Gameplay
             else
                 _history.Push(new Turn(_history.Peek().Number + 1));
 
-            // Rollback now finished, notify all active atm entities about that
-            // NOTE: "current turn" will be the new, incoplmete one  
-            foreach (var entity in _entities.Values.Where(e => e.IsActive))
-                entity.AfterTurnRollback(this);
 
             // Proceed to reading inputs
             SwitchState(GameState.WaitingForPlayerCommand);
@@ -310,6 +316,11 @@ namespace Gameplay
             return _entities.Values.Where(entity => entity.IsActive && entity.Position == position);
         }
 
+        public IEnumerable<Entity> GetAllActiveEntities()
+        {
+            return _entities.Values.Where(entity => entity.IsActive);
+        }
+
         public Entity Spawn(GameObject prefab, Vector2Int entityPosition, Direction entityOrientation)
         {
             if (prefab == null)
@@ -334,6 +345,7 @@ namespace Gameplay
                 var newEntityId = GetNewEntityId();
                 entity.Initialize(this, newEntityId);
                 _entities.Add(newEntityId, entity);
+                EntitySpawned?.Invoke(entity);
 
                 return entity;
             }
@@ -342,9 +354,10 @@ namespace Gameplay
             return null;
         }
 
-        public void Despawn(int entityId)
+        public void Kill(int entityId)
         {
             var entity = _entities[entityId];
+            EntityKilled?.Invoke(entity);
             Destroy(entity.gameObject);
             _entities.Remove(entityId);
         }

@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using Audio;
-using UI;
 using UnityEngine;
 
 namespace Gameplay.Properties
 {
     [RequireComponent(typeof(Entity))]
-    public class Spawner : MonoBehaviour, ICommandHandler
+    public class Spawner : MonoBehaviour, ICommandHandler, IHasTimer
     {
         public GameObject Prefab;
-        public int Delay = 0;
+        public int Delay;
 
         [Header("Visuals")]
         public Animator Animator;
@@ -21,24 +20,20 @@ namespace Gameplay.Properties
         [SerializeField] private SoundAsset RevertSpawnSound; 
 
         private Entity _entity;
-        private int _spawnAtTurn;
-        private UITimerManager _uiTimerManager;
+        private int _turnsUntilSpawn;
 
         public void OnInitialized(Level level)
         {
             _entity = GetComponent<Entity>();
-            _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
-            _spawnAtTurn = level.CurrentTurnNumber + Delay;
-            SetUiTimer(Delay);
+            _turnsUntilSpawn = Delay;
         }
 
         public void OnAfterPlayerMove(Level level)
         {
-            var remainingTurns = _spawnAtTurn - level.CurrentTurnNumber;
-            SetUiTimer(remainingTurns - 1);
-
-            if (remainingTurns == 0)
+            if (_turnsUntilSpawn == 0)
                 level.Dispatch(new SpawnCommand(_entity.Id, _entity.Orientation));
+            
+            _turnsUntilSpawn -= 1;
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
@@ -49,7 +44,6 @@ namespace Gameplay.Properties
                     Prefab,
                     _entity.Position + Utils.MoveDelta(_entity.Orientation),
                     _entity.Orientation);
-                SetUiTimer(null);
 
                 foreach (var entityInTargetPos in level.GetActiveEntitiesAt(entity.Position))
                 {
@@ -99,26 +93,20 @@ namespace Gameplay.Properties
             if (change is SpawnChange spawnChange)
             {
                 SoundManager.Instance.Play(RevertSpawnSound);
-                level.Despawn(spawnChange.SpawnedObjectId);
-                SetUiTimer(null);
+                level.Kill(spawnChange.SpawnedObjectId);
             }
         }
 
         public void OnTurnRolledBack(Level level)
         {
-            var timeRemaining = _spawnAtTurn - level.CurrentTurnNumber;
-            SetUiTimer(timeRemaining);
+            _turnsUntilSpawn += 1;
         }
 
-        private void SetUiTimer(int? number)
+        public int? GetCurrentTimerValue()
         {
-            if (_uiTimerManager == null)
-                return;
-
-            if (number.HasValue && number.Value >= 0)
-                _uiTimerManager.SetTimer(gameObject, number.Value);
-            else
-                _uiTimerManager.DeleteTimer(gameObject);
+            if (_turnsUntilSpawn >= 0) 
+                return _turnsUntilSpawn;
+            return null;
         }
     }
 }

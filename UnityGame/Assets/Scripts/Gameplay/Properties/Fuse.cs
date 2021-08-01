@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using Audio;
-using UI;
 using UnityEngine;
 
 namespace Gameplay.Properties
 {
     [RequireComponent(typeof(Entity))]
-    public class Fuse : MonoBehaviour, ICommandHandler
+    public class Fuse : MonoBehaviour, ICommandHandler, IHasTimer
     {
         public int Delay = 3;
         public bool AutoIgnite = true;
@@ -17,14 +16,12 @@ namespace Gameplay.Properties
         [Header("Sound")] 
         public SoundAsset IgniteSound;
 
-        private int _detonateAtTurn = -1;
         private Entity _entity;
-        private UITimerManager _uiTimerManager;
+        private int _turnsUntilDetonate;
 
         private void Start()
         {
             _entity = GetComponent<Entity>();
-            _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
         }
 
         public void OnInitialized(Level level)
@@ -32,46 +29,44 @@ namespace Gameplay.Properties
             // Start visuals prematurely
             if (AutoIgnite)
             {
+                _turnsUntilDetonate = Delay;
                 SoundManager.Instance.Play(IgniteSound);
-                _detonateAtTurn = level.CurrentTurnNumber + Delay;
                 Sparks?.Trigger(transform);
-                SetUiTimer(Delay);
             }
+            else
+            {
+                _turnsUntilDetonate = -1;
+            }
+            UpdateSparksState();
         }
 
         public void OnAfterPlayerMove(Level level)
         {
-            // It's finally FUSE's turn
-            var timeRemaining = _detonateAtTurn - level.CurrentTurnNumber;
-            SetUiTimer(timeRemaining - 1);
-            
-            if (timeRemaining == 0)
+            if (_turnsUntilDetonate == 0)
             {
                 // Ignite phase is completed, send detonate command
                 // and stop ignite phase
                 level.DispatchEarly(new DetonateCommand(_entity.Id));
             }
+
+            _turnsUntilDetonate--;
+            UpdateSparksState();
         }
 
         public IEnumerable<IChange> Handle(Level level, ICommand command)
         {
-            if (command is IgniteCommand && _detonateAtTurn < 0)
+            if (command is IgniteCommand)
             {
+                _turnsUntilDetonate = Delay;
                 SoundManager.Instance.Play(IgniteSound);
-                _detonateAtTurn = level.CurrentTurnNumber + Delay;
-                Sparks?.Trigger(transform);
-                SetUiTimer(Delay - 1);
+                
                 yield return new FuseIgnited(_entity.Id, Delay);
             }
             else if(command is DetonateCommand)
             {
-                SetUiTimer(null);
-                Sparks?.Stop();
             }
             else if(command is DestroyCommand)
             {
-                SetUiTimer(null);
-                Sparks?.Stop();
             }
         }
 
@@ -79,31 +74,37 @@ namespace Gameplay.Properties
         {
             if (change is FuseIgnited)
             {
-                _detonateAtTurn = -1;
-                Sparks?.Trigger(transform);
-                SetUiTimer(null);
+                Debug.LogWarning("TEST THIS WHEN THERE SHOULD BE REVERTABLE IGNITE MECHANICS");
+                _turnsUntilDetonate = -100; // HACK, NEEDS TESTING
+            }
+            else if (change is DestroyedChange)
+            {
             }
         }
 
         public void OnTurnRolledBack(Level level)
         {
-            var timeRemaining = _detonateAtTurn - level.CurrentTurnNumber;
-            SetUiTimer(timeRemaining);
-            if (timeRemaining > 0)
-                Sparks?.Trigger(transform);
-            else
-                Sparks?.Stop();
+            _turnsUntilDetonate += 1;
+            UpdateSparksState();
         }
 
-        private void SetUiTimer(int? number)
+        public int? GetCurrentTimerValue()
         {
-            if(_uiTimerManager == null)
-                return;
-            
-            if(number.HasValue && number.Value >= 0)
-                _uiTimerManager.SetTimer(gameObject, number.Value);
+            if (_turnsUntilDetonate >= 0)
+                return _turnsUntilDetonate;
+            return null;
+        }
+
+        private void UpdateSparksState()
+        {
+            if (_turnsUntilDetonate >= 0)
+            {
+                Sparks?.Trigger(transform);
+            }
             else
-                _uiTimerManager.DeleteTimer(gameObject);
+            {
+                Sparks?.Stop();
+            }
         }
     }
 }

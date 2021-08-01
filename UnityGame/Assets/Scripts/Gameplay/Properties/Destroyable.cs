@@ -23,7 +23,6 @@ namespace Gameplay.Properties
         public Renderer[] DisableRenderersWhenInactive;
         
         private Entity _entity;
-        private UITimerManager _uiTimerManager;
 
         private void Start()
         {
@@ -32,7 +31,6 @@ namespace Gameplay.Properties
         public void OnInitialized(Level level)
         {
             _entity = GetComponent<Entity>();
-            _uiTimerManager = GameObject.FindObjectOfType<UITimerManager>();
         }
 
         public void OnAfterPlayerMove(Level level)
@@ -51,8 +49,8 @@ namespace Gameplay.Properties
                 DestroyedFx?.Trigger(transform);
                 _entity.Deactivate();
                 
-                if(_uiTimerManager != null)
-                    _uiTimerManager.DeleteTimer(gameObject);
+                //if(_uiTimerManager != null)
+                    //_uiTimerManager.DeleteTimer(gameObject);
                 
                 if(Animator != null)
                     Animator.SetBool(AnimDiedBool, true);
