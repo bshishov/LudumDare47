@@ -9,13 +9,10 @@ namespace Audio
         public const int MaxSounds = 32;
 
         private static SoundManager _instance;
-        private readonly Dictionary<AudioMixerGroup, int> _groupCounter = new Dictionary<AudioMixerGroup, int>();
-
+        private readonly Dictionary<string, int> _groupCounter = new Dictionary<string, int>();
         private readonly List<SoundHandler> _handlers = new List<SoundHandler>();
         private readonly List<SoundHandler> _inactiveHandlers = new List<SoundHandler>();
-        public MixerGroupLimitSettings LimitSettings;
-
-        public SoundHandler MusicHandler;
+        private SoundHandler _musicHandler;
 
         public static SoundManager Instance
         {
@@ -35,11 +32,6 @@ namespace Audio
                 Debug.Log("[SoundManager] Instantiating");
                 var go = new GameObject("[SoundManager]");
                 var manager = go.AddComponent<SoundManager>();
-                if (manager.LimitSettings == null)
-                {
-                    Debug.Log("[SoundManager] Loading Limit Settings from resources");
-                    manager.LimitSettings = Resources.Load<MixerGroupLimitSettings>("SoundLimitSettings");
-                }
 
                 _instance = manager;
                 return manager;
@@ -72,9 +64,13 @@ namespace Audio
 
             foreach (var handler in _inactiveHandlers)
             {
-                var sourceGroup = handler.Source.outputAudioMixerGroup;
-                if (sourceGroup != null && _groupCounter.ContainsKey(sourceGroup))
-                    _groupCounter[sourceGroup] -= 1;
+                if (handler.Group != null)
+                {
+                    var groupId = handler.Group.GetId();
+                    if (_groupCounter.ContainsKey(groupId))
+                        _groupCounter[groupId] -= 1;
+                }
+
                 Destroy(handler.Source.gameObject);
                 _handlers.Remove(handler);
             }
@@ -82,14 +78,15 @@ namespace Audio
             _inactiveHandlers.Clear();
         }
 
-        public SoundHandler Play(
+        private SoundHandler Play(
             AudioClip clip, 
             float volume = 1f, 
             bool loop = false, 
             float pitch = 1f,
             bool ignoreListenerPause = false, 
             float delay = 0f, 
-            AudioMixerGroup mixerGroup = null)
+            AudioMixerGroup mixerGroup = null,
+            ISoundGroup @group = null)
         {
             if (clip == null)
                 return null;
@@ -100,7 +97,7 @@ namespace Audio
                 return null;
             }
 
-            var go = new GameObject(string.Format("Sound: {0}", clip.name));
+            var go = new GameObject($"Sound: {clip.name}");
             go.transform.SetParent(transform);
             var source = go.AddComponent<AudioSource>();
 
@@ -113,7 +110,7 @@ namespace Audio
             source.outputAudioMixerGroup = mixerGroup;
             source.ignoreListenerPause = ignoreListenerPause;
 
-            var sound = new SoundHandler(source);
+            var sound = new SoundHandler(source) {Group = @group};
             _handlers.Add(sound);
 
             if (delay > 0)
@@ -138,17 +135,16 @@ namespace Audio
                 return null;
 
             var mixerGroup = sound.GetMixedGroup();
-            var isLimiting = mixerGroup != null && LimitSettings != null;
-            var isInGroup = false;
+            var soundGroup = sound.GetGroup();
             var soundsInGroup = 0;
 
-            if (isLimiting)
+            if (soundGroup != null)
             {
-                isInGroup = _groupCounter.ContainsKey(mixerGroup);
-                if (isInGroup)
+                var groupId = soundGroup.GetId();
+                if (_groupCounter.ContainsKey(groupId))
                 {
-                    soundsInGroup = _groupCounter[mixerGroup];
-                    if (soundsInGroup >= LimitSettings.GetLimit(mixerGroup))
+                    soundsInGroup = _groupCounter[groupId];
+                    if (soundsInGroup >= soundGroup.GetMaxConcurrentSounds())
                         //Debug.Log(string.Format("[SoundManager] Too many sounds for group {0}", sound.MixerGroup));
                         return null;
                 }
@@ -165,17 +161,19 @@ namespace Audio
                 pitch, 
                 sound.ShouldIgnoreListenerPause(), 
                 delay,
-                mixerGroup
+                mixerGroup,
+                sound.GetGroup()
             );
 
-            if (isLimiting && handler != null)
+            if (soundGroup != null && handler != null)
             {
-                if (isInGroup)
+                var groupId = soundGroup.GetId();
+                if (_groupCounter.ContainsKey(groupId))
                     // There are sounds in group so increment by one
-                    _groupCounter[mixerGroup] = soundsInGroup + 1;
+                    _groupCounter[groupId] = soundsInGroup + 1;
                 else
                     // First sound in group
-                    _groupCounter.Add(mixerGroup, 1);
+                    _groupCounter.Add(groupId, 1);
             }
 
             return handler;
@@ -197,21 +195,21 @@ namespace Audio
                 return null;
 
 
-            if (MusicHandler != null)
+            if (_musicHandler != null)
             {
-                MusicHandler.Source.clip = sound.Clip;
+                _musicHandler.Source.clip = sound.Clip;
                 //MusicHandler.Volume = clip.VolumeModifier;
-                MusicHandler.Source.volume = sound.VolumeModifier;
-                MusicHandler.IsLooped = sound.Loop;
-                MusicHandler.Pitch = sound.Pitch;
-                MusicHandler.Source.Play();
-                MusicHandler.MixerGroup = sound.MixerGroup;
-                return MusicHandler;
+                _musicHandler.Source.volume = sound.VolumeModifier;
+                _musicHandler.IsLooped = sound.Loop;
+                _musicHandler.Pitch = sound.Pitch;
+                _musicHandler.Source.Play();
+                _musicHandler.MixerGroup = sound.MixerGroup;
+                return _musicHandler;
             }
 
             var handler = Play(sound);
             DontDestroyOnLoad(handler.Source.gameObject);
-            MusicHandler = handler;
+            _musicHandler = handler;
             return handler;
         }
 
@@ -225,7 +223,7 @@ namespace Audio
         var h = 10;
         foreach (var kvp in _groupCounter)
         {
-            GUI.Label(new Rect(10, h, 400, 20), string.Format("{0}: {1}", kvp.Key.name, kvp.Value));
+            GUI.Label(new Rect(10, h, 400, 20), $"{kvp.Key}: {kvp.Value}");
             h += 20;
         }
         */
@@ -285,6 +283,8 @@ namespace Audio
                     if (IsActive) Source.outputAudioMixerGroup = value;
                 }
             }
+            
+            public ISoundGroup Group { get; set; }
 
             public bool IsActive
             {

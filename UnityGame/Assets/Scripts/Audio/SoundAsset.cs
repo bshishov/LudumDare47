@@ -18,6 +18,7 @@ namespace Audio
 
         [Header("Other")] 
         public bool IgnoreListenerPause;
+        public SoundGroup Group;
 
         [Header("Pitch")] 
         [Range(0.5f, 2f)] public float Pitch = 1f;
@@ -61,6 +62,11 @@ namespace Audio
         public bool ShouldIgnoreListenerPause()
         {
             return IgnoreListenerPause;
+        }
+
+        public ISoundGroup GetGroup()
+        {
+            return Group;
         }
     }
 }

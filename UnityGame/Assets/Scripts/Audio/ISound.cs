@@ -12,5 +12,6 @@ namespace Audio
         bool IsOnLoop();
         float GetVolumeModifier();
         bool ShouldIgnoreListenerPause();
+        ISoundGroup GetGroup();
     }
 }

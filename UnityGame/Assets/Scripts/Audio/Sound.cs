@@ -26,6 +26,9 @@ namespace Audio
         public bool RandomizePitch;
         [Range(0f, 1.5f)] public float VolumeModifier = 1f;
         
+        [Header("Group")]
+        public ISoundGroup Group;
+        
         public AudioClip GetAudioClip()
         {
             return Clip;
@@ -63,6 +66,11 @@ namespace Audio
         public bool ShouldIgnoreListenerPause()
         {
             return IgnoreListenerPause;
+        }
+
+        public ISoundGroup GetGroup()
+        {
+            return Group;
         }
     }
 }
