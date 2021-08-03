@@ -88,13 +88,13 @@ TextureImporter:
     second: tex_UI_Map_Bone_02
   - first:
       213: -6926328756498152135
-    second: tex_UI_Map_Atlas_13
+    second: tex_UI_Map_Wind
   - first:
       213: 3829419899420201675
-    second: tex_UI_Map_Atlas_14
+    second: tex_UI_Map_Bone_02
   - first:
       213: 945157891165465740
-    second: tex_UI_Map_Atlas_15
+    second: tex_UI_Map_Road_02
   - first:
       213: -1435002983629347659
     second: tex_UI_Map_Teeth_R
@@ -109,7 +109,7 @@ TextureImporter:
     second: tex_UI_Map_Cliff
   - first:
       213: 2981643145236551383
-    second: tex_UI_Map_Atlas_20
+    second: tex_UI_Map_Flint_02
   - first:
       213: 4322801059719176848
     second: tex_UI_Map_Cactus_03
@@ -169,13 +169,13 @@ TextureImporter:
     second: tex_UI_Map_Bone_02
   - first:
       213: 5684915671921434571
-    second: tex_UI_Map_Atlas_13
+    second: tex_UI_Map_Wind
   - first:
       213: 7555069467563732636
-    second: tex_UI_Map_Atlas_14
+    second: tex_UI_Map_Bone_02
   - first:
       213: -2271554381407573322
-    second: tex_UI_Map_Atlas_15
+    second: tex_UI_Map_Road_02
   - first:
       213: -7170584748768704980
     second: tex_UI_Map_Teeth_R
@@ -190,7 +190,7 @@ TextureImporter:
     second: tex_UI_Map_Cliff
   - first:
       213: 2374493122452628153
-    second: tex_UI_Map_Atlas_20
+    second: tex_UI_Map_Flint_02
   - first:
       213: 211826464209369081
     second: tex_UI_Map_Atlas_22
@@ -203,6 +203,84 @@ TextureImporter:
   - first:
       213: -1926311772026807860
     second: tex_UI_Map_Atlas_28
+  - first:
+      213: 7433213437904517529
+    second: tex_UI_Map_Rails
+  - first:
+      213: 5171021311330022713
+    second: tex_UI_Map_Rails
+  - first:
+      213: -4383782656431083414
+    second: tex_UI_Map_Cave_02
+  - first:
+      213: -3855146474481216053
+    second: tex_UI_Map_Bridge
+  - first:
+      213: -6640594020785136804
+    second: tex_UI_Map_Skull
+  - first:
+      213: -6181490084462465282
+    second: tex_UI_Map_Teeth_L
+  - first:
+      213: 8215274793480900756
+    second: tex_UI_Map_House_01
+  - first:
+      213: 7512336330872216453
+    second: tex_UI_Map_House_02
+  - first:
+      213: -1324606305759953814
+    second: tex_UI_Map_Cactus_04
+  - first:
+      213: 1883090446168799542
+    second: tex_UI_Map_House_03
+  - first:
+      213: -8732938540800004069
+    second: tex_UI_Map_Cliff
+  - first:
+      213: 7512336330872216453
+    second: tex_UI_Map_Cactus_02
+  - first:
+      213: 7512336330872216453
+    second: tex_UI_Map_Cactus_02
+  - first:
+      213: -6523966558514592037
+    second: tex_UI_Map_Cactus_02
+  - first:
+      213: 5032677467957839515
+    second: tex_UI_Map_Cactus_04
+  - first:
+      213: 1883090446168799542
+    second: tex_UI_Map_House_02
+  - first:
+      213: -157348759626999766
+    second: tex_UI_Map_Bridge
+  - first:
+      213: -1665891036723233836
+    second: tex_UI_Map_Skull
+  - first:
+      213: -4682557272955676203
+    second: tex_UI_Map_Teeth_L
+  - first:
+      213: -7170584748768704980
+    second: tex_UI_Map_Road_01
+  - first:
+      213: 4513842527891579680
+    second: tex_UI_Map_Teeth_R
+  - first:
+      213: 1834775798863681887
+    second: tex_UI_Map_Flint_01
+  - first:
+      213: -382709464535419394
+    second: tex_UI_Map_Fence
+  - first:
+      213: -4383782656431083414
+    second: tex_UI_Map_Bridge
+  - first:
+      213: -157348759626999766
+    second: tex_UI_Map_Cave_02
+  - first:
+      213: 4644285779816774665
+    second: tex_UI_Map_House_03
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -370,7 +448,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1415
         y: 607
-        width: 95
+        width: 99
         height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -386,13 +464,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_UI_Map_Cave_02
+      name: tex_UI_Map_Rails
       rect:
         serializedVersion: 2
-        x: 3243
-        y: 2106
-        width: 424
-        height: 528
+        x: 3755
+        y: 0
+        width: 650
+        height: 330
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -402,90 +480,6 @@ TextureImporter:
       bones: []
       spriteID: 99975f92d34182760800000000000000
       internalID: 7433213437904517529
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_UI_Map_Skull
-      rect:
-        serializedVersion: 2
-        x: 3243
-        y: 1671
-        width: 438
-        height: 434
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a6038e676eca923c0800000000000000
-      internalID: -4383782656431083414
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_UI_Map_House_01
-      rect:
-        serializedVersion: 2
-        x: 2162
-        y: 999
-        width: 471
-        height: 616
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc59277f4b4cf7ac0800000000000000
-      internalID: -3855146474481216053
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_UI_Map_House_02
-      rect:
-        serializedVersion: 2
-        x: 2634
-        y: 999
-        width: 646
-        height: 616
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5bd485ebeed7d3a0800000000000000
-      internalID: -6640594020785136804
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_UI_Map_House_03
-      rect:
-        serializedVersion: 2
-        x: 3281
-        y: 1122
-        width: 471
-        height: 493
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: efee305e48fe63aa0800000000000000
-      internalID: -6181490084462465282
       vertices: []
       indices: 
       edges: []
@@ -515,10 +509,10 @@ TextureImporter:
       name: tex_UI_Map_Cactus_02
       rect:
         serializedVersion: 2
-        x: 1271
-        y: 660
-        width: 138
-        height: 192
+        x: 1408
+        y: 767
+        width: 82
+        height: 84
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -528,27 +522,6 @@ TextureImporter:
       bones: []
       spriteID: 58b56e2471e214860800000000000000
       internalID: 7512336330872216453
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_UI_Map_Cactus_04
-      rect:
-        serializedVersion: 2
-        x: 1415
-        y: 770
-        width: 77
-        height: 81
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a6c7fed359d0e9de0800000000000000
-      internalID: -1324606305759953814
       vertices: []
       indices: 
       edges: []
@@ -575,34 +548,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_UI_Map_Bone_02
+      name: tex_UI_Map_Road_01
       rect:
         serializedVersion: 2
-        x: 1731
-        y: 726
-        width: 153
-        height: 126
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b103c4e8aae5ec680800000000000000
-      internalID: -8732938540800004069
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_UI_Map_Teeth_R
-      rect:
-        serializedVersion: 2
-        x: 1896
-        y: 728
-        width: 49
-        height: 115
+        x: 3754
+        y: 745
+        width: 295
+        height: 1889
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -617,13 +569,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_UI_Map_Teeth_L
+      name: tex_UI_Map_Teeth_R
       rect:
         serializedVersion: 2
-        x: 1958
+        x: 1950
         y: 725
-        width: 49
-        height: 115
+        width: 63
+        height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -638,13 +590,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_UI_Map_Wind
+      name: tex_UI_Map_Flint_01
       rect:
         serializedVersion: 2
-        x: 2114
-        y: 0
-        width: 264
-        height: 839
+        x: 1271
+        y: 602
+        width: 25
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -659,13 +611,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_UI_Map_Cliff
+      name: tex_UI_Map_Fence
       rect:
         serializedVersion: 2
-        x: 3149
-        y: 0
-        width: 605
-        height: 895
+        x: 1268
+        y: 485
+        width: 124
+        height: 119
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -759,6 +711,300 @@ TextureImporter:
       bones: []
       spriteID: b426e6430c94e6130800000000000000
       internalID: 3561865445158838859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Darkzone
+      rect:
+        serializedVersion: 2
+        x: 4347
+        y: 1314
+        width: 1081
+        height: 1320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 935fcc34c7823c740800000000000000
+      internalID: 5171021311330022713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_House_01
+      rect:
+        serializedVersion: 2
+        x: 2162
+        y: 999
+        width: 471
+        height: 617
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49056a5f5e4820270800000000000000
+      internalID: 8215274793480900756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_House_02
+      rect:
+        serializedVersion: 2
+        x: 2635
+        y: 978
+        width: 603
+        height: 634
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 639b2d3a8c4122a10800000000000000
+      internalID: 1883090446168799542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Cactus_04
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 666
+        width: 139
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6c7fed359d0e9de0800000000000000
+      internalID: -1324606305759953814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Cave_02
+      rect:
+        serializedVersion: 2
+        x: 3242
+        y: 2105
+        width: 422
+        height: 529
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a289594032cf0ddf0800000000000000
+      internalID: -157348759626999766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Skull
+      rect:
+        serializedVersion: 2
+        x: 3241
+        y: 1647
+        width: 456
+        height: 460
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dbba99ade091e8e0800000000000000
+      internalID: -1665891036723233836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Teeth_L
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 725
+        width: 61
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d91e0138f6340fb0800000000000000
+      internalID: -4682557272955676203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Cliff
+      rect:
+        serializedVersion: 2
+        x: 3103
+        y: 4
+        width: 651
+        height: 899
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b103c4e8aae5ec680800000000000000
+      internalID: -8732938540800004069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Wind
+      rect:
+        serializedVersion: 2
+        x: 2110
+        y: 0
+        width: 285
+        height: 845
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 935ca5771bcb0ef90800000000000000
+      internalID: -6926328756498152135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Bone_02
+      rect:
+        serializedVersion: 2
+        x: 1723
+        y: 725
+        width: 166
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc2d0c00c15d42530800000000000000
+      internalID: 3829419899420201675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Road_02
+      rect:
+        serializedVersion: 2
+        x: 4050
+        y: 334
+        width: 408
+        height: 976
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8c23972810ed1d00800000000000000
+      internalID: 945157891165465740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Flint_02
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 602
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d69dc6a4ace06920800000000000000
+      internalID: 2981643145236551383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_House_03
+      rect:
+        serializedVersion: 2
+        x: 3271
+        y: 1117
+        width: 483
+        height: 503
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90c706d6f41d37040800000000000000
+      internalID: 4644285779816774665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_UI_Map_Bridge
+      rect:
+        serializedVersion: 2
+        x: 4050
+        y: 1314
+        width: 296
+        height: 799
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6038e676eca923c0800000000000000
+      internalID: -4383782656431083414
       vertices: []
       indices: 
       edges: []
