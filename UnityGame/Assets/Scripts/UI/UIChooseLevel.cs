@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Gameplay;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -37,5 +38,11 @@ namespace UI
             _unlocked = true;
         }
 
+        public void SetLevel(int index, LevelSet.Level level)
+        {
+            SetSceneSettings(index, level.SceneName);
+            if(level.AlwaysUnlocked)
+                UnlockLevel();
+        }
     }
 }
