@@ -40,31 +40,31 @@ TextureImporter:
     second: tex_ui_Star_Big_ON
   - first:
       213: -2492377879902333038
-    second: tex_ui_Atlas_12
+    second: tex_ui_Currency_Star
   - first:
       213: -8440481421730416959
-    second: tex_ui_Atlas_13
+    second: tex_ui_Currency_Diamond
   - first:
       213: 8865660684040793498
-    second: tex_ui_Atlas_14
+    second: tex_ui_World
   - first:
       213: -4752743879459010557
-    second: tex_ui_Atlas_15
+    second: tex_ui_Shop_ON
   - first:
       213: -1428963402551356223
-    second: tex_ui_Atlas_16
+    second: tex_ui_Shop_OFF
   - first:
       213: -5755422639969943368
-    second: tex_ui_Atlas_17
+    second: tex_ui_Settings
   - first:
       213: -3308214028293512928
-    second: tex_ui_Atlas_18
+    second: tex_ui_Premiun
   - first:
       213: 7457138777166019595
-    second: tex_ui_Atlas_19
+    second: tex_ui_Map_You
   - first:
       213: -351964973632447723
-    second: tex_ui_Atlas_20
+    second: tex_ui_Map_Level
   - first:
       213: -3598589516362765881
     second: tex_ui_Atlas_21
@@ -546,9 +546,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 287
-        y: 1022
-        width: 258
-        height: 258
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -567,8 +567,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 287
-        y: 764
-        width: 258
+        y: 766
+        width: 256
         height: 258
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -676,7 +676,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -684,6 +684,195 @@ TextureImporter:
       bones: []
       spriteID: e112c15aab3ae71d0800000000000000
       internalID: -3351061050687741666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Currency_Star
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 654
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 297516ef58b496dd0800000000000000
+      internalID: -2492377879902333038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Currency_Diamond
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c67974ddd26dda80800000000000000
+      internalID: -8440481421730416959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_World
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1280
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9de56b7b67290b70800000000000000
+      internalID: 8865660684040793498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Shop_ON
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 1024
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3080f6c6f9cda0eb0800000000000000
+      internalID: -4752743879459010557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Shop_OFF
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c494e93b5d4b2ce0800000000000000
+      internalID: -1428963402551356223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Settings
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b0c95c3a91a020b0800000000000000
+      internalID: -5755422639969943368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Premiun
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 021e9927edcd612d0800000000000000
+      internalID: -3308214028293512928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Map_You
+      rect:
+        serializedVersion: 2
+        x: 1313
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0c75cd45341d7760800000000000000
+      internalID: 7457138777166019595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Map_Level
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1078
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51b1245a8b19d1bf0800000000000000
+      internalID: -351964973632447723
       vertices: []
       indices: 
       edges: []
