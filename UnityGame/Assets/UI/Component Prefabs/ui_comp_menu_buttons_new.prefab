@@ -110,6 +110,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6122704111987166114}
   m_CullTransparentMesh: 0
+--- !u!114 &6131160244074719278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510902152086804158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e177aaa9ca48412aa484bb783e73b62d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ClickSound: {fileID: 11400000, guid: bd3626f7045ffa645a16b52666daf345, type: 2}
 --- !u!1001 &6621819739307488207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -494,6 +507,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 196d4a796d4b2e14e86d576d8f39b1cd, type: 3}
+--- !u!1 &3510902152086804158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4890685302633951278, guid: 196d4a796d4b2e14e86d576d8f39b1cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 8315349949918324368}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3510902152086804159 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4890685302633951279, guid: 196d4a796d4b2e14e86d576d8f39b1cd,
