@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Gameplay;
 
 namespace UI.Buttons
 {
@@ -14,7 +15,9 @@ namespace UI.Buttons
 
         private void ReloadLevel() 
         {
+            Common.OnLevelRestart();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            
         }
     }
 }

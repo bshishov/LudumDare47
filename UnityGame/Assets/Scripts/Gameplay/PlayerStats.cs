@@ -41,7 +41,7 @@ namespace Gameplay
             } else
             {
                 //start number of rollback
-                NumberOfRollback = 99999;
+                NumberOfRollback = 999;
             }
 
         }

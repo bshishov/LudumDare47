@@ -89,7 +89,10 @@ namespace Gameplay
         {
             LevelStarCollected?.Invoke(CurrentLevel);
         }
-
+        public static void OnLevelRestart()
+        {
+            IsPaused = false;
+        }
         public static void TogglePause()
         {
             IsPaused = !IsPaused;

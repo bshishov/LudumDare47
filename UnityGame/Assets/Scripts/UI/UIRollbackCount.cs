@@ -1,21 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Gameplay;
+using TMPro;
 
 namespace UI
 {
     public class UIRollbackCount : MonoBehaviour
     {
-        private Text _numberOfRollbackText;
-
-        private void Start()
-        {
-            _numberOfRollbackText = GetComponent<Text>();
-        }
-
+        public TextMeshProUGUI Counter;
+        
         private void Update()
         {
-            _numberOfRollbackText.text = "Rollback - " + PlayerStats.Instance.NumberOfRollback.ToString() ;
+            Counter.text = PlayerStats.Instance.NumberOfRollback.ToString() ;
         }
     }
 }
