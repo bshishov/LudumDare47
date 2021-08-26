@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Gameplay;
 
 namespace UI.Buttons
 {
@@ -13,6 +14,8 @@ namespace UI.Buttons
 
         private void OnButtonPressed()
         {
+
+            Common.OnLevelRestart();
             FindObjectOfType<UILoad>().LoadMenu();
         }
     }
