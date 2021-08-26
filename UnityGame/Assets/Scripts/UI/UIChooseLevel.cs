@@ -8,8 +8,16 @@ namespace UI
     public class UIChooseLevel : MonoBehaviour
     {
         public TextMeshProUGUI TextNumber;
+        public int LevelNumber;
+        public LevelSet Levels;
+
         private bool _unlocked = false;
         private string _levelName;
+
+        private void Start()
+        {
+            SetSceneSettings(LevelNumber, Levels.Levels[LevelNumber-1].SceneName);
+        }
 
         public void SetSceneSettings(int number, string levelName)
         {
