@@ -2,26 +2,45 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 namespace UI
 {
-    public class UIChooseLevel : MonoBehaviour
+    public class UILevelOnMap : MonoBehaviour
     {
         public TextMeshProUGUI TextNumber;
         public int LevelNumber;
         public LevelSet Levels;
 
+        public GameObject[] CollectedStars;
+
         private bool _unlocked = false;
-        private string _levelName;
+        public string LevelName { get; private set; }
+
+        private void Awake()
+        {
+            LevelName = Levels.Levels[LevelNumber - 1].SceneName;
+            SetSceneSettings(LevelNumber, LevelName);
+        }
 
         private void Start()
         {
-            SetSceneSettings(LevelNumber, Levels.Levels[LevelNumber-1].SceneName);
+            SetCollectedOnLevelStarts();
+        }
+
+        private void SetCollectedOnLevelStarts()
+        {
+            if (GamePersist.Instance.LevelData.ContainsKey(LevelName))
+            {
+                for (int i = 0; i < GamePersist.Instance.LevelData[LevelName]; i++)
+                {
+                    CollectedStars[i].SetActive(true);
+                }
+            }
         }
 
         public void SetSceneSettings(int number, string levelName)
         {
-            _levelName = levelName;
             TextNumber.text = number.ToString();
             if (PlayerPrefs.GetInt(string.Format(levelName), 0) == 1)
             {
@@ -37,7 +56,7 @@ namespace UI
 
         public void LoadLevel()
         {
-            SceneManager.LoadScene(_levelName);
+            SceneManager.LoadScene(LevelName);
         }
 
         [ContextMenu("UnlockLevel")]
@@ -49,7 +68,7 @@ namespace UI
         public void SetLevel(int index, LevelSet.Level level)
         {
             SetSceneSettings(index, level.SceneName);
-            if(level.AlwaysUnlocked)
+            if (level.AlwaysUnlocked)
                 UnlockLevel();
         }
     }

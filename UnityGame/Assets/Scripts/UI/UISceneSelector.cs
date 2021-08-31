@@ -19,7 +19,7 @@ public class UISceneSelector : MonoBehaviour
             if (levelInfo.Enabled)
             {
                 var panel = Instantiate(LevelPrefab, ParentObject.transform);
-                panel.GetComponent<UIChooseLevel>().SetSceneSettings(activeLevelNumber, levelInfo.SceneName);
+                panel.GetComponent<UILevelOnMap>().SetSceneSettings(activeLevelNumber, levelInfo.SceneName);
                 activeLevelNumber += 1;
             }
         }

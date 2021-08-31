@@ -14,7 +14,7 @@ namespace UI
 
         private void Start()
         {
-            if(Common.CurrentLevel != null)
+            if (Common.CurrentLevel != null)
                 AwardStars(Common.CurrentLevel.CollectedStars);
         }
 
@@ -23,9 +23,14 @@ namespace UI
             StartCoroutine(AwardRoutine(stars));
         }
 
+        public void SetMapStarts(int stars)
+        {
+
+        }
+
         private IEnumerator AwardRoutine(int stars)
         {
-            if(stars >= 1)
+            if (stars >= 1)
                 Star1.Award(1f);
 
             if (stars >= 2)

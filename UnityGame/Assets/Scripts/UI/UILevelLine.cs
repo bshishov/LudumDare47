@@ -22,7 +22,7 @@ namespace UI
                 foreach (var position in Resample(GetCurve(), Levels.Levels.Length))
                 {
                     var go = GameObject.Instantiate(Prefab, position, Quaternion.identity, Parent);
-                    var levelComponent = go.GetComponent<UIChooseLevel>();
+                    var levelComponent = go.GetComponent<UILevelOnMap>();
                     if (levelComponent != null)
                     {
                         levelComponent.SetLevel(index++, Levels.Levels[index]);

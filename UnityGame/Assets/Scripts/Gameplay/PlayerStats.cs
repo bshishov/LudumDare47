@@ -9,6 +9,8 @@ namespace Gameplay
         public int NumberOfRollback { get; private set; }
         public int TotalNumberOfStars { get; private set; }
 
+        public string LastCompleteLevel;
+
         private const string StarsColectedKey = "Player Stars";
         private const string RollbackKey = "Player Rollbacks";
 
@@ -23,9 +25,7 @@ namespace Gameplay
 
             DontDestroyOnLoad(this);
 
-
             Load();
-
         }
 
         private void Load()
@@ -41,9 +41,8 @@ namespace Gameplay
             } else
             {
                 //start number of rollback
-                NumberOfRollback = 999;
+                NumberOfRollback = 99;
             }
-
         }
 
         public void AddStars(int stars)

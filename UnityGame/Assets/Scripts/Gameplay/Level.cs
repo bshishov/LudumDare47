@@ -191,7 +191,9 @@ namespace Gameplay
                 SwitchState(GameState.Win);
                 //One star given for complete level
                 CollectStar();
-                
+
+                //TODO test give some rollback
+                PlayerStats.Instance.AddRollbackNumber(25);
                 AddCollectedStars();
                 
                 SaveLevelState();

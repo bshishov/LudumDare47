@@ -6,6 +6,7 @@ namespace Utils
     {
         public StringIntDictionary LevelData { get; private set; }
         public StringIntDictionary PlayerData { get; private set; }
+        public string LastLevel { get; private set; }
 
         public void Awake()
         {
@@ -36,12 +37,19 @@ namespace Utils
                 var json = PlayerPrefs.GetString("Player Data");
                 PlayerData = JsonUtility.FromJson<StringIntDictionary>(json);
             }
+
+            if (PlayerPrefs.HasKey("Last Level"))
+            {
+                LastLevel = PlayerPrefs.GetString("Last Level");
+            }
         }
 
-        private void Save()
+        private void Save()  
         {
             var jsonLevelData = JsonUtility.ToJson(LevelData);
             PlayerPrefs.SetString("Levels Data", jsonLevelData);
+
+            PlayerPrefs.SetString("Last Level", LastLevel);
 
             var jsonPlayerData = JsonUtility.ToJson(PlayerData);
             PlayerPrefs.SetString("Player Data", jsonPlayerData);
@@ -51,6 +59,8 @@ namespace Utils
 
         public void SaveLevelData(string levelName, int starsNumber)
         {
+            LastLevel = levelName;
+
             if (!LevelData.ContainsKey(levelName))
             {
                 LevelData.Add(levelName, starsNumber);
