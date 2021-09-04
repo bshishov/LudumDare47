@@ -64,16 +64,16 @@ TextureImporter:
     second: tex_ui_Map_You
   - first:
       213: -351964973632447723
-    second: tex_ui_Map_Level
+    second: tex_ui_Map_Level_anable
   - first:
       213: -3598589516362765881
-    second: tex_ui_Atlas_21
+    second: tex_ui_pointer_drop
   - first:
       213: 6456745109561473705
-    second: tex_ui_Atlas_22
+    second: tex_ui_pointer_arrow
   - first:
       213: 5885710726687124817
-    second: tex_ui_Atlas_23
+    second: tex_ui_pointer_map
   - first:
       213: 4915238545852591057
     second: tex_ui_Atlas_24
@@ -191,6 +191,12 @@ TextureImporter:
   - first:
       213: -3351061050687741666
     second: tex_ui_Play
+  - first:
+      213: 8566430609087083515
+    second: tex_ui_pointer_background
+  - first:
+      213: 8865660684040793498
+    second: tex_ui_Atlas_disabled
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -692,8 +698,8 @@ TextureImporter:
       name: tex_ui_Currency_Star
       rect:
         serializedVersion: 2
-        x: 0
-        y: 654
+        x: 1311
+        y: 768
         width: 256
         height: 256
       alignment: 0
@@ -713,7 +719,7 @@ TextureImporter:
       name: tex_ui_Currency_Diamond
       rect:
         serializedVersion: 2
-        x: 1569
+        x: 1055
         y: 768
         width: 256
         height: 256
@@ -731,32 +737,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_World
+      name: tex_ui_Shop_ON
       rect:
         serializedVersion: 2
         x: 768
         y: 1280
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a9de56b7b67290b70800000000000000
-      internalID: 8865660684040793498
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_ui_Shop_ON
-      rect:
-        serializedVersion: 2
-        x: 543
-        y: 1024
         width: 256
         height: 256
       alignment: 0
@@ -776,8 +761,8 @@ TextureImporter:
       name: tex_ui_Shop_OFF
       rect:
         serializedVersion: 2
-        x: 545
-        y: 768
+        x: 543
+        y: 1024
         width: 256
         height: 256
       alignment: 0
@@ -797,7 +782,7 @@ TextureImporter:
       name: tex_ui_Settings
       rect:
         serializedVersion: 2
-        x: 801
+        x: 543
         y: 768
         width: 256
         height: 256
@@ -818,7 +803,7 @@ TextureImporter:
       name: tex_ui_Premiun
       rect:
         serializedVersion: 2
-        x: 1057
+        x: 799
         y: 768
         width: 256
         height: 256
@@ -839,8 +824,8 @@ TextureImporter:
       name: tex_ui_Map_You
       rect:
         serializedVersion: 2
-        x: 1313
-        y: 768
+        x: 1567
+        y: 822
         width: 256
         height: 256
       alignment: 0
@@ -857,7 +842,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_ui_Map_Level
+      name: tex_ui_Map_Level_anable
       rect:
         serializedVersion: 2
         x: 1536
@@ -865,7 +850,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -873,6 +858,111 @@ TextureImporter:
       bones: []
       spriteID: 51b1245a8b19d1bf0800000000000000
       internalID: -351964973632447723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_pointer_background
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 709
+        width: 246
+        height: 201
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf33ba7804312e670800000000000000
+      internalID: 8566430609087083515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_Atlas_disabled
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 1078
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9de56b7b67290b70800000000000000
+      internalID: 8865660684040793498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_pointer_drop
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 1893
+        width: 155
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c9a0c8a6ed3f0ec0800000000000000
+      internalID: -3598589516362765881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_pointer_arrow
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 1738
+        width: 155
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aaf6a4c777fa9950800000000000000
+      internalID: 6456745109561473705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_ui_pointer_map
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 1583
+        width: 155
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15d64ead8be3ea150800000000000000
+      internalID: 5885710726687124817
       vertices: []
       indices: 
       edges: []
