@@ -19,6 +19,8 @@ namespace UI
         public FrameData WinFrame;
         public FrameData LoseFrame;
 
+        private FrameData _prePauseFrame;
+
         private void Start()
         {
             Common.LevelStateChanged += OnLevelStateChanged;
@@ -64,11 +66,12 @@ namespace UI
         {
             if (isPaused)
             {
+                _prePauseFrame = FrameManager.ActiveFrame;
                 FrameManager.TransitionTo(PauseFrame, Transition, 0);
                 SoundManager.Instance.Play(PauseSound);
             }
             else
-                FrameManager.TransitionTo(GameFrame, Transition, 0);
+                FrameManager.TransitionTo(_prePauseFrame, Transition, 0);
         }
     }
 }

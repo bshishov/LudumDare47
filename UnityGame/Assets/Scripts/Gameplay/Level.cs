@@ -139,8 +139,9 @@ namespace Gameplay
             else if (_state == GameState.SkipTurn)
             {
                 SwitchState(GameState.WaitingForPlayerCommand);
-                StopCoroutine(SkipTurn());
+               
             }
+            StopCoroutine("SkipTurn");
         }
 
         public void PlayerMove(Direction dir)
@@ -180,10 +181,12 @@ namespace Gameplay
             if (!_playerEntity.IsActive)
             {
                 SwitchState(GameState.PlayerDied);
+                StopCoroutine("SkipTurn");
             } 
             else if (CatGirl != null && !CatGirl.IsActive)
             {
                 SwitchState(GameState.CatGirlDied);
+                StopCoroutine("SkipTurn");
             } 
             else if (turn.Number >= MaxTurns - 1)
             {
@@ -197,6 +200,7 @@ namespace Gameplay
                 AddCollectedStars();
                 
                 SaveLevelState();
+                StopCoroutine("SkipTurn");
             } 
             else if (_state != GameState.SkipTurn)
             {
@@ -375,7 +379,7 @@ namespace Gameplay
         {
             if (_state != GameState.SkipTurn)
             {
-                StartCoroutine(SkipTurn());
+                StartCoroutine("SkipTurn");
                 _state = GameState.SkipTurn;
             }
         }
@@ -393,6 +397,7 @@ namespace Gameplay
                     }
                     ExecuteCommands();
                 }
+                Debug.Log("Corotine");
                 yield return new WaitForSeconds(.2f);
             }
         }

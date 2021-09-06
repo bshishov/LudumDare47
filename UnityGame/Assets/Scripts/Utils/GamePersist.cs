@@ -19,6 +19,7 @@ namespace Utils
 
             DontDestroyOnLoad(this);
             Load();
+
         }
 
         private void Load()
@@ -44,19 +45,6 @@ namespace Utils
             }
         }
 
-        private void Save()  
-        {
-            var jsonLevelData = JsonUtility.ToJson(LevelData);
-            PlayerPrefs.SetString("Levels Data", jsonLevelData);
-
-            PlayerPrefs.SetString("Last Level", LastLevel);
-
-            var jsonPlayerData = JsonUtility.ToJson(PlayerData);
-            PlayerPrefs.SetString("Player Data", jsonPlayerData);
-
-            PlayerPrefs.Save();
-        }
-
         public void SaveLevelData(string levelName, int starsNumber)
         {
             LastLevel = levelName;
@@ -73,7 +61,12 @@ namespace Utils
                 }
             }
 
-            Save();
+            var jsonLevelData = JsonUtility.ToJson(LevelData);
+            PlayerPrefs.SetString("Levels Data", jsonLevelData);
+
+            PlayerPrefs.SetString("Last Level", LastLevel);
+
+            
         }
 
         public void SavePlayerData(string playerStat, int starsCollected)
@@ -86,7 +79,10 @@ namespace Utils
                 PlayerData[playerStat] = starsCollected;
             }
 
-            Save();
+            var jsonPlayerData = JsonUtility.ToJson(PlayerData);
+            PlayerPrefs.SetString("Player Data", jsonPlayerData);
+
+            PlayerPrefs.Save();
         }
     }
 

@@ -18,6 +18,15 @@ namespace UI
         public FrameData MapFrame;
         public FrameData PacksFrame;
 
+        public static bool IsMainMenuWasLoad;
+
+        private void Awake()
+        {
+            //After back to main menu show map frame
+            if (IsMainMenuWasLoad) {
+                FindObjectOfType<FrameManager>().ChangeInitialFrame(MapFrame);
+            }
+        }
         public void OpenShop()
         {
             FrameManager.TransitionTo(ShopFrame, Transition, 0);
@@ -26,6 +35,8 @@ namespace UI
 
         public void OpenMap()
         {
+            IsMainMenuWasLoad = true;
+
             if (FrameManager.ActiveFrame == ShopFrame)
             {
                 FrameManager.TransitionTo(MapFrame, Transition, 1);

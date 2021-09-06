@@ -8,6 +8,8 @@ namespace UI
     {
         public LevelSet Levels;
 
+        public bool IsLoadFromGameFrame { get; private set; }
+
         private void Start()
         {
             Time.timeScale = 1f;
@@ -20,6 +22,7 @@ namespace UI
 
         public void LoadMenu()
         {
+            IsLoadFromGameFrame = true;
             LoadLevel(Levels.MenuScene);
         }
 

@@ -34,6 +34,8 @@ namespace UI
             if (Common.CurrentLevel != null)
             {
                 Initialize(Common.CurrentLevel);
+
+                Debug.Log("1");
             }
         }
 
@@ -54,7 +56,18 @@ namespace UI
             for (var i = 0; i < _numberOfTurns; i++)
                 _turnPanels[i] = Instantiate(PanelPrefab, transform).GetComponent<Image>();
 
-            SetIconAndColor(0, CurrentTurnIcon, CurrentTurnColor);
+            if (_currentTurn == 0)
+            {
+                SetIconAndColor(0, CurrentTurnIcon, CurrentTurnColor);
+            }
+            else {
+
+                for (int i = 0; i < _currentTurn; i++)
+                {
+                    SetIconAndColor(i, CompletedTurnIcon, CompletedTurnColor);
+                }
+                SetIconAndColor(_currentTurn, CurrentTurnIcon, CurrentTurnColor);
+            }
         }
 
         private void TurnCompleted(Level level)

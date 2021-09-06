@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UI;
 using UIF.Data;
 using UIF.Scripts.Animations;
 using UIF.Scripts.Transitions;
@@ -17,19 +18,24 @@ namespace UIF.Scripts
         }
 
         public FrameData ActiveFrame => _activeFrameData;
-        
+
         [SerializeField] private FrameData InitialFrameData;
-        [SerializeField] private FrameData BackFrameData;
         [SerializeField] private Transform Root;
-        
+
         private FrameData _activeFrameData;
         private readonly List<FrameElementInstance> _activeElements = new List<FrameElementInstance>();
         private readonly List<IAnimation> _animations = new List<IAnimation>();
+
 
         private void Start()
         {
             _activeFrameData = InitialFrameData;
             InitFrame(_activeFrameData);
+        }
+
+        public void ChangeInitialFrame(FrameData newInitialFrameData)
+        {
+            InitialFrameData = newInitialFrameData;
         }
 
         public void TransitionTo(FrameData frameData, ITransition transition, int indexOfTransition)
@@ -45,7 +51,7 @@ namespace UIF.Scripts
                 Debug.LogWarning("Trying to transition to the same frame");
                 return;
             }
-            
+
             if (_animations.Any())
             {
                 // TODO: Intrerrupt (complete) all active animations. Interrupt the coroutine
@@ -71,7 +77,7 @@ namespace UIF.Scripts
                 var oldElementTransition = frameTransition;
                 if (element.Data.OverrideTransition != null)
                     oldElementTransition = element.Data.OverrideTransition[0];
-                
+
                 _animations.Add(oldElementTransition.TransitionOldSceneObjectOut(element.SceneObject));
             }
 
@@ -94,8 +100,8 @@ namespace UIF.Scripts
 
                     var elementTransition = frameTransition;
                     if (element.OverrideTransition != null)
-                        elementTransition = element.OverrideTransition[indexOfTransition];            
-                    
+                        elementTransition = element.OverrideTransition[indexOfTransition];
+
                     _animations.Add(elementTransition.TransitionNewSceneObjectIn(sceneObject));
                 }
             }
@@ -105,20 +111,20 @@ namespace UIF.Scripts
 
             var started = Time.time;
             var duration = frameTransition.GetTime();
-            
+
             while (true)
             {
                 var timeSinceStart = Time.time - started;
-                if(timeSinceStart > duration)
+                if (timeSinceStart > duration)
                     break;
-                
+
                 var progress = Mathf.Clamp01(timeSinceStart / duration);
                 foreach (var anim in _animations)
                     anim.OnUpdate(progress);
-                
+
                 yield return null;
             }
-            
+
             foreach (var anim in _animations)
                 anim.OnCompleted();
 
@@ -127,7 +133,7 @@ namespace UIF.Scripts
                 Destroy(element.SceneObject);
                 element.Data = null;
             }
-            
+
             _activeElements.RemoveAll(el => el.Data == null);
             _activeFrameData = frameData;
             _animations.Clear();
@@ -144,6 +150,7 @@ namespace UIF.Scripts
                 };
                 _activeElements.Add(instance);
             }
+
         }
     }
 }
