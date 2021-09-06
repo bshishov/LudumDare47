@@ -43,20 +43,20 @@ namespace UI
         {
             if (state == Level.GameState.PlayerDied)
             {
-                FrameManager.TransitionTo(LoseFrame, Transition);
+                FrameManager.TransitionTo(LoseFrame, Transition, 0);
             }
             else if(state == Level.GameState.CatGirlDied)
             {
-                FrameManager.TransitionTo(LoseFrame, Transition);
+                FrameManager.TransitionTo(LoseFrame, Transition, 0);
             }
             else if (state == Level.GameState.Win) 
             {
-                FrameManager.TransitionTo(WinFrame, Transition);
+                FrameManager.TransitionTo(WinFrame, Transition, 0);
             }
             else if (state == Level.GameState.WaitingForPlayerCommand)
             {
                 if(FrameManager.ActiveFrame != GameFrame)
-                    FrameManager.TransitionTo(GameFrame, Transition);
+                    FrameManager.TransitionTo(GameFrame, Transition, 0);
             }
         }
         
@@ -64,11 +64,11 @@ namespace UI
         {
             if (isPaused)
             {
-                FrameManager.TransitionTo(PauseFrame, Transition);
+                FrameManager.TransitionTo(PauseFrame, Transition, 0);
                 SoundManager.Instance.Play(PauseSound);
             }
             else
-                FrameManager.TransitionTo(GameFrame, Transition);
+                FrameManager.TransitionTo(GameFrame, Transition, 0);
         }
     }
 }

@@ -11,8 +11,8 @@ namespace UI
         public FrameManager FrameManager;
         public BaseTransition Transition;
         public SoundAsset TransitionSound;
-        
-        [Header("Frames")] 
+
+        [Header("Frames")]
         public FrameData MainMenuFrame;
         public FrameData ShopFrame;
         public FrameData MapFrame;
@@ -20,25 +20,33 @@ namespace UI
 
         public void OpenShop()
         {
-            FrameManager.TransitionTo(ShopFrame, Transition);
+            FrameManager.TransitionTo(ShopFrame, Transition, 0);
             SoundManager.Instance.Play(TransitionSound);
         }
-        
+
         public void OpenMap()
         {
-            FrameManager.TransitionTo(MapFrame, Transition);
+            if (FrameManager.ActiveFrame == ShopFrame)
+            {
+                FrameManager.TransitionTo(MapFrame, Transition, 1);
+            }
+            else
+            {
+                FrameManager.TransitionTo(MapFrame, Transition, 0);
+            }
+
             SoundManager.Instance.Play(TransitionSound);
         }
-        
+
         public void OpenPacks()
         {
-            FrameManager.TransitionTo(PacksFrame, Transition);
+            FrameManager.TransitionTo(PacksFrame, Transition, 0);
             SoundManager.Instance.Play(TransitionSound);
         }
-        
+
         public void OpenMainMenu()
         {
-            FrameManager.TransitionTo(MainMenuFrame, Transition);
+            FrameManager.TransitionTo(MainMenuFrame, Transition, 0);
             SoundManager.Instance.Play(TransitionSound);
         }
     }

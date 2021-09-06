@@ -14,7 +14,6 @@ namespace UI.Buttons
 
         private void OnButtonPressed()
         {
-
             Common.OnLevelRestart();
             FindObjectOfType<UILoad>().LoadMenu();
         }

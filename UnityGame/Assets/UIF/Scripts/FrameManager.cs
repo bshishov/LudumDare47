@@ -19,6 +19,7 @@ namespace UIF.Scripts
         public FrameData ActiveFrame => _activeFrameData;
         
         [SerializeField] private FrameData InitialFrameData;
+        [SerializeField] private FrameData BackFrameData;
         [SerializeField] private Transform Root;
         
         private FrameData _activeFrameData;
@@ -31,7 +32,7 @@ namespace UIF.Scripts
             InitFrame(_activeFrameData);
         }
 
-        public void TransitionTo(FrameData frameData, ITransition transition)
+        public void TransitionTo(FrameData frameData, ITransition transition, int indexOfTransition)
         {
             if (frameData == null)
             {
@@ -52,7 +53,7 @@ namespace UIF.Scripts
                 return;
             }
 
-            StartCoroutine(AnimationRoutine(frameData, transition));
+            StartCoroutine(AnimationRoutine(frameData, transition, indexOfTransition));
         }
 
         private IEnumerable<FrameElementInstance> GetActiveElementsNotPresentInNewFrame(FrameData frameData)
@@ -60,7 +61,7 @@ namespace UIF.Scripts
             return _activeElements.Where(element => !frameData.Elements.Contains(element.Data));
         }
 
-        private IEnumerator AnimationRoutine(FrameData frameData, ITransition frameTransition)
+        private IEnumerator AnimationRoutine(FrameData frameData, ITransition frameTransition, int indexOfTransition)
         {
             var oldElements = GetActiveElementsNotPresentInNewFrame(frameData).ToList();
 
@@ -69,7 +70,7 @@ namespace UIF.Scripts
             {
                 var oldElementTransition = frameTransition;
                 if (element.Data.OverrideTransition != null)
-                    oldElementTransition = element.Data.OverrideTransition;
+                    oldElementTransition = element.Data.OverrideTransition[0];
                 
                 _animations.Add(oldElementTransition.TransitionOldSceneObjectOut(element.SceneObject));
             }
@@ -93,7 +94,7 @@ namespace UIF.Scripts
 
                     var elementTransition = frameTransition;
                     if (element.OverrideTransition != null)
-                        elementTransition = element.OverrideTransition;
+                        elementTransition = element.OverrideTransition[indexOfTransition];            
                     
                     _animations.Add(elementTransition.TransitionNewSceneObjectIn(sceneObject));
                 }

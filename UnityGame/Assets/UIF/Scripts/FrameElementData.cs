@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UIF.Scripts.Transitions;
 using UnityEngine;
 
@@ -7,6 +8,6 @@ namespace UIF.Scripts
     public class FrameElementData : ScriptableObject
     {
         public GameObject Prefab;
-        public BaseTransition OverrideTransition;
+        public List<BaseTransition> OverrideTransition;
     }
 }
