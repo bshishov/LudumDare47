@@ -22,6 +22,10 @@ namespace Utils
 
         }
 
+        public void ClearAllSaveData() {
+            PlayerPrefs.DeleteAll();
+        }
+
         private void Load()
         {
             LevelData = new StringIntDictionary();
