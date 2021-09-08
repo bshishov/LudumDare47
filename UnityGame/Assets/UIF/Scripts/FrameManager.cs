@@ -40,6 +40,7 @@ namespace UIF.Scripts
 
         public void TransitionTo(FrameData frameData, ITransition transition, int indexOfTransition)
         {
+            UIDebugText.Instance.ShowDebugText(frameData + " - frameData in TransitionTo method");
             if (frameData == null)
             {
                 Debug.LogWarning("Trying to transition to null frame");

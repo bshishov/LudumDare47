@@ -8,6 +8,7 @@ namespace UI.Buttons
         
         protected override void OnButtonPressed()
         {
+            UIDebugText.Instance.ShowDebugText("FindObjectOfType<UIMenuFrameController>().OpenMap();");
             FindObjectOfType<UIMenuFrameController>().OpenMap();
         }
     }
