@@ -1,7 +1,9 @@
 ﻿using Gameplay;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Utils;
 
 namespace UI
@@ -11,11 +13,18 @@ namespace UI
         public TextMeshProUGUI TextNumber;
         public int LevelNumber;
         public LevelSet Levels;
+        public Button LevelButton;
+
+        public Image DisableLevel;
+        public Image EnableLevel;
+
+        public GameObject PlayerPointer;
 
         public GameObject[] CollectedStars;
+        public string LevelName { get; private set; }
 
         private bool _unlocked = false;
-        public string LevelName { get; private set; }
+        private string _previousLevelName;
 
         private void Awake()
         {
@@ -25,7 +34,41 @@ namespace UI
 
         private void Start()
         {
+            CheckUnlockedLevel();
+            SetPlayerPointerActive();
             SetCollectedOnLevelStarts();
+        }
+
+        private void SetPlayerPointerActive()
+        {
+
+            if (PlayerPrefs.HasKey("Last Level"))
+            {
+                if (GamePersist.Instance.LastLevel == LevelName)
+                {
+                    PlayerPointer.SetActive(true);
+                }
+            }
+            else if (LevelNumber == 1)
+            {
+                PlayerPointer.SetActive(true);
+            }
+        }
+
+        private void CheckUnlockedLevel()
+        {
+            if (LevelNumber - 2 >= 0)
+            {
+                _previousLevelName = Levels.Levels[LevelNumber - 2].SceneName;
+                if (GamePersist.Instance.LevelData.ContainsKey(_previousLevelName) || GamePersist.Instance.LevelData.ContainsKey(LevelName))
+                {
+                    UnlockLevel();
+                }
+            }
+            else
+            {
+                UnlockLevel();
+            }
         }
 
         private void SetCollectedOnLevelStarts()
@@ -51,7 +94,6 @@ namespace UI
             {
                 // VISUALS
             }
-
         }
 
         public void LoadLevel()
@@ -62,6 +104,9 @@ namespace UI
         [ContextMenu("UnlockLevel")]
         private void UnlockLevel()
         {
+            DisableLevel.enabled = false;
+            EnableLevel.enabled = true;
+            LevelButton.onClick.AddListener(LoadLevel);
             _unlocked = true;
         }
 

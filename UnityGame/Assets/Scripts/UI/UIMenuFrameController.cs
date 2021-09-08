@@ -43,7 +43,8 @@ namespace UI
             }
             else
             {
-                UIDebugText.Instance.ShowDebugText(MapFrame + " - frame data in UIMenuFrameController.OpenMap");
+                //TODO
+                //UIDebugText.Instance.ShowDebugText(MapFrame + " - frame data in UIMenuFrameController.OpenMap");
                 FrameManager.TransitionTo(MapFrame, Transition, 0);
             }
 

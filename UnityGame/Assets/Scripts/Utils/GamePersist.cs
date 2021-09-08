@@ -19,7 +19,6 @@ namespace Utils
 
             DontDestroyOnLoad(this);
             Load();
-
         }
 
         public void ClearAllSaveData() {
@@ -69,8 +68,6 @@ namespace Utils
             PlayerPrefs.SetString("Levels Data", jsonLevelData);
 
             PlayerPrefs.SetString("Last Level", LastLevel);
-
-            
         }
 
         public void SavePlayerData(string playerStat, int starsCollected)

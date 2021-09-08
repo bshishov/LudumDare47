@@ -34,8 +34,6 @@ namespace UI
             if (Common.CurrentLevel != null)
             {
                 Initialize(Common.CurrentLevel);
-
-                Debug.Log("1");
             }
         }
 
