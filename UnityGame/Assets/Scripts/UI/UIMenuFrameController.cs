@@ -43,7 +43,7 @@ namespace UI
             }
             else
             {
-                UIDebugText.Instance.ShowDebugText("FrameManager.TransitionTo(MapFrame, Transition, 0);");
+                UIDebugText.Instance.ShowDebugText(MapFrame + "frame data in UIMenuFrameController.OpenMap");
                 FrameManager.TransitionTo(MapFrame, Transition, 0);
             }
 
