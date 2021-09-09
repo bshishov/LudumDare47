@@ -120,7 +120,10 @@ namespace UIF.Scripts
                 if (timeSinceStart > duration)
                     break;
 
-                var progress = Mathf.Clamp01(timeSinceStart / duration);
+                var progress = 0f;
+                if (duration > 0)
+                    progress = Mathf.Clamp01(timeSinceStart / duration);
+
                 foreach (var anim in _animations)
                     anim.OnUpdate(progress);
 

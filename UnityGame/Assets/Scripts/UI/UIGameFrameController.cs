@@ -11,6 +11,7 @@ namespace UI
     {
         public FrameManager FrameManager;
         public BaseTransition Transition;
+        public BaseTransition PauseTransition;
         public SoundAsset PauseSound;
 
         [Header("Frames")] 
@@ -67,11 +68,11 @@ namespace UI
             if (isPaused)
             {
                 _prePauseFrame = FrameManager.ActiveFrame;
-                FrameManager.TransitionTo(PauseFrame, Transition, 0);
+                FrameManager.TransitionTo(PauseFrame, PauseTransition, 0);
                 SoundManager.Instance.Play(PauseSound);
             }
             else
-                FrameManager.TransitionTo(_prePauseFrame, Transition, 0);
+                FrameManager.TransitionTo(_prePauseFrame, PauseTransition, 0);
         }
     }
 }
