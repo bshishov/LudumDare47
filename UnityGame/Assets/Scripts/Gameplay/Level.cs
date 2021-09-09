@@ -397,7 +397,7 @@ namespace Gameplay
                     }
                     ExecuteCommands();
                 }
-                Debug.Log("Corotine");
+
                 yield return new WaitForSeconds(.2f);
             }
         }

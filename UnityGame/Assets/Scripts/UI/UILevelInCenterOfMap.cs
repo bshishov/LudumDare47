@@ -65,6 +65,9 @@ namespace UI
             }
 
             _scrollRect.normalizedPosition = newNormalizedPosition;
+            Debug.Log(difference + "difference");
+            Debug.Log(_scrollTransform.rect.size.y + "_scrollTransform.rect.size.y");
+            Debug.Log(itemCenterPositionInScroll + " -  itemCenterPositionInScroll");
         }
 
         private Vector3 GetWidgetWorldPoint(RectTransform target)
@@ -82,6 +85,12 @@ namespace UI
         private Vector3 GetWorldPointInWidget(RectTransform target, Vector3 worldPoint)
         {
             return target.InverseTransformPoint(worldPoint);
+        }
+
+        private void Update()
+        {/*
+           Debug.Log(_content.anchoredPosition + " - _content");
+            Debug.Log(_targetLevel.anchoredPosition + " - _targetLevel");*/
         }
     }
 }
