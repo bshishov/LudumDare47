@@ -8,6 +8,7 @@ namespace Gameplay
     {
         public int NumberOfRollback { get; private set; }
         public int TotalNumberOfStars { get; private set; }
+        [SerializeField] private int _fixedRollbackNumber;
 
         public string LastCompleteLevel;
 
@@ -61,6 +62,10 @@ namespace Gameplay
         {
             NumberOfRollback--;
             Save(RollbackKey, NumberOfRollback);
+        }
+
+        public void SetFixedRollBack() {
+            NumberOfRollback = _fixedRollbackNumber;
         }
         private void Save(string key, int value)
         {

@@ -79,6 +79,9 @@ namespace Gameplay
             SwitchState(GameState.WaitingForPlayerCommand);
             _sceneName = SceneManager.GetActiveScene().name;
             Common.SetActiveLevel(this);
+
+            //fixed rollback for test
+            PlayerStats.Instance.SetFixedRollBack();
         }
 
         int GetNewEntityId()

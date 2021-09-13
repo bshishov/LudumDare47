@@ -41,12 +41,17 @@ namespace UI
 
         private void SetPlayerPointerActive()
         {
-
             if (PlayerPrefs.HasKey("Last Level"))
             {
-                if (GamePersist.Instance.LastLevel == LevelName)
+                for (int i = 0; i < Levels.Levels.Length; i++)
                 {
-                    PlayerPointer.SetActive(true);
+                    if (GamePersist.Instance.LastLevel == Levels.Levels[i].SceneName)
+                    {
+                        if ((i + 1) < Levels.Levels.Length && LevelName == Levels.Levels[i + 1].SceneName)
+                        {
+                            PlayerPointer.SetActive(true);
+                        }
+                    }
                 }
             }
             else if (LevelNumber == 1)

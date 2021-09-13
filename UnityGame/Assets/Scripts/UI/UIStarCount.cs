@@ -1,30 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Gameplay;
+using TMPro;
 
 namespace UI
 {
     public class UIStarCount : MonoBehaviour
     {
-        private Text _numberOfStarText;
+        public TextMeshProUGUI Label;
         private PlayerStats _playerStats;
 
         private void Start()
         {
-            _numberOfStarText = GetComponent<Text>();
             _playerStats = PlayerStats.Instance;
-            
-            Common.LevelStarCollected += OnLevelStarCollected;
+
+            Label.text = _playerStats.TotalNumberOfStars.ToString();
         }
 
-        private void OnDestroy()
-        {
-            Common.LevelStarCollected -= OnLevelStarCollected;
-        }
-
-        private void OnLevelStarCollected(Level level)
-        {
-            _numberOfStarText.text = "Total starts - " + _playerStats.TotalNumberOfStars + "\n" + "On level stars - " + level.CollectedStars;
-        }
     }
 }

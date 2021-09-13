@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -8,8 +9,18 @@ namespace UI
     [RequireComponent(typeof(ScrollRect))]
     public class UILevelInCenterOfMap : MonoBehaviour
     {
+        public enum TargetLevelState
+        {
+            above,
+            below,
+            inCenter
+        }
         public RectTransform MaskTransform;
         public GameObject LevelsOnMap;
+
+        [SerializeField] private float _waitForMoveScrollTime;
+
+        private UIPlayerPointer _uIPlayerPointer;
 
         private UILevelOnMap[] _levels;
 
@@ -17,6 +28,12 @@ namespace UI
         private ScrollRect _scrollRect;
         private RectTransform _scrollTransform;
         private RectTransform _content;
+        private Vector2 _scrollTargetPosition;
+
+        private float _contentTopYPosition;
+        private float _contentBottomYPosition;
+
+        private TargetLevelState _targetState = TargetLevelState.inCenter;
 
         private void Start()
         {
@@ -26,22 +43,42 @@ namespace UI
 
             _levels = GetComponentsInChildren<UILevelOnMap>();
 
-            if (GamePersist.Instance.LastLevel != null) {
+            if (GamePersist.Instance.LastLevel != null)
+            {
                 FindUILevelObject(GamePersist.Instance.LastLevel);
             }
+            else
+            {
+                FindUILevelObject(_levels[0].LevelName);
+            }
 
+            _uIPlayerPointer = FindObjectOfType<UIPlayerPointer>();
         }
 
         private void FindUILevelObject(string lastLevel)
         {
-            foreach (var level in _levels)
+
+            for (int i = 0; i < _levels.Length; i++)
             {
-                if (level.LevelName == lastLevel) {
-                    _targetLevel = level.gameObject.GetComponent<RectTransform>();
+                if (_levels[i].LevelName == lastLevel)
+                {
+                    if (i + 1 < _levels.Length)
+                    {
+                        _targetLevel = _levels[i + 1].gameObject.GetComponent<RectTransform>();
+                    }
+                    else
+                    {
+                        _targetLevel = _levels[i].gameObject.GetComponent<RectTransform>();
+                    }
                 }
             }
 
             CenterOnItem();
+        }
+
+        public void SetLevelIncenter()
+        {
+            StartCoroutine(MoveScrollRecrt(_scrollTargetPosition));
         }
 
         private void CenterOnItem()
@@ -63,11 +100,31 @@ namespace UI
                 newNormalizedPosition.x = Mathf.Clamp01(newNormalizedPosition.x);
                 newNormalizedPosition.y = Mathf.Clamp01(newNormalizedPosition.y);
             }
+            _scrollTargetPosition = newNormalizedPosition;
+            _scrollRect.normalizedPosition = _scrollTargetPosition;
 
-            _scrollRect.normalizedPosition = newNormalizedPosition;
-            Debug.Log(difference + "difference");
-            Debug.Log(_scrollTransform.rect.size.y + "_scrollTransform.rect.size.y");
-            Debug.Log(itemCenterPositionInScroll + " -  itemCenterPositionInScroll");
+            _targetState = TargetLevelState.inCenter;
+            _contentTopYPosition = _content.anchoredPosition.y + _scrollTransform.rect.height / 2;
+            _contentBottomYPosition = _content.anchoredPosition.y - _scrollTransform.rect.height / 2;
+        }
+
+        IEnumerator MoveScrollRecrt(Vector2 targetPosition)
+        {
+            var currentPos = _scrollRect.normalizedPosition;
+            var waitTime = _waitForMoveScrollTime;
+            var elapsedTime = 0f;
+
+            while (elapsedTime < waitTime)
+            {
+                _scrollRect.normalizedPosition = Vector2.Lerp(currentPos, targetPosition, (elapsedTime / waitTime));
+                elapsedTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            _scrollRect.normalizedPosition = targetPosition;
+
+            yield return null;
         }
 
         private Vector3 GetWidgetWorldPoint(RectTransform target)
@@ -88,9 +145,30 @@ namespace UI
         }
 
         private void Update()
-        {/*
-           Debug.Log(_content.anchoredPosition + " - _content");
-            Debug.Log(_targetLevel.anchoredPosition + " - _targetLevel");*/
+        {
+            if (_targetState == TargetLevelState.inCenter)
+            {
+                if (_content.anchoredPosition.y > (_contentTopYPosition))
+                {
+                    _uIPlayerPointer.ShowUpPointer();
+                    _targetState = TargetLevelState.above;
+                }
+
+                if (_content.anchoredPosition.y < (_contentBottomYPosition))
+                {
+                    _uIPlayerPointer.ShowDownPointer();
+                    _targetState = TargetLevelState.below;
+                }
+            }
+            else
+            {
+                if (_content.anchoredPosition.y >= _contentBottomYPosition &&
+                    _content.anchoredPosition.y <= _contentTopYPosition)
+                {
+                    _uIPlayerPointer.HidePointer();
+                    _targetState = TargetLevelState.inCenter;
+                }
+            }
         }
     }
 }

@@ -109,6 +109,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8042926927654543279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646409307345775905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed74ccbc7c340b478fe12d6f3e729a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: {fileID: 8172344159309347501}
 --- !u!1001 &1752365956386847255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,6 +274,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7581906984433336506, guid: f1556c779a1391242bc61134cd0648a0,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8047810461880882998, guid: f1556c779a1391242bc61134cd0648a0,
         type: 3}
       propertyPath: m_Name
@@ -268,12 +286,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1556c779a1391242bc61134cd0648a0, type: 3}
+--- !u!1 &8646409307345775905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8047810461880882998, guid: f1556c779a1391242bc61134cd0648a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1752365956386847255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &873007197945194539 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1462593346501153340, guid: f1556c779a1391242bc61134cd0648a0,
     type: 3}
   m_PrefabInstance: {fileID: 1752365956386847255}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8172344159309347501 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7581906984433336506, guid: f1556c779a1391242bc61134cd0648a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1752365956386847255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2873208027902153156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,6 +321,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Currency Diamond
+      objectReference: {fileID: 0}
+    - target: {fileID: 509820287222242182, guid: 3544fbca57aed0849b927be785ce8536,
+        type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 509820287222242182, guid: 3544fbca57aed0849b927be785ce8536,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5944639987470240813, guid: 3544fbca57aed0849b927be785ce8536,
         type: 3}
