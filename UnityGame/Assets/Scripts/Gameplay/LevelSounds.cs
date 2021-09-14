@@ -10,6 +10,9 @@ namespace Gameplay
         [SerializeField] private SoundAsset TurnRollbackDeniedSound;
         [SerializeField] private SoundAsset LevelCompleteSound;
         [SerializeField] private SoundAsset LevelFailedSound;
+        
+        [Header("Music")] 
+        [SerializeField] private Sound InGameMusic;
 
         void Start()
         {
@@ -20,6 +23,8 @@ namespace Gameplay
                 level.TurnRollbackDenied += LevelOnTurnRollbackDenied;
                 level.StateChanged += LevelOnStateChanged;
             }
+            
+            MusicManager.Play(InGameMusic);
         }
 
         private void LevelOnStateChanged(Level.GameState state)

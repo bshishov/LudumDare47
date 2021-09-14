@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 1550501729}
   - component: {fileID: 1550501728}
   - component: {fileID: 1550501731}
+  - component: {fileID: 1550501732}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -545,6 +546,30 @@ MonoBehaviour:
   ShopFrame: {fileID: 11400000, guid: 29559b0e266d12f4aa5661590ac296db, type: 2}
   MapFrame: {fileID: 11400000, guid: a6d9d2275ea551a4e8c5c5f08c6bfd91, type: 2}
   PacksFrame: {fileID: 11400000, guid: fb78d66a7ef8e404f802fb88b330977f, type: 2}
+--- !u!114 &1550501732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550501727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc043d3799e97244b517bc7da5f2475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuMusic:
+    Clip: {fileID: 8300000, guid: 895437888599c9347b2ee299b36f3d4d, type: 3}
+    Delay: 0
+    IgnoreListenerPause: 0
+    Loop: 0
+    MaxAdditionalDelay: 0
+    MaxPitchShift: 0.05
+    MixerGroup: {fileID: 0}
+    Pitch: 1
+    RandomizeDelay: 0
+    RandomizePitch: 0
+    VolumeModifier: 0.3
 --- !u!1 &1683217352
 GameObject:
   m_ObjectHideFlags: 0
