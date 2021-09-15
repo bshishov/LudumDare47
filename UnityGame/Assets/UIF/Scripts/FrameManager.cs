@@ -111,27 +111,39 @@ namespace UIF.Scripts
             foreach (var anim in _animations)
                 anim.OnStart();
 
-            var started = Time.time;
             var duration = frameTransition.GetTime();
 
-            while (true)
+            if (duration > 0)
             {
-                var timeSinceStart = Time.time - started;
-                if (timeSinceStart > duration)
-                    break;
+                // Using enumerator for non-instant animations
+                var started = Time.time;
+                while (true)
+                {
+                    var timeSinceStart = Time.time - started;
+                    if (timeSinceStart > duration)
+                        break;
 
-                var progress = 0f;
-                if (duration > 0)
-                    progress = Mathf.Clamp01(timeSinceStart / duration);
+                    var progress = 0f;
+                    if (duration > 0)
+                        progress = Mathf.Clamp01(timeSinceStart / duration);
 
+                    foreach (var anim in _animations)
+                        anim.OnUpdate(progress);
+
+                    yield return null;
+                }
+            }
+            else
+            {
+                // Instant animations complete in a single frame
                 foreach (var anim in _animations)
-                    anim.OnUpdate(progress);
-
-                yield return null;
+                    anim.OnUpdate(1f);
             }
 
             foreach (var anim in _animations)
+            {
                 anim.OnCompleted();
+            }
 
             foreach (var element in oldElements)
             {
